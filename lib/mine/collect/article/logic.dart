@@ -29,6 +29,9 @@ class ArticleLogic extends GetxController {
       if (_pageNum == 0) {
         state.list.clear();
       }
+      if(responseWan.data!.datas.isNotEmpty) {
+        _pageNum += 1;
+      }
       state.list.addAll(responseWan.data!.datas);
     } else {}
     update();
@@ -44,8 +47,9 @@ class ArticleLogic extends GetxController {
   }
 
   void loadNextPage() {
-    _pageNum += 1;
-    _loadCollectList().then((value) {
+    Future.delayed(Duration(seconds: 3))
+    .then((value) => _loadCollectList())
+    .then((value) {
       refreshController.loadSuccess();
     }).catchError((error) {
       refreshController.loadError();

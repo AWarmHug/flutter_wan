@@ -27,8 +27,8 @@ class RefreshController {
   }
 
   void dispose() {
-    refreshStatus.dispose();
-    footerStatus.dispose();
+    // refreshStatus.dispose();
+    // footerStatus.dispose();
   }
 }
 
@@ -84,6 +84,7 @@ class _SmartRefreshState extends State<SmartRefresh> {
         widget.onRefresh();
       },
       child: ListView.builder(
+        controller: _scrollController,
         itemBuilder: (context, index) {
           if (index < widget.itemCount) {
             return widget.itemBuilder(context, index);
@@ -98,20 +99,25 @@ class _SmartRefreshState extends State<SmartRefresh> {
 
   @override
   void didUpdateWidget(covariant SmartRefresh oldWidget) {
+    if (widget.refreshController != oldWidget.refreshController) {
+      widget.refreshController.refreshStatus.value =
+          oldWidget.refreshController.refreshStatus.value;
+      widget.refreshController.footerStatus.value =
+          oldWidget.refreshController.footerStatus.value;
+    }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
+    debugPrint("object------didChangeDependencies");
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.refreshController.footerStatus.dispose();
-    widget.refreshController.footerStatus.dispose();
+    widget.refreshController.dispose();
 
   }
 }
