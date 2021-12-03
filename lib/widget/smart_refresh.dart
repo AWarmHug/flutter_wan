@@ -17,7 +17,6 @@ class RefreshController {
     footerStatus.value = Status.ERROR;
   }
 
-
   void loadSuccess() {
     footerStatus.value = Status.SUCCESS;
   }
@@ -32,8 +31,8 @@ class RefreshController {
   }
 }
 
-class SmartRefresh extends StatefulWidget {
-  const SmartRefresh(
+class SmartRefresher extends StatefulWidget {
+  const SmartRefresher(
       {Key? key,
       required this.onRefresh,
       required this.onLoad,
@@ -56,10 +55,10 @@ class SmartRefresh extends StatefulWidget {
   final Footer footer;
 
   @override
-  _SmartRefreshState createState() => _SmartRefreshState();
+  _SmartRefresherState createState() => _SmartRefresherState();
 }
 
-class _SmartRefreshState extends State<SmartRefresh> {
+class _SmartRefresherState extends State<SmartRefresher> {
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -70,7 +69,10 @@ class _SmartRefreshState extends State<SmartRefresh> {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         //已经滑到底了
+        debugPrint("object------加载下一页");
+        // setState(() {
         widget.refreshController.footerStatus.value = Status.LOADING;
+        // });
         widget.onLoad();
       }
     });
@@ -78,32 +80,42 @@ class _SmartRefreshState extends State<SmartRefresh> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      displacement: 44.0,
-      onRefresh: () async {
-        widget.onRefresh();
-      },
-      child: ListView.builder(
-        controller: _scrollController,
-        itemBuilder: (context, index) {
-          if (index < widget.itemCount) {
-            return widget.itemBuilder(context, index);
-          } else {
-            return widget.footer(widget.refreshController.footerStatus.value);
-          }
+    debugPrint("object------build");
+
+    return Container(
+      child: RefreshIndicator(
+        displacement: 44.0,
+        onRefresh: () async {
+          widget.onRefresh();
         },
-        itemCount: widget.itemCount + 1,
+        child: ListView.builder(
+          controller: _scrollController,
+          itemBuilder: (context, index) {
+            if (index < widget.itemCount) {
+              return widget.itemBuilder(context, index);
+            } else {
+              return ValueListenableBuilder<Status>(
+                valueListenable: widget.refreshController.footerStatus,
+                builder: (context, value, child) {
+                  return widget
+                      .footer(value);
+                },
+              );
+            }
+          },
+          itemCount: widget.itemCount==0?0:widget.itemCount + 1,
+        ),
       ),
     );
   }
 
   @override
-  void didUpdateWidget(covariant SmartRefresh oldWidget) {
+  void didUpdateWidget(covariant SmartRefresher oldWidget) {
     if (widget.refreshController != oldWidget.refreshController) {
       widget.refreshController.refreshStatus.value =
           oldWidget.refreshController.refreshStatus.value;
-      widget.refreshController.footerStatus.value =
-          oldWidget.refreshController.footerStatus.value;
+      widget.refreshController.footerStatus =
+          oldWidget.refreshController.footerStatus;
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -118,8 +130,24 @@ class _SmartRefreshState extends State<SmartRefresh> {
   void dispose() {
     super.dispose();
     widget.refreshController.dispose();
-
   }
 }
 
+class RefreshInheritedWidget extends InheritedWidget {
+  final Status status;
 
+  RefreshInheritedWidget({required Widget child, required this.status})
+      : super(child: child);
+
+  @override
+  bool updateShouldNotify(covariant RefreshInheritedWidget oldWidget) {
+    debugPrint("object------status=${status}");
+    debugPrint("object------oldWidget.status=${oldWidget.status}");
+
+    return status != oldWidget.status;
+  }
+
+  static RefreshInheritedWidget? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<RefreshInheritedWidget>();
+  }
+}

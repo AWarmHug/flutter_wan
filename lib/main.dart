@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
         future: Global.init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return MainPage();
+            return Theme(data: ThemeData.light(),
+            child: MainPage());
           } else {
             return CircularProgressIndicator();
           }

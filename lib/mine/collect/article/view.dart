@@ -20,7 +20,7 @@ class ArticlePage extends StatelessWidget {
       child: GetBuilder<ArticleLogic>(
         init: logic,
         builder: (logic) {
-          return SmartRefresh(
+          return SmartRefresher(
             itemBuilder: (context, index) {
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -35,6 +35,7 @@ class ArticlePage extends StatelessWidget {
             onRefresh: logic.refreshList,
             onLoad: logic.loadNextPage,
             footer: (Status status) {
+              Theme
               return StatusMoreWidget(status: status);
             },
           );
