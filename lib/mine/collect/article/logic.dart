@@ -22,6 +22,7 @@ class ArticleLogic extends GetxController {
 
   Future<void> _loadCollectList() async {
     state.refresh = true;
+    update();
     var responseWan =
         await Http.get<ListData<Collect>>("lg/collect/list/${_pageNum}/json");
     state.refresh = false;

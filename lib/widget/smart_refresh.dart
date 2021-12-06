@@ -97,13 +97,12 @@ class _SmartRefresherState extends State<SmartRefresher> {
               return ValueListenableBuilder<Status>(
                 valueListenable: widget.refreshController.footerStatus,
                 builder: (context, value, child) {
-                  return widget
-                      .footer(value);
+                  return widget.footer(value);
                 },
               );
             }
           },
-          itemCount: widget.itemCount==0?0:widget.itemCount + 1,
+          itemCount: widget.itemCount == 0 ? 0 : widget.itemCount + 1,
         ),
       ),
     );

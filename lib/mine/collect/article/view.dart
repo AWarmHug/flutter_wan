@@ -35,7 +35,6 @@ class ArticlePage extends StatelessWidget {
             onRefresh: logic.refreshList,
             onLoad: logic.loadNextPage,
             footer: (Status status) {
-              Theme
               return StatusMoreWidget(status: status);
             },
           );

@@ -5,7 +5,7 @@ import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:get/get.dart';
 
 import '../status.dart';
-import 'home_page_controller.dart';
+import 'controller.dart';
 import 'widgets/home_item_banner_view.dart';
 import 'widgets/home_search_view.dart';
 
@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   HomePageController _controller = Get.put(HomePageController());
+  final state = Get.find<HomePageController>().state;
 
   ScrollController _scrollController = ScrollController();
 
@@ -34,11 +35,6 @@ class _HomePageState extends State<HomePage>
         //已经滑到底了
         _controller.loadArticleListNext();
       }
-
-      print(
-          "_scrollController.position.pixels = ${_scrollController.position.pixels}");
-      print(
-          "_scrollController.position.maxScrollExtent = ${_scrollController.position.maxScrollExtent}");
 
       if (_scrollController.offset < 220) {
         if (_stateSetter != null) {
@@ -56,13 +52,11 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: GetX<HomePageController>(
+      child: GetBuilder<HomePageController>(
         init: _controller,
-        initState: (_) {},
         builder: (logic) {
           return StatusWidget(
-            status: _controller.articles.value.status,
-            isWork: _controller.articles.value.data == null,
+            status: state.refresh,
             builder: (BuildContext context) {
               return Stack(
                 children: [
@@ -75,17 +69,17 @@ class _HomePageState extends State<HomePage>
                         flexibleSpace: FlexibleSpaceBar(
                           background: Container(
                             child: StatusWidget(
-                              status: _controller.banners.value.status,
+                              status: state.banners.value.status,
                               builder: (context) {
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 48.0),
                                   child: PageView.builder(
                                     itemBuilder: (context, index) {
                                       return BannerItemView(
-                                          _controller.banners.value.data![index]);
+                                          state.banners.value.data![index]);
                                     },
                                     itemCount:
-                                        _controller.banners.value.data!.length,
+                                    state.banners.value.data!.length,
                                   ),
                                 );
                               },
@@ -96,19 +90,15 @@ class _HomePageState extends State<HomePage>
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, num index) {
-                            if (index <
-                                _controller.articles.value.data!.length) {
-                              return ItemView(_controller
-                                  .articles.value.data![index as int]);
+                            if (index < state.articles.length) {
+                              return ItemView(state.articles[index as int]);
                             } else {
                               return StatusMoreWidget(
-                                status: _controller.articles.value.status,
+                                status: state.loadingMore.value,
                               );
                             }
                           },
-
-                          childCount:
-                              _controller.articles.value.data!.length + 1,
+                          childCount: state.articles.length + 1,
                         ),
                       ),
                     ],

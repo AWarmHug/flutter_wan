@@ -1,8 +1,8 @@
 import 'data/response_wan.dart';
 
 class AppError implements Exception {
-  final int code;
-  final String message;
+  final int? code;
+  final String? message;
 
   AppError(this.code, this.message);
 

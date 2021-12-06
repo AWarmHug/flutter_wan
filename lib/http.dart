@@ -31,25 +31,35 @@ class Http {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    var response = await dio.get(path,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress);
-    if (response.statusCode == 200 && response.data != null) {
-      return ResponseWan<R>.fromJson(response.data);
-    } else {
-      return Future.error(AppError(-1000, "网络请求异常"));
+    try {
+      var response = await dio.get(path,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress);
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseWan<R>.fromJson(response.data);
+      } else {
+        return ResponseWan<R>.error(
+            response.statusCode, response.statusMessage);
+      }
+    } on DioError catch (dioError) {
+      return ResponseWan<R>.error(ResponseWan.ERROR_NETWORK, "网络请求失败，请稍后重试");
     }
   }
 
   static Future<ResponseWan<R>> post<R>(
       String path, Map<String, dynamic>? queryParameters) async {
-    var response = await dio.post(path, queryParameters: queryParameters);
-    if (response.statusCode == 200 && response.data != null) {
-      return ResponseWan<R>.fromJson(response.data);
-    } else {
-      return Future.error(AppError(-1000, "网络请求异常"));
+    try {
+      var response = await dio.post(path, queryParameters: queryParameters);
+      if (response.statusCode == 200 && response.data != null) {
+        return ResponseWan<R>.fromJson(response.data);
+      } else {
+        return ResponseWan<R>.error(
+            response.statusCode, response.statusMessage);
+      }
+    } on DioError catch (dioError) {
+      return ResponseWan<R>.error(ResponseWan.ERROR_NETWORK, "网络请求失败，请稍后重试");
     }
   }
 }

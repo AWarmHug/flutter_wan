@@ -38,33 +38,29 @@ class Resource<T> {
 
 class StatusWidget extends StatelessWidget {
   final Status status;
-  final bool isWork;
   final WidgetBuilder builder;
 
   const StatusWidget({
     Key? key,
     required this.status,
     required this.builder,
-    this.isWork = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (isWork) {
-      switch (status) {
-        case Status.LOADING:
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        case Status.ERROR:
-          return Center(
-            child: Text("发生错误"),
-          );
-        default:
-          return builder(context);
-      }
-    } else {
-      return builder(context);
+    switch (status) {
+      case Status.LOADING:
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      case Status.ERROR:
+        return Center(
+          child: Text("发生错误"),
+        );
+      case Status.SUCCESS:
+        return builder(context);
+      default:
+        return builder(context);
     }
   }
 }
@@ -79,7 +75,6 @@ class StatusResourceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StatusWidget(
       status: resource.status,
-      isWork: resource.data == null,
       builder: builder,
     );
   }

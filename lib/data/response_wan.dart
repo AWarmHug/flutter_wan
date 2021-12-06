@@ -12,15 +12,20 @@ import 'user.dart';
 /// errorMsg : ""
 
 class ResponseWan<T> {
+  static final int ERROR_NETWORK=-1;
+
+
   late final T? data;
-  late final int errorCode;
-  late final String errorMsg;
+  late final int? errorCode;
+  late final String? errorMsg;
 
   ResponseWan({this.data, required this.errorCode, required this.errorMsg});
 
   bool get isSuccess {
     return errorCode == 0;
   }
+
+  ResponseWan.error(this.errorCode, this.errorMsg);
 
   ResponseWan.fromJson(dynamic json) {
     errorCode = json["errorCode"];
