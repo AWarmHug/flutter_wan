@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_wan/data/tree.dart';
 import 'package:flutter_wan/home/widgets/home_item_view.dart';
 import 'package:flutter_wan/status.dart';
+import 'package:flutter_wan/widget/smart_refresh.dart';
 import 'package:get/get.dart';
 
-import 'wx_article_detail_page_controller.dart';
+import 'controller.dart';
+import 'state.dart';
 
 class WxArticleDetailPage extends StatefulWidget {
   const WxArticleDetailPage({Key? key}) : super(key: key);
@@ -17,7 +19,10 @@ class WxArticleDetailPage extends StatefulWidget {
 }
 
 class _WxArticleDetailPageState extends State<WxArticleDetailPage> {
-  WxArticleDetailPageController _controller = WxArticleDetailPageController();
+  WxArticleDetailPageController _controller =
+      Get.put(WxArticleDetailPageController());
+  WxArticleDetailPageState state =
+      Get.find<WxArticleDetailPageController>().state;
 
   Tree tree = Get.arguments;
 
@@ -28,7 +33,7 @@ class _WxArticleDetailPageState extends State<WxArticleDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<WxArticleDetailPageController>(
+    return GetBuilder<WxArticleDetailPageController>(
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
@@ -36,23 +41,17 @@ class _WxArticleDetailPageState extends State<WxArticleDetailPage> {
             titleSpacing: 0,
           ),
           body: Container(
-            child: StatusResourceWidget(
-              builder: (BuildContext context) {
-                return ListView.builder(
-                  controller: _controller.scrollController,
-                  itemBuilder: (context, index) {
-                    if (index < controller.listData.value.data!.datas.length) {
-                      return ItemView(
-                          controller.listData.value.data!.datas[index]);
-                    } else {
-                      return StatusMoreWidget(
-                          status: controller.listData.value.status);
-                    }
-                  },
-                  itemCount: controller.listData.value.data!.datas.length + 1,
-                );
+            child: SmartRefresher(
+              onRefresh: _controller.refreshList,
+              onLoad: _controller.loadMore,
+              refreshController: _controller.refreshController,
+              itemBuilder: (context, index) {
+                return ItemView(state.articles[index]);
               },
-              resource: controller.listData.value,
+              itemCount: state.articles.length,
+              footer: (Status status) {
+                return StatusMoreWidget(status: status);
+              },
             ),
           ),
         );
@@ -65,7 +64,8 @@ class _WxArticleDetailPageState extends State<WxArticleDetailPage> {
     if (controller.showSearchView.value) {
       return _SearchView(
         valueChanged: (value) {
-          controller.loadWXArticleList(keyword: value);
+          controller.setSearchKeyword(value);
+          controller.loadWXArticleList();
         },
       );
     } else {

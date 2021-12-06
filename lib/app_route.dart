@@ -5,7 +5,7 @@ import 'package:flutter_wan/search/content/search_content_home.dart';
 import 'package:flutter_wan/search/search_home.dart';
 import 'package:flutter_wan/tools/nav/navigation_page.dart';
 import 'package:flutter_wan/tools/project/project_page.dart';
-import 'package:flutter_wan/tools/wx_article/wx_article_detail_page.dart';
+import 'package:flutter_wan/tools/wx_article/detail/view.dart';
 import 'package:flutter_wan/tools/wx_article/wx_article_page.dart';
 import 'package:flutter_wan/web/home.dart';
 import 'package:get/get.dart';
