@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:get/get.dart';
@@ -16,16 +18,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: '玩安卓',
-      theme:
-          ThemeData(
-              primaryColor: AppColors.primary,
-              brightness: Brightness.light, fontFamily: "font_default"),
+      theme: ThemeData(
+          primaryColor: AppColors.primary,
+          brightness: Brightness.light,
+          fontFamily: Platform.isAndroid ? "font_default" : null),
       home: FutureBuilder(
         future: Global.init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return Theme(data: ThemeData.light(),
-            child: MainPage());
+            return Theme(
+              data: ThemeData.light(),
+              child: MainPage(),
+            );
           } else {
             return CircularProgressIndicator();
           }
