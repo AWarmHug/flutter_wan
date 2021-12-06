@@ -33,8 +33,8 @@ class HomePageController extends GetxController {
     }
   }
 
-  refreshArticleList() {
-    _loadArticleList(0).then((value) {});
+  Future<void> refreshArticleList() {
+    return _loadArticleList(0);
   }
 
   void loadArticleListNext() {

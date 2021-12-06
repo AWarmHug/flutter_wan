@@ -52,15 +52,18 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: GetBuilder<HomePageController>(
-        init: _controller,
-        builder: (logic) {
-          return StatusWidget(
-            status: state.refresh,
-            builder: (BuildContext context) {
-              return Stack(
-                children: [
-                  CustomScrollView(
+      child: Stack(children: [
+        RefreshIndicator(
+          edgeOffset: 54,
+          displacement: 88,
+          onRefresh: _controller.refreshArticleList,
+          child: GetBuilder<HomePageController>(
+            init: _controller,
+            builder: (logic) {
+              return StatusWidget(
+                status: state.refresh,
+                builder: (BuildContext context) {
+                  return CustomScrollView(
                     slivers: [
                       SliverAppBar(
                         titleSpacing: 0,
@@ -78,8 +81,7 @@ class _HomePageState extends State<HomePage>
                                       return BannerItemView(
                                           state.banners.value.data![index]);
                                     },
-                                    itemCount:
-                                    state.banners.value.data!.length,
+                                    itemCount: state.banners.value.data!.length,
                                   ),
                                 );
                               },
@@ -103,40 +105,39 @@ class _HomePageState extends State<HomePage>
                       ),
                     ],
                     controller: _scrollController,
-                  ),
-                  StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                      _stateSetter = setState;
-                      return Container(
-                        decoration: BoxDecoration(color: AppColors.primary),
-                        height: 78,
-                        padding: EdgeInsets.only(
-                            left: 16, top: 32, right: 16, bottom: 8),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: SearchView(),
-                              ),
-                              SizedBox(width: 16),
-                              Text(
-                                'TODO',
-                                style: AppTextStyles.white_16_bold,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                  );
+                },
               );
             },
-          );
-        },
-      ),
+          ),
+        ),
+        StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            _stateSetter = setState;
+            return Container(
+              decoration: BoxDecoration(color: AppColors.primary),
+              height: 78,
+              padding: EdgeInsets.only(left: 16, top: 32, right: 16, bottom: 8),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: SearchView(),
+                    ),
+                    SizedBox(width: 16),
+                    Text(
+                      'TODO',
+                      style: AppTextStyles.white_16_bold,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ]),
     );
   }
 

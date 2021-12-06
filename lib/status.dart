@@ -96,7 +96,7 @@ class StatusMoreWidget extends StatelessWidget {
         return builder != null
             ? builder!(context)
             : Container(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
