@@ -18,29 +18,46 @@ class PageItemPage extends StatelessWidget {
 
   PageItemPage(this.tree);
 
+  PageController pageController = PageController(
+    keepPage: false,
+    initialPage: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
     final logic = Get.put(PageItemLogic(tree), tag: tree.id.toString());
-    final state = Get
-        .find<PageItemLogic>(tag: tree.id.toString())
-        .state;
+    final state = Get.find<PageItemLogic>(tag: tree.id.toString()).state;
 
     return GetBuilder<PageItemLogic>(
         init: logic,
         tag: tree.id.toString(),
         builder: (projectPageController) {
-          return SmartRefresher(
-            onRefresh: logic.refreshProjectList,
-            onLoad: logic.loadMoreProjectList,
-            refreshController: logic.refreshController,
+          return PageView.builder(
+            scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               return _ProjectItem(state.articles[index]);
             },
             itemCount: state.articles.length,
-            footer: (status) {
-              return StatusMoreWidget(status: status);
+            controller: pageController,
+            onPageChanged: (value) {
+              if(value==state.articles.length-1){
+                logic.loadMoreProjectList();
+              }
             },
           );
+
+          // return SmartRefresher(
+          //   onRefresh: logic.refreshProjectList,
+          //   onLoad: logic.loadMoreProjectList,
+          //   refreshController: logic.refreshController,
+          //   itemBuilder: (context, index) {
+          //     return _ProjectItem(state.articles[index]);
+          //   },
+          //   itemCount: state.articles.length,
+          //   footer: (status) {
+          //     return StatusMoreWidget(status: status);
+          //   },
+          // );
         });
   }
 }
@@ -76,11 +93,8 @@ class _ProjectItem extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: _article.envelopePic!,
                 fit: BoxFit.fitWidth,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                height:160,
+                width: MediaQuery.of(context).size.width,
+                height: 160,
                 placeholder: (context, url) {
                   return Center(
                     child: CircularProgressIndicator(),
@@ -112,7 +126,7 @@ class _ProjectItem extends StatelessWidget {
                           onPressed: () {
                             if (!_article.collect) {
                               Http.post<ResponseWan>(
-                                  "/lg/collect/${_article.id}/json", {})
+                                      "/lg/collect/${_article.id}/json", {})
                                   .then((value) {
                                 if (value.isSuccess) {
                                   setState(() {
