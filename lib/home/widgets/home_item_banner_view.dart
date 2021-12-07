@@ -18,7 +18,6 @@ class BannerItemView extends StatelessWidget {
         CachedNetworkImage(
           imageUrl: banner.imagePath ?? "",
           width: MediaQuery.of(context).size.width,
-          height: 160,
           fit: BoxFit.fitWidth,
           placeholder: (context, url) =>
               Center(child: CircularProgressIndicator()),

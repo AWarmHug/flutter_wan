@@ -4,7 +4,7 @@ import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/tree/widgets/VTab.dart';
 import 'package:get/get.dart';
 
-import 'tree_page_controller.dart';
+import 'controller.dart';
 import 'widgets/page_item.dart';
 
 class TreePage extends StatefulWidget {
@@ -27,7 +27,6 @@ class _TreePageState extends State<TreePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         title: Container(
           height: 40,
           child: Obx(() {

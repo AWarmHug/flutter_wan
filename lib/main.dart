@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: '玩安卓',
       theme: ThemeData(
+          scaffoldBackgroundColor:AppColors.primary,
           primaryColor: AppColors.primary,
           brightness: Brightness.light,
           fontFamily: Platform.isAndroid ? "font_default" : null),

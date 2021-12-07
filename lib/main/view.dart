@@ -3,7 +3,7 @@ import 'package:flutter_wan/home/view.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/tools/tools_home.dart';
-import 'package:flutter_wan/tree/tree_page.dart';
+import 'package:flutter_wan/tree/view.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';

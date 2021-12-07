@@ -15,7 +15,6 @@ class _ToolsPageState extends State<ToolsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         title: Text("工具"),
       ),
       body: GridView.count(

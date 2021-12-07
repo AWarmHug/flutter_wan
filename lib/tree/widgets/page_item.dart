@@ -7,7 +7,7 @@ import 'package:flutter_wan/home/widgets/home_item_view.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:get/get.dart';
 
-import '../tree_page_controller.dart';
+import '../controller.dart';
 
 class PageItem extends StatefulWidget {
   final Tree tree;

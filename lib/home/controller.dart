@@ -19,18 +19,7 @@ class HomePageController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    loadBanner();
     refreshArticleList();
-  }
-
-  void loadBanner() async {
-    state.banners.value = Resource.loading();
-    ResponseWan<List<BannerItem>> responseWan = await _repository.loadBanner();
-    if (responseWan.isSuccess && responseWan.data != null) {
-      state.banners.value = Resource.success(responseWan.data);
-    } else {
-      state.banners.value = Resource.error("失败");
-    }
   }
 
   Future<void> refreshArticleList() {
@@ -44,6 +33,14 @@ class HomePageController extends GetxController {
   Future<void> _loadArticleList(int pageNum) async {
     changeStatus(Status.LOADING);
     update();
+    if (pageNum == 0) {
+      ResponseWan<List<BannerItem>> banners = await _repository.loadBanner();
+      if (banners.isSuccess && banners.data != null) {
+        state.banners = Resource.success(banners.data);
+      } else {
+        state.banners = Resource.error(banners.errorMsg);
+      }
+    }
     ResponseWan<ListData<Article>> responseWan =
         await _repository.loadArticleList(pageNum);
     if (responseWan.isSuccess && responseWan.data != null) {
