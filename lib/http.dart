@@ -44,7 +44,7 @@ class Http {
             response.statusCode, response.statusMessage);
       }
     } on DioError catch (dioError) {
-      return ResponseWan<R>.error(ResponseWan.ERROR_NETWORK, "网络请求失败，请稍后重试");
+      return Future.error(AppError(AppError.ERROR_NETWORK,"网络请求失败，请稍后重试"));
     }
   }
 
@@ -52,14 +52,14 @@ class Http {
       String path, Map<String, dynamic>? queryParameters) async {
     try {
       var response = await dio.post(path, queryParameters: queryParameters);
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         return ResponseWan<R>.fromJson(response.data);
       } else {
         return ResponseWan<R>.error(
             response.statusCode, response.statusMessage);
       }
     } on DioError catch (dioError) {
-      return ResponseWan<R>.error(ResponseWan.ERROR_NETWORK, "网络请求失败，请稍后重试");
+      return Future.error(AppError(AppError.ERROR_NETWORK,"网络请求失败，请稍后重试"));
     }
   }
 }

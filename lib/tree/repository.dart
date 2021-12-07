@@ -12,7 +12,7 @@ class TreeRepository {
   }
 
   Future<ResponseWan<ListData<Article>>> loadTreeList(int pageNum,int cid) async {
-    return Http.get("article/list/$pageNum/json?cid=$cid");
+    return Http.get<ListData<Article>>("article/list/$pageNum/json?cid=$cid");
   }
 
 }

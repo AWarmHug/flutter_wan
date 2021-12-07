@@ -12,8 +12,8 @@ class ProjectRepository{
     return Http.get("project/tree/json");
   }
 
-  Future<ResponseWan<ListData<Article>>> loadProjectList(int cid) async {
-    return Http.get("project/list/1/json?cid=$cid");
+  Future<ResponseWan<ListData<Article>>> loadProjectList(int pageNum,int? cid) async {
+    return Http.get("project/list/$pageNum/json?cid=$cid");
   }
 
 }

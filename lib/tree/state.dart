@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 
 class TreeState{
 
-  var trees = Rxn<ResponseWan<List<Tree>>>();
+  var _trees = Rx<List<Tree>>([]);
+  get trees => _trees.value;
+  set trees(value) => _trees.value = value;
+
   var selectedTree = Rxn<Tree>();
 
   TreeState();

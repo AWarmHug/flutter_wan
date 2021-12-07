@@ -24,7 +24,8 @@ class _ToolsPageState extends State<ToolsPage> {
         crossAxisSpacing: 8,
         children: [
           InkWell(
-            child: Center(child: Column(
+            child: Center(
+                child: Column(
               children: [
                 Icon(IconFontIcons.iconGongzhonghao),
                 Text("公众号"),
@@ -35,10 +36,13 @@ class _ToolsPageState extends State<ToolsPage> {
             },
           ),
           InkWell(
-            child: Center(child: Column(
+            child: Center(
+                child: Column(
               children: [
                 Icon(IconFontIcons.iconWangzhan),
-                Text("导航",),
+                Text(
+                  "导航",
+                ),
               ],
             )),
             onTap: () {
@@ -46,10 +50,10 @@ class _ToolsPageState extends State<ToolsPage> {
             },
           ),
           InkWell(
-            child: Center(child: Column(
+            child: Center(
+                child: Column(
               children: [
                 Icon(IconFontIcons.iconXiangmu),
-
                 Text("项目"),
               ],
             )),
@@ -58,13 +62,14 @@ class _ToolsPageState extends State<ToolsPage> {
             },
           ),
           InkWell(
-            child: Center(child: Column(
-              children: [
-                Icon(IconFontIcons.iconXiangmu),
-
-                Text("自定义控件"),
-              ],
-            )),
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconXiangmu),
+                  Text("自定义控件"),
+                ],
+              ),
+            ),
             onTap: () {
               Get.to(CustomPage());
             },

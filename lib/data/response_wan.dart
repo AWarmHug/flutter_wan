@@ -12,7 +12,6 @@ import 'user.dart';
 /// errorMsg : ""
 
 class ResponseWan<T> {
-  static final int ERROR_NETWORK=-1;
 
 
   late final T? data;

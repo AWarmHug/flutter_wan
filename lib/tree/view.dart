@@ -5,7 +5,7 @@ import 'package:flutter_wan/tree/widgets/VTab.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
-import 'widgets/page_item.dart';
+import 'page_item/view.dart';
 
 class TreePage extends StatefulWidget {
   @override
@@ -19,7 +19,6 @@ class _TreePageState extends State<TreePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     logic.loadTree();
   }
 
@@ -30,20 +29,12 @@ class _TreePageState extends State<TreePage> with TickerProviderStateMixin {
         title: Container(
           height: 40,
           child: Obx(() {
-            if (_state.trees.value != null) {
-              return Builder(
-                builder: (context) {
-                  return VTabs(
-                    _state.trees.value!.data!,
-                    valueChanged: (int value) {
-                      logic.setSelectedTree(_state.trees.value!.data![value]);
-                    },
-                  );
-                },
-              );
-            } else {
-              return CircularProgressIndicator();
-            }
+            return VTabs(
+              _state.trees!,
+              valueChanged: (int value) {
+                logic.setSelectedTree(_state.trees[value]);
+              },
+            );
           }),
         ),
       ),
@@ -60,7 +51,7 @@ class _TreePageState extends State<TreePage> with TickerProviderStateMixin {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: SizedBox(
-                    height: 28,
+                    height: 24,
                     child: TabBar(
                       controller: _controller,
                       labelColor: Colors.white,
@@ -86,15 +77,11 @@ class _TreePageState extends State<TreePage> with TickerProviderStateMixin {
                 Expanded(
                   flex: 1,
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
                     controller: _controller,
                     children: _state.selectedTree.value!.children!.map((e) {
                       return Container(
                         child: Center(
-                          child: PageItem(
-                            e,
-                            key: GlobalKey(),
-                          ),
+                          child: PageItem(tree: e),
                         ),
                       );
                     }).toList(),

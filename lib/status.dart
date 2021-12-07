@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-enum Status { LOADING, SUCCESS, ERROR }
+enum Status {
+  LOADING,
+  SUCCESS,
+  ERROR,
+  NO_DATA,
+}
 
 extension StatusEx on Status {
   get name {
@@ -11,6 +16,8 @@ extension StatusEx on Status {
         return "SUCCESS";
       case Status.ERROR:
         return "ERROR";
+      case Status.NO_DATA:
+        return "NO_DATA";
     }
   }
 }
@@ -57,10 +64,16 @@ class StatusWidget extends StatelessWidget {
         return Center(
           child: Text("发生错误"),
         );
+      case Status.NO_DATA:
+        return Center(
+          child: Text("没有更多数据"),
+        );
       case Status.SUCCESS:
         return builder(context);
       default:
-        return builder(context);
+        return Center(
+          child: Text("${status.name}"),
+        );
     }
   }
 }
@@ -91,12 +104,18 @@ class StatusMoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("status = ${status.name}");
+    return Container(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+      child: _content(context, status),
+    );
+  }
+
+  Widget _content(BuildContext context, Status status) {
     switch (status) {
       case Status.LOADING:
         return builder != null
             ? builder!(context)
             : Container(
-                padding: const EdgeInsets.only(top: 16.0, bottom: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,10 +137,19 @@ class StatusMoreWidget extends StatelessWidget {
         return Center(
           child: Text("发生错误"),
         );
-      default:
+      case Status.NO_DATA:
+        return Center(
+          child: Text("没有更多数据"),
+        );
+      case Status.SUCCESS:
         return Center(
           child: Text("加载成功"),
         );
+      default:
+        return Center(
+          child: Text("${status.name}"),
+        );
     }
   }
+
 }

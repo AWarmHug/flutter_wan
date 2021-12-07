@@ -13,9 +13,11 @@ class TreePageController extends GetxController {
 
   void loadTree() {
     _treeResponse.loadTree().then((value) {
-      state.trees.value = value;
-      if (value.data != null) {
-        setSelectedTree(value.data!.first);
+      if(value.isSuccess) {
+        state.trees = value.data;
+        if (value.data != null) {
+          setSelectedTree(value.data!.first);
+        }
       }
     });
   }
@@ -24,9 +26,6 @@ class TreePageController extends GetxController {
     state.selectedTree.value = tree;
   }
 
-  Future<ResponseWan<ListData<Article>>> loadTreeList(int pageNum, Tree tree) {
-    return _treeResponse.loadTreeList(pageNum, tree.id!);
-  }
 
   @override
   void onInit() {

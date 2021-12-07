@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/error.dart';
 
 import '../status.dart';
 
@@ -13,16 +14,46 @@ class RefreshController {
     refreshStatus.value = Status.SUCCESS;
   }
 
-  void refreshError() {
-    footerStatus.value = Status.ERROR;
+  void refreshError([int? code]) {
+    if (code != null) {
+      switch (code) {
+        case AppError.ERROR_NO_DATA:
+          refreshNoData();
+          break;
+        default:
+          refreshStatus.value = Status.ERROR;
+          break;
+      }
+    } else {
+      refreshStatus.value = Status.ERROR;
+    }
+  }
+
+  void refreshNoData() {
+    refreshStatus.value = Status.NO_DATA;
   }
 
   void loadSuccess() {
     footerStatus.value = Status.SUCCESS;
   }
 
-  void loadError() {
-    footerStatus.value = Status.ERROR;
+  void loadError([int? code]) {
+    if (code != null) {
+      switch (code) {
+        case AppError.ERROR_NO_DATA:
+          refreshNoData();
+          break;
+        default:
+          footerStatus.value = Status.ERROR;
+          break;
+      }
+    } else {
+      footerStatus.value = Status.ERROR;
+    }
+  }
+
+  void loadNoData() {
+    footerStatus.value = Status.NO_DATA;
   }
 
   void dispose() {
@@ -32,15 +63,15 @@ class RefreshController {
 }
 
 class SmartRefresher extends StatefulWidget {
-  const SmartRefresher(
-      {Key? key,
-      required this.onRefresh,
-      required this.onLoad,
-      required this.refreshController,
-      required this.itemBuilder,
-      required this.itemCount,
-      required this.footer})
-      : super(key: key);
+  const SmartRefresher({
+    Key? key,
+    required this.onRefresh,
+    required this.onLoad,
+    required this.refreshController,
+    required this.itemBuilder,
+    required this.itemCount,
+    required this.footer,
+  }) : super(key: key);
 
   final VoidCallback onRefresh;
 
@@ -83,27 +114,37 @@ class _SmartRefresherState extends State<SmartRefresher> {
     debugPrint("object------build");
 
     return Container(
-      child: RefreshIndicator(
-        displacement: 44.0,
-        onRefresh: () async {
-          widget.onRefresh();
-        },
-        child: ListView.builder(
-          controller: _scrollController,
-          itemBuilder: (context, index) {
-            if (index < widget.itemCount) {
-              return widget.itemBuilder(context, index);
-            } else {
-              return ValueListenableBuilder<Status>(
-                valueListenable: widget.refreshController.footerStatus,
-                builder: (context, value, child) {
-                  return widget.footer(value);
+      child: ValueListenableBuilder<Status>(
+        valueListenable: widget.refreshController.refreshStatus,
+        builder: (context, value, child) {
+          return StatusWidget(
+            status: value,
+            builder: (BuildContext context) {
+              return RefreshIndicator(
+                displacement: 44.0,
+                onRefresh: () async {
+                  widget.onRefresh();
                 },
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemBuilder: (context, index) {
+                    if (index < widget.itemCount) {
+                      return widget.itemBuilder(context, index);
+                    } else {
+                      return ValueListenableBuilder<Status>(
+                        valueListenable: widget.refreshController.footerStatus,
+                        builder: (context, value, child) {
+                          return widget.footer(value);
+                        },
+                      );
+                    }
+                  },
+                  itemCount: widget.itemCount == 0 ? 0 : widget.itemCount + 1,
+                ),
               );
-            }
-          },
-          itemCount: widget.itemCount == 0 ? 0 : widget.itemCount + 1,
-        ),
+            },
+          );
+        },
       ),
     );
   }
