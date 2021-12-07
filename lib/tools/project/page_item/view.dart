@@ -40,24 +40,11 @@ class PageItemPage extends StatelessWidget {
             itemCount: state.articles.length,
             controller: pageController,
             onPageChanged: (value) {
-              if(value==state.articles.length-1){
+              if (value == state.articles.length - 1) {
                 logic.loadMoreProjectList();
               }
             },
           );
-
-          // return SmartRefresher(
-          //   onRefresh: logic.refreshProjectList,
-          //   onLoad: logic.loadMoreProjectList,
-          //   refreshController: logic.refreshController,
-          //   itemBuilder: (context, index) {
-          //     return _ProjectItem(state.articles[index]);
-          //   },
-          //   itemCount: state.articles.length,
-          //   footer: (status) {
-          //     return StatusMoreWidget(status: status);
-          //   },
-          // );
         });
   }
 }
@@ -88,26 +75,41 @@ class _ProjectItem extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                imageUrl: _article.envelopePic!,
-                fit: BoxFit.fitWidth,
-                width: MediaQuery.of(context).size.width,
-                height: 160,
-                placeholder: (context, url) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
+            Expanded(
+              flex: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: _article.envelopePic!,
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.of(context).size.width,
+                      placeholder: (context, url) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                        decoration: BoxDecoration(color: Colors.black38),
+                        child: Text(
+                          (_article.desc ?? "").trim(),
+                          style: AppTextStyles.white_14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
               height: 12,
-            ),
-            Text(
-              _article.desc ?? "",
-              style: AppTextStyles.black_14,
             ),
             Row(
               children: [
