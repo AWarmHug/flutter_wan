@@ -45,12 +45,12 @@ class Resource<T> {
 
 class StatusWidget extends StatelessWidget {
   final Status status;
-  final WidgetBuilder builder;
+  final Widget child;
 
   const StatusWidget({
     Key? key,
     required this.status,
-    required this.builder,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -69,7 +69,7 @@ class StatusWidget extends StatelessWidget {
           child: Text("没有更多数据"),
         );
       case Status.SUCCESS:
-        return builder(context);
+        return child;
       default:
         return Center(
           child: Text("${status.name}"),
@@ -80,7 +80,7 @@ class StatusWidget extends StatelessWidget {
 
 class StatusResourceWidget extends StatelessWidget {
   final Resource resource;
-  final WidgetBuilder builder;
+  final Widget builder;
 
   StatusResourceWidget({required this.resource, required this.builder});
 
@@ -88,7 +88,7 @@ class StatusResourceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StatusWidget(
       status: resource.status,
-      builder: builder,
+      child: builder,
     );
   }
 }

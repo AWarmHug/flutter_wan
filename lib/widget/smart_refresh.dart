@@ -119,30 +119,28 @@ class _SmartRefresherState extends State<SmartRefresher> {
         builder: (context, value, child) {
           return StatusWidget(
             status: value,
-            builder: (BuildContext context) {
-              return RefreshIndicator(
-                displacement: 44.0,
-                onRefresh: () async {
-                  widget.onRefresh();
+            child: RefreshIndicator(
+              displacement: 44.0,
+              onRefresh: () async {
+                widget.onRefresh();
+              },
+              child: ListView.builder(
+                controller: _scrollController,
+                itemBuilder: (context, index) {
+                  if (index < widget.itemCount) {
+                    return widget.itemBuilder(context, index);
+                  } else {
+                    return ValueListenableBuilder<Status>(
+                      valueListenable: widget.refreshController.footerStatus,
+                      builder: (context, value, child) {
+                        return widget.footer(value);
+                      },
+                    );
+                  }
                 },
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemBuilder: (context, index) {
-                    if (index < widget.itemCount) {
-                      return widget.itemBuilder(context, index);
-                    } else {
-                      return ValueListenableBuilder<Status>(
-                        valueListenable: widget.refreshController.footerStatus,
-                        builder: (context, value, child) {
-                          return widget.footer(value);
-                        },
-                      );
-                    }
-                  },
-                  itemCount: widget.itemCount == 0 ? 0 : widget.itemCount + 1,
-                ),
-              );
-            },
+                itemCount: widget.itemCount == 0 ? 0 : widget.itemCount + 1,
+              ),
+            ),
           );
         },
       ),

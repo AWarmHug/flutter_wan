@@ -65,37 +65,33 @@ class _HomePageState extends State<HomePage>
             builder: (logic) {
               return StatusWidget(
                 status: state.refresh,
-                builder: (BuildContext context) {
-                  return ListView.builder(
-                    controller: _scrollController,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return StatusWidget(
-                          status: state.banners.status,
-                          builder: (context) {
-                            return SizedBox(
-                              height: 180,
-                              child: PageView.builder(
-                                itemBuilder: (context, index) {
-                                  return BannerItemView(
-                                      state.banners.data![index]);
-                                },
-                                itemCount: state.banners.data!.length,
-                              ),
-                            );
-                          },
-                        );
-                      } else if (index > 0 && index < state.articles.length+1) {
-                        return ItemView(state.articles[(index) - 1]);
-                      } else {
-                        return StatusMoreWidget(
-                          status: state.loadingMore.value,
-                        );
-                      }
-                    },
-                    itemCount: state.articles.length + 2,
-                  );
-                },
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return StatusWidget(
+                        status: state.banners.status,
+                        child: SizedBox(
+                          height: 180,
+                          child: PageView.builder(
+                            itemBuilder: (context, index) {
+                              return BannerItemView(
+                                  state.banners.data![index]);
+                            },
+                            itemCount: state.banners.data!.length,
+                          ),
+                        ),
+                      );
+                    } else if (index > 0 && index < state.articles.length+1) {
+                      return ItemView(state.articles[(index) - 1]);
+                    } else {
+                      return StatusMoreWidget(
+                        status: state.loadingMore.value,
+                      );
+                    }
+                  },
+                  itemCount: state.articles.length + 2,
+                ),
               );
             },
           ),
