@@ -56,7 +56,7 @@ class PageItemLogic extends GetxController {
         return Future.error(AppError.noData());
       }
     } else {
-      return Future.error(AppError.from(responseWan));
+      return Future.error(responseWan.error!);
     }
   }
 }

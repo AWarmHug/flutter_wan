@@ -25,7 +25,6 @@ class PageItemController extends GetxController {
 
   PageItemController(this.tree);
 
-
   @override
   void onInit() {
     super.onInit();
@@ -37,10 +36,10 @@ class PageItemController extends GetxController {
     _loadTreeList(tree).then((value) {
       refreshController.refreshSuccess();
     }).catchError((error) {
-      if(error is AppError) {
-        if(error.code==AppError.ERROR_NO_DATA) {
+      if (error is AppError) {
+        if (error.code == AppError.ERROR_NO_DATA) {
           refreshController.refreshNoData();
-        }else{
+        } else {
           refreshController.refreshError();
         }
       }
@@ -51,12 +50,12 @@ class PageItemController extends GetxController {
     _loadTreeList(tree).then((value) {
       refreshController.loadSuccess();
     }).catchError((error) {
-      if(error is AppError) {
-       if(error.code==AppError.ERROR_NO_DATA) {
-         refreshController.loadNoData();
-       }else{
-         refreshController.loadError();
-       }
+      if (error is AppError) {
+        if (error.code == AppError.ERROR_NO_DATA) {
+          refreshController.loadNoData();
+        } else {
+          refreshController.loadError();
+        }
       }
     });
   }
@@ -64,21 +63,20 @@ class PageItemController extends GetxController {
   Future<void> _loadTreeList(Tree tree) async {
     ResponseWan<ListData<Article>> responseWan =
         await _treeResponse.loadTreeList(pageNum, tree.id!);
-    if (responseWan.isSuccess ) {
-      if (responseWan.data != null &&
-          responseWan.data!.datas.isNotEmpty) {
+    if (responseWan.isSuccess) {
+      if (responseWan.data != null && responseWan.data!.datas.isNotEmpty) {
         if (pageNum == 0) {
           state.articles.clear();
         }
         state.articles.addAll(responseWan.data!.datas);
         pageNum++;
         update();
-      }else{
+      } else {
         //无数据
         return Future.error(AppError.noData());
       }
     } else {
-      return Future.error(AppError.from(responseWan));
+      return Future.error(responseWan.error!);
     }
   }
 }

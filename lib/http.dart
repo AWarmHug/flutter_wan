@@ -12,14 +12,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'data/response_wan.dart';
 
 const BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
+const BASE_URL_ZHIHU = "https://www.zhihu.com/api/";
 
 class Http {
-  static BaseOptions options = BaseOptions(
-    baseUrl: BASE_URL_WAN_ANDROID,
-    connectTimeout: 5000,
-    receiveTimeout: 3000,
+  static BaseOptions optionsZhihu = BaseOptions(
+    baseUrl: BASE_URL_ZHIHU,
+    connectTimeout: 10000,
+    receiveTimeout: 10000,
   );
-  static Dio dio = Dio(options)
+
+  static BaseOptions optionsWan = BaseOptions(
+    baseUrl: BASE_URL_WAN_ANDROID,
+    connectTimeout: 10000,
+    receiveTimeout: 10000,
+  );
+
+  static Dio dio = Dio(optionsWan)
     ..interceptors.add(CookieManager(
         PersistCookieJar(storage: FileStorage(Global.directory.path))))
     ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
@@ -31,6 +39,15 @@ class Http {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
+    if (path.startsWith("v3")||path.startsWith("v4")) {
+      dio.options = optionsZhihu;
+      dio.options.headers.addAll({
+        'x-api-version': '3.0.76',
+        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
+      });
+    } else {
+      dio.options = optionsWan;
+    }
     try {
       var response = await dio.get(path,
           queryParameters: queryParameters,
@@ -40,26 +57,32 @@ class Http {
       if (response.statusCode == 200 && response.data != null) {
         return ResponseWan<R>.fromJson(response.data);
       } else {
-        return ResponseWan<R>.error(
-            response.statusCode, response.statusMessage);
+        return Future.error(
+            AppError(response.statusCode, response.statusMessage));
       }
     } on DioError catch (dioError) {
-      return Future.error(AppError(AppError.ERROR_NETWORK,"网络请求失败，请稍后重试"));
+      return Future.error(AppError(AppError.ERROR_NETWORK, "网络请求失败，请稍后重试"));
     }
   }
 
   static Future<ResponseWan<R>> post<R>(
       String path, Map<String, dynamic>? queryParameters) async {
     try {
+      if (R.toString().contains("ResponseWan")) {
+        dio.options = optionsWan;
+      } else if (R.toString().contains("ResponseZhihu")) {
+        dio.options = optionsZhihu;
+      }
+
       var response = await dio.post(path, queryParameters: queryParameters);
       if (response.statusCode == 200) {
         return ResponseWan<R>.fromJson(response.data);
       } else {
-        return ResponseWan<R>.error(
-            response.statusCode, response.statusMessage);
+        return Future.error(
+            AppError(response.statusCode, response.statusMessage));
       }
     } on DioError catch (dioError) {
-      return Future.error(AppError(AppError.ERROR_NETWORK,"网络请求失败，请稍后重试"));
+      return Future.error(AppError(AppError.ERROR_NETWORK, "网络请求失败，请稍后重试"));
     }
   }
 }

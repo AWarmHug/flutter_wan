@@ -1,3 +1,6 @@
+import 'package:flutter_wan/error.dart';
+import 'package:flutter_wan/data/zhihu/paging.dart';
+
 import 'article.dart';
 import 'banner.dart';
 import 'collect.dart';
@@ -5,32 +8,26 @@ import 'data_list.dart';
 import 'navigation.dart';
 import 'search.dart';
 import 'tree.dart';
-import 'user.dart';
+import 'user.dart' as WanUser;
+import 'zhihu/video_item.dart';
 
 /// data : {"curPage":1,"datas":[],"offset":0,"over":false,"pageCount":554,"size":20,"total":11072}
 /// errorCode : 0
 /// errorMsg : ""
 
 class ResponseWan<T> {
+  T? data;
 
+  Paging? paging;
 
-  late final T? data;
-  late final int? errorCode;
-  late final String? errorMsg;
-
-  ResponseWan({this.data, required this.errorCode, required this.errorMsg});
+  AppError? error;
 
   bool get isSuccess {
-    return errorCode == 0;
+    return error == null;
   }
 
-  ResponseWan.error(this.errorCode, this.errorMsg);
-
   ResponseWan.fromJson(dynamic json) {
-    errorCode = json["errorCode"];
-    errorMsg = json["errorMsg"];
-
-    if(T.toString() == ("dynamic")) {
+    if (T.toString() == ("dynamic")) {
       data = json["data"];
     }
 
@@ -77,14 +74,37 @@ class ResponseWan<T> {
           data = d as T;
         }
       }
+
+      if (T.toString() == "List<VideoItem>") {
+        var d = <VideoItem>[];
+        json["data"].forEach((v) {
+          d.add(VideoItem.fromJson(v));
+        });
+        data = d as T;
+      }
     }
 
     if (T.toString() == "User") {
-      data = json["data"] != null ? User.fromJson(json["data"]) as T : null;
+      data = json["data"] != null
+          ? WanUser.User.fromJson(json["data"]) as T
+          : null;
     }
 
     if (T.toString() == "UserInfo") {
-      data = json["data"] != null ? UserInfo.fromJson(json["data"]) as T : null;
+      data = json["data"] != null
+          ? WanUser.UserInfo.fromJson(json["data"]) as T
+          : null;
+    }
+
+    paging = json["paging"] != null ? Paging.fromJson(json["paging"]) : null;
+
+    if (json["errorCode"] != null) {
+      if (json["errorCode"] != 0) {
+        error =
+            AppError(json["errorCode"] as int?, json["errorMsg"] as String?);
+      }
+    } else {
+      error = json["error"] != null ? AppError.fromJson(json["error"]) : null;
     }
   }
 
@@ -96,8 +116,17 @@ class ResponseWan<T> {
         map["data"] = n.toJson();
       }
     }
-    map["errorCode"] = errorCode;
-    map["errorMsg"] = errorMsg;
+    if (error != null) {
+      map["error"] = error?.toJson();
+    }
     return map;
+  }
+
+  get errorCode {
+    return error?.code;
+  }
+
+  get errorMsg {
+    return error?.message;
   }
 }
