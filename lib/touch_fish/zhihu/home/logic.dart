@@ -1,6 +1,8 @@
 import 'package:flutter_wan/data/zhihu/paging.dart';
 import 'package:flutter_wan/data/zhihu/video_item.dart';
+import 'package:flutter_wan/data/zhihu/zvideo.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../http.dart';
 import 'state.dart';

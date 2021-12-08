@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wan/data/zhihu/video_item.dart';
+import 'package:flutter_wan/data/zhihu/answer.dart';
+import 'package:flutter_wan/data/zhihu/zvideo.dart';
+import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -19,7 +21,13 @@ class HomePage extends StatelessWidget {
         child: GetBuilder<HomeLogic>(builder: (logic) {
           return PageView.builder(
             itemBuilder: (context, index) {
-              return Item(state.videos[index]);
+              if (state.videos[index] is Answer) {
+                return AnswerItem(state.videos[index] as Answer);
+              } else if (state.videos[index] is ZVideo) {
+                return ZVideoItem(state.videos[index] as ZVideo);
+              } else {
+                return Text(state.videos[index].type!);
+              }
             },
             itemCount: state.videos.length,
             scrollDirection: Axis.vertical,
@@ -30,17 +38,32 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class Item extends StatelessWidget {
-  const Item(this._videoItem, {Key? key}) : super(key: key);
-  final VideoItem _videoItem;
+class ZVideoItem extends StatelessWidget {
+  const ZVideoItem(this.zvideo, {Key? key}) : super(key: key);
+  final ZVideo zvideo;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: VideoPlayer(
-          VideoPlayerController.network(
-              _videoItem.video!.playlistV2!.hd!.playUrl!),
+        child: AppVideoPlayer(
+          zvideo.video!.getPlayItem()!,
+        ),
+      ),
+    );
+  }
+}
+
+class AnswerItem extends StatelessWidget {
+  const AnswerItem(this.answer, {Key? key}) : super(key: key);
+  final Answer answer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: AppVideoPlayer(
+          answer.video!.getPlayItem()!,
         ),
       ),
     );

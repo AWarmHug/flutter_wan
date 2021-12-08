@@ -9,7 +9,9 @@ import 'navigation.dart';
 import 'search.dart';
 import 'tree.dart';
 import 'user.dart' as WanUser;
+import 'zhihu/answer.dart';
 import 'zhihu/video_item.dart';
+import 'zhihu/zvideo.dart';
 
 /// data : {"curPage":1,"datas":[],"offset":0,"over":false,"pageCount":554,"size":20,"total":11072}
 /// errorCode : 0
@@ -76,11 +78,15 @@ class ResponseWan<T> {
       }
 
       if (T.toString() == "List<VideoItem>") {
-        var d = <VideoItem>[];
+        var items = <VideoItem>[];
         json["data"].forEach((v) {
-          d.add(VideoItem.fromJson(v));
+          if (v['type'] == "zvideo") {
+            items.add(ZVideo.fromJson(v));
+          } else if (v['type'] == "answer") {
+            items.add(Answer.fromJson(v));
+          }
         });
-        data = d as T;
+        data = items as T;
       }
     }
 
