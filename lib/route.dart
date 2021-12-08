@@ -1,3 +1,4 @@
+import 'package:flutter_wan/douyin/view.dart';
 import 'package:flutter_wan/login/login_home.dart';
 import 'package:flutter_wan/login/reg_home.dart';
 import 'package:flutter_wan/mine/collect/collect_page.dart';
@@ -10,9 +11,13 @@ import 'package:flutter_wan/tools/wx_article/wx_article_page.dart';
 import 'package:flutter_wan/web/home.dart';
 import 'package:get/get.dart';
 
-
+import 'tools/tree/view.dart';
 
 final pages = <GetPage>[
+  GetPage(
+    name: "/douyin",
+    page: () => DouyinPage(),
+  ),
   GetPage(
     name: "/search",
     page: () => SearchHome(),
@@ -33,11 +38,11 @@ final pages = <GetPage>[
     name: "/web",
     page: () => WebHome(),
   ),
+]
+  ..addAll(toolsPages)
+  ..addAll(minePages);
 
-]..addAll(toolsPages)
-..addAll(minePages);
-
-List<GetPage> toolsPages=[
+List<GetPage> toolsPages = [
   GetPage(
     name: "/tools/wx_article_page",
     page: () => WXArticlePage(),
@@ -54,12 +59,15 @@ List<GetPage> toolsPages=[
     name: "/tools/project_page",
     page: () => ProjectPage(),
   ),
+  GetPage(
+    name: "/tools/tree_page",
+    page: () => TreePage(),
+  ),
 ];
 
-List<GetPage> minePages=[
+List<GetPage> minePages = [
   GetPage(
     name: "/mine/collect",
     page: () => CollectPage(),
   ),
 ];
-

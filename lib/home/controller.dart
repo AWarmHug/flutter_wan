@@ -23,7 +23,11 @@ class HomePageController extends GetxController {
   }
 
   Future<void> refreshArticleList() {
-    return _loadArticleList(0);
+    return _loadArticleList(0).then((value) {
+
+    }).catchError((error){
+      changeStatus(Status.ERROR);
+    });
   }
 
   void loadArticleListNext() {

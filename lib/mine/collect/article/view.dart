@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
-import 'package:flutter_wan/widget/smart_refresh.dart';
+import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
 
 import '../../../status.dart';

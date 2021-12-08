@@ -1,6 +1,6 @@
 import 'package:flutter_wan/data/article.dart';
 
-import '../../status.dart';
+import '../../../status.dart';
 
 class PageItemState {
 

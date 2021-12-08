@@ -41,7 +41,7 @@ class RefreshController {
     if (code != null) {
       switch (code) {
         case AppError.ERROR_NO_DATA:
-          refreshNoData();
+          loadNoData();
           break;
         default:
           footerStatus.value = Status.ERROR;

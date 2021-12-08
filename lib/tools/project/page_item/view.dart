@@ -6,7 +6,7 @@ import 'package:flutter_wan/data/tree.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/status.dart';
-import 'package:flutter_wan/widget/smart_refresh.dart';
+import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 

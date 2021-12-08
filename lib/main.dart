@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import 'global.dart';
 import 'main/view.dart';
-import 'app_route.dart';
+import 'route.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
-import 'package:flutter_wan/tree/widgets/VTab.dart';
+import 'package:flutter_wan/tools/tree/widgets/VTab.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';

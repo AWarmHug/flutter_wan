@@ -28,6 +28,18 @@ class _ToolsPageState extends State<ToolsPage> {
                 child: Column(
               children: [
                 Icon(IconFontIcons.iconGongzhonghao),
+                Text("文章"),
+              ],
+            )),
+            onTap: () {
+              Get.toNamed("/tools/tree_page");
+            },
+          ),
+          InkWell(
+            child: Center(
+                child: Column(
+              children: [
+                Icon(IconFontIcons.iconGongzhonghao),
                 Text("公众号"),
               ],
             )),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/douyin/view.dart';
 import 'package:flutter_wan/home/view.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/tools/tools_home.dart';
-import 'package:flutter_wan/tree/view.dart';
+import 'package:flutter_wan/tools/tree/view.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';
@@ -19,7 +20,7 @@ class _MainPageState extends State<MainPage> {
 
   final MainState state = Get.find<MainLogic>().state;
 
-  final pages = [HomePage(), TreePage(), ToolsHome(), MineHome()];
+  final pages = [HomePage(), DouyinPage(), ToolsHome(), MineHome()];
 
   var _selectedIndex = 0;
 
@@ -39,7 +40,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "主页"),
-          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "分类"),
+          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "抖音"),
           BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "工具"),
           BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "我的"),
         ],
