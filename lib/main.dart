@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: '玩安卓',
+      scrollBehavior: CupertinoScrollBehavior(),
       theme: ThemeData(
           primaryColor: AppColors.primary,
           brightness: Brightness.light,
