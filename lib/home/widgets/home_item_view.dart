@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_wan/data/article.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../http.dart';
 
@@ -17,11 +19,19 @@ class ItemView extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  void _launchURL(String url) async {
+    if (!await launch(url)) throw 'Could not launch $url';
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed("/web", arguments: _article);
+        if(kIsWeb){
+          _launchURL(_article.link!);
+        }else {
+          Get.toNamed("/web", arguments: _article);
+        }
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),

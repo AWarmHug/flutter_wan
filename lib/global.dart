@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,14 +14,14 @@ class Global {
 
   static Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
-    directory = await getApplicationDocumentsDirectory();
+    if(kIsWeb){
+      directory =Directory("");
+    }else {
+      directory = await getApplicationDocumentsDirectory();
+    }
   }
 
   static Rx<bool> isLogin = Rx(false);
-
-
-
-
 
   static Future<bool> isLogin2() async {
     var cookie =

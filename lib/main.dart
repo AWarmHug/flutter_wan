@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: AppColors.primary,
           brightness: Brightness.light,
-          fontFamily: Platform.isAndroid ? "font_default" : null),
+          fontFamily:
+              kIsWeb ? null : (Platform.isAndroid ? "font_default" : null)),
       home: FutureBuilder(
         future: Global.init(),
         builder: (context, snapshot) {

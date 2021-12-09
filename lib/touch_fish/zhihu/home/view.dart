@@ -3,7 +3,6 @@ import 'package:flutter_wan/data/zhihu/answer.dart';
 import 'package:flutter_wan/data/zhihu/zvideo.dart';
 import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
-import 'package:video_player/video_player.dart';
 
 import 'logic.dart';
 

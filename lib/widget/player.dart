@@ -17,12 +17,15 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
   //Future<void> _initializeVideoPlayerFuture;
   @override
   void initState() {
+    debugPrint("播放视频："+widget.playItem.playUrl!);
     _controller = VideoPlayerController.network(widget.playItem.playUrl!)
       ..initialize().then((_) {
         setState(() {
           _controller.play();
           _controller.setLooping(true);
         });
+      }).catchError((error){
+        debugPrint("发生错误：${error.toString()}");
       });
     super.initState();
   }

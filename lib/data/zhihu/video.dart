@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_wan/extensions.dart';
 
 import 'badge.dart';
@@ -91,6 +92,18 @@ class Video {
   }
 
   PlayItem? getPlayItem() {
+    if (kIsWeb) {
+      return playlist?.fhd ??
+          playlist?.hd ??
+          playlist?.ld ??
+          playlist?.sd ??
+          playlistV2?.fhd ??
+          playlistV2?.hd ??
+          playlistV2?.ld ??
+          playlistV2?.sd ??
+          null;
+    }
+
     return playlistV2?.fhd ??
         playlistV2?.hd ??
         playlistV2?.ld ??
@@ -130,9 +143,8 @@ class Video_info {
     thumbnail = json['thumbnail'];
     playCount = json['play_count'];
     isOpenBullet = json['is_open_bullet'];
-    playlist =json['playlist'] != null
-        ? Playlist.fromJson(json['playlist'])
-        : null;
+    playlist =
+        json['playlist'] != null ? Playlist.fromJson(json['playlist']) : null;
     playlistV2 = json['playlist_v2'] != null
         ? Playlist_v2.fromJson(json['playlist_v2'])
         : null;
