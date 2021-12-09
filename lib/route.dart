@@ -8,11 +8,12 @@ import 'package:flutter_wan/tools/project/view.dart';
 import 'package:flutter_wan/tools/wx_article/detail/view.dart';
 import 'package:flutter_wan/tools/wx_article/wx_article_page.dart';
 import 'package:flutter_wan/touch_fish/view.dart';
-import 'package:flutter_wan/touch_fish/zhihu/home/view.dart';
 import 'package:flutter_wan/web/home.dart';
 import 'package:get/get.dart';
 
+import 'home/view.dart';
 import 'tools/tree/view.dart';
+import 'touch_fish/zhihu/view.dart';
 
 final pages = <GetPage>[
   GetPage(
@@ -45,8 +46,13 @@ final pages = <GetPage>[
   ..addAll(minePages);
 
 List<GetPage> touchFishPages = [
+
   GetPage(
-    name: "/touch_fish/zhihu/home",
+    name: "/touch_fish/zhihu",
+    page: () => ZhihuPage(),
+  ),
+  GetPage(
+    name: "/touch_fish/zhihu/video",
     page: () => HomePage(),
   ),
 ];

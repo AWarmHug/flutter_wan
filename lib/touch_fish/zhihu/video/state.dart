@@ -1,8 +1,8 @@
 
 import 'package:flutter_wan/data/zhihu/video_item.dart';
 
-class HomeState {
-  HomeState() {
+class VideoState {
+  VideoState() {
     ///Initialize variables
   }
 

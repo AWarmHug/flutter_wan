@@ -23,7 +23,7 @@ class TouchFishPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Get.toNamed("/touch_fish/zhihu/home");
+                Get.toNamed("/touch_fish/zhihu");
               },
               child: Container(
                 decoration: BoxDecoration(

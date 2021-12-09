@@ -12,6 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/response_wan.dart';
 
+//知乎视频
+//https://www.zhihu.com/api/v4/zvideo-tabs/tabs/choice/feeds/recommend?limit=12
+
 const BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
 const BASE_URL_ZHIHU = "https://www.zhihu.com/api/";
 

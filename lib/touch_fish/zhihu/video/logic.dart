@@ -7,8 +7,8 @@ import 'package:flutter_wan/extensions.dart';
 import '../../../http.dart';
 import 'state.dart';
 
-class HomeLogic extends GetxController {
-  final HomeState state = HomeState();
+class VideoLogic extends GetxController {
+  final VideoState state = VideoState();
 
   Paging? paging;
 
