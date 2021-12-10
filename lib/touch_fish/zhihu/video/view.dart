@@ -15,22 +15,28 @@ class VideoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GetBuilder<VideoLogic>(builder: (logic) {
-        return PageView.builder(
-          itemBuilder: (context, index) {
-            if (state.videos[index] is Answer) {
-              return AnswerItem(state.videos[index] as Answer);
-            } else if (state.videos[index] is ZVideo) {
-              return ZVideoItem(state.videos[index] as ZVideo);
-            } else {
-              return Text(state.videos[index].type!);
-            }
-          },
-          itemCount: state.videos.length,
-          scrollDirection: Axis.vertical,
-        );
-      }),
+    return Theme(
+      data: ThemeData.dark(),
+      child: Scaffold(
+        body: Container(
+          color: Colors.black,
+          child: GetBuilder<VideoLogic>(builder: (logic) {
+            return PageView.builder(
+              itemBuilder: (context, index) {
+                if (state.videos[index] is Answer) {
+                  return AnswerItem(state.videos[index] as Answer);
+                } else if (state.videos[index] is ZVideo) {
+                  return ZVideoItem(state.videos[index] as ZVideo);
+                } else {
+                  return Text(state.videos[index].type!);
+                }
+              },
+              itemCount: state.videos.length,
+              scrollDirection: Axis.vertical,
+            );
+          }),
+        ),
+      ),
     );
   }
 }
@@ -38,6 +44,14 @@ class VideoPage extends StatelessWidget {
 class ZVideoItem extends StatelessWidget {
   const ZVideoItem(this.zvideo, {Key? key}) : super(key: key);
   final ZVideo zvideo;
+
+  TopicsWid() {
+    return zvideo.topics != null
+        ? TopicsWidget(
+            topics: zvideo.topics!,
+          )
+        : SizedBox();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +85,17 @@ class ZVideoItem extends StatelessWidget {
                 children: [
                   Text(
                     zvideo.title!,
-                    style: TextStyle(color: Colors.white54),
+                    maxLines: 2,
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
+                  TopicsWid(),
                   SizedBox(
-                    height: 16,
+                    height: 24,
                   ),
                   Row(
                     children: [
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: AuthorWidget(
                           author: zvideo.author!,
                         ),
@@ -91,20 +107,20 @@ class ZVideoItem extends StatelessWidget {
                           children: [
                             Column(
                               children: [
+                                Icon(Icons.ac_unit),
                                 Text(zvideo.likedCount!.toString()),
-                                Icon(Icons.ac_unit)
                               ],
                             ),
                             Column(
                               children: [
+                                Icon(Icons.ac_unit),
                                 Text(zvideo.commentCount!.toString()),
-                                Icon(Icons.ac_unit)
                               ],
                             ),
                             Column(
                               children: [
+                                Icon(Icons.ac_unit),
                                 Text(zvideo.shareCount!.toString()),
-                                Icon(Icons.ac_unit)
                               ],
                             ),
                           ],
@@ -150,8 +166,8 @@ class AuthorWidget extends StatelessWidget {
           ClipOval(
             child: CachedNetworkImage(
               imageUrl: author.avatarUrl!,
-              width: 42,
-              height: 42,
+              width: 48,
+              height: 48,
             ),
           ),
           SizedBox(
@@ -164,19 +180,43 @@ class AuthorWidget extends StatelessWidget {
               children: [
                 Text(
                   author.name!,
-                  style: AppTextStyles.white_16_bold,
+                  style: AppTextStyles.white_14.bold,
                 ),
                 Text(
                   author.headline!,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.white_14,
+                  style: AppTextStyles.white_12,
                 ),
               ],
             ),
           )
         ],
       ),
+    );
+  }
+}
+
+class TopicsWidget extends StatelessWidget {
+  const TopicsWidget({Key? key, required this.topics}) : super(key: key);
+  final List<Topic> topics;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: topics.map((e) => TopicWidget(e)).toList(),
+    );
+  }
+}
+
+class TopicWidget extends StatelessWidget {
+  const TopicWidget(this.topic, {Key? key}) : super(key: key);
+  final Topic topic;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(topic.name!),
     );
   }
 }

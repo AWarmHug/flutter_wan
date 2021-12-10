@@ -15,17 +15,20 @@ import 'data/response_wan.dart';
 //知乎视频
 //https://www.zhihu.com/api/v4/zvideo-tabs/tabs/choice/feeds/recommend?limit=12
 
+//知乎热门
+//https://www.zhihu.com/api/v3/feed/topstory/hot-list-web?limit=50&desktop=true
+
 const BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
 const BASE_URL_ZHIHU = "https://www.zhihu.com/api/";
 
 class Http {
-  static BaseOptions optionsZhihu = BaseOptions(
+  static BaseOptions _optionsZhihu = BaseOptions(
     baseUrl: kIsWeb ? "http://localhost:4501/" : BASE_URL_ZHIHU,
     connectTimeout: 10000,
     receiveTimeout: 10000,
   );
 
-  static BaseOptions optionsWan = BaseOptions(
+  static BaseOptions _optionsWan = BaseOptions(
     baseUrl: kIsWeb ? "http://localhost:4500/" : BASE_URL_WAN_ANDROID,
     connectTimeout: 10000,
     receiveTimeout: 10000,
@@ -34,14 +37,14 @@ class Http {
   static Dio dio = kIsWeb ? dio4web() : dio2();
 
   static Dio dio4web() {
-    return Dio(optionsWan)
+    return Dio(_optionsWan)
       // ..interceptors.add(CookieManager(
       //     PersistCookieJar(storage: FileStorage(Global.directory.path))))
       ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
   static Dio dio2() {
-    return Dio(optionsWan)
+    return Dio(_optionsWan)
       ..interceptors.add(CookieManager(
           PersistCookieJar(storage: FileStorage(Global.directory.path))))
       ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
@@ -55,14 +58,14 @@ class Http {
     ProgressCallback? onReceiveProgress,
   }) async {
     if (path.startsWith("v3") || path.startsWith("v4")) {
-      dio.options = optionsZhihu;
+      dio.options = _optionsZhihu;
       // dio.options.headers.addAll({
       //   'x-api-version': '3.0.76',
       //   'user-agent':
       //       'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
       // });
     } else {
-      dio.options = optionsWan;
+      dio.options = _optionsWan;
     }
     try {
       var response = await dio.get(path,
@@ -85,9 +88,9 @@ class Http {
       String path, Map<String, dynamic>? queryParameters) async {
     try {
       if (R.toString().contains("ResponseWan")) {
-        dio.options = optionsWan;
+        dio.options = _optionsWan;
       } else if (R.toString().contains("ResponseZhihu")) {
-        dio.options = optionsZhihu;
+        dio.options = _optionsZhihu;
       }
 
       var response = await dio.post(path, queryParameters: queryParameters);

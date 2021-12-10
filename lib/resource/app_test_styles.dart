@@ -16,7 +16,8 @@ class AppTextStyles {
 
   static const TextStyle white_14 =
       TextStyle(color: AppColors.white, fontSize: 14);
-
+  static const TextStyle white_12 =
+      TextStyle(color: AppColors.white, fontSize: 12);
   static const TextStyle black54_16 =
       TextStyle(color: AppColors.black, fontSize: 16);
 
@@ -54,9 +55,12 @@ extension TextStyleEtx on TextStyle {
   TextStyle get bold {
     return copyWith(fontWeight: FontWeight.bold);
   }
+
   TextStyle size(double size) {
     return copyWith(fontSize: size);
   }
 
+  TextStyle color(Color color) {
+    return copyWith(color: color);
+  }
 }
-

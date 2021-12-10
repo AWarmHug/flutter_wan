@@ -1,3 +1,4 @@
+import 'package:flutter_wan/data/zhihu/hot_list_feed.dart';
 import 'package:flutter_wan/error.dart';
 import 'package:flutter_wan/data/zhihu/paging.dart';
 
@@ -75,20 +76,31 @@ class ResponseWan<T> {
           });
           data = d as T;
         }
+
+        if (T.toString() == "List<VideoItem>") {
+          var items = <VideoItem>[];
+          json["data"].forEach((v) {
+            if (v['type'] == "zvideo") {
+              items.add(ZVideo.fromJson(v));
+            } else if (v['type'] == "answer") {
+              items.add(Answer.fromJson(v));
+            }
+          });
+          data = items as T;
+        }
+
+        if (T.toString() == "List<HotListFeed>") {
+          var d = <HotListFeed>[];
+          json["data"].forEach((v) {
+            d.add(HotListFeed.fromJson(v));
+          });
+          data = d as T;
+        }
+
       }
 
-      if (T.toString() == "List<VideoItem>") {
-        var items = <VideoItem>[];
-        json["data"].forEach((v) {
-          if (v['type'] == "zvideo") {
-            items.add(ZVideo.fromJson(v));
-          } else if (v['type'] == "answer") {
-            items.add(Answer.fromJson(v));
-          }
-        });
-        data = items as T;
-      }
     }
+
 
     if (T.toString() == "User") {
       data = json["data"] != null

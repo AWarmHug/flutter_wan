@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/resource/app_colors.dart';
+import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
 
 import 'question/view.dart';
 import 'video/view.dart';
@@ -10,52 +12,57 @@ class ZhihuPage extends StatefulWidget {
   State<ZhihuPage> createState() => _ZhihuPageState();
 }
 
-class _ZhihuPageState extends State<ZhihuPage>
-    with SingleTickerProviderStateMixin {
+class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
   int tabIndex = 0;
   late TabController tabController;
 
+  late Widget title;
+  late Widget body;
+
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this)
+    tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {
           tabIndex = tabController.index;
         });
       });
+
+    title = TabBar(
+      isScrollable: true,
+      controller: tabController,
+      labelPadding: EdgeInsets.symmetric(horizontal: 14),
+      indicatorSize: TabBarIndicatorSize.label,
+      tabs: [
+        Tab(text: "问"),
+        Tab(text: "答"),
+        Tab(text: "视频"),
+      ],
+    );
+    body = TabBarView(
+      children: [
+        QuestionPage(),
+        AnswerPage(),
+        VideoPage(),
+      ],
+      controller: tabController,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: tabIndex != 1
-          ? ThemeData.light()
-          : ThemeData.dark().copyWith(
-              appBarTheme: AppBarTheme(
-                backgroundColor: Colors.black,
-              ),
-              scaffoldBackgroundColor: Colors.black,
-            ),
+      data: ThemeData.light().copyWith(
+        appBarTheme: AppBarTheme(
+          backgroundColor: tabIndex != 1 ? AppColors.primary : Colors.black,
+        ),
+      ),
       child: Scaffold(
         appBar: AppBar(
-          title: TabBar(
-            isScrollable: true,
-            controller: tabController,
-            labelPadding: EdgeInsets.symmetric(horizontal: 14),
-            indicatorSize: TabBarIndicatorSize.label,
-            tabs: [
-              Tab(text: "问答"),
-              Tab(text: "视频"),
-            ],
-          ),
+          titleSpacing: 0,
+          title: title,
         ),
-        body: TabBarView(
-          children: [
-            QuestionPage(),
-            VideoPage(),
-          ],
-          controller: tabController,
-        ),
+        body: body,
       ),
     );
   }

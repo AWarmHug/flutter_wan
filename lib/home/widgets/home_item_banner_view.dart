@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/banner.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/widget/network_image.dart';
 
 class BannerItemView extends StatelessWidget {
   final BannerItem banner;
@@ -15,14 +16,10 @@ class BannerItemView extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Stack(alignment: Alignment.center, children: [
-        CachedNetworkImage(
+        AppNetWorkImage(
           imageUrl: banner.imagePath ?? "",
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.fitWidth,
-          placeholder: (context, url) =>
-              Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) =>
-              Center(child: Icon(Icons.error)),
         ),
         Positioned(
           left: 0,

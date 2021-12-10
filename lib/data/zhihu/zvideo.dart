@@ -17,7 +17,7 @@ class ZVideo extends VideoItem{
     if (json['topics'] != null) {
       topics = [];
       json['topics'].forEach((v) {
-        topics?.add(Topics.fromJson(v));
+        topics?.add(Topic.fromJson(v));
       });
     }
     mcnLinkcards = json['mcn_linkcards'];
@@ -64,7 +64,7 @@ class ZVideo extends VideoItem{
   String? imageUrl;
   String? description;
   String? excerpt;
-  List<Topics>? topics;
+  List<Topic>? topics;
   dynamic mcnLinkcards;
   int? updatedAt;
   Video? video;
@@ -266,8 +266,8 @@ class Can_comment {
   }
 }
 
-class Topics {
-  Topics({
+class Topic {
+  Topic({
     this.url,
     this.type,
     this.id,
@@ -275,7 +275,7 @@ class Topics {
     this.topicType,
   });
 
-  Topics.fromJson(dynamic json) {
+  Topic.fromJson(dynamic json) {
     url = json['url'];
     type = json['type'];
     id = json['id'];
