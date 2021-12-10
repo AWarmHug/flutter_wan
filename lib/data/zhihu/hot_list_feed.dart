@@ -1,5 +1,5 @@
 import 'feed_specific.dart';
-import 'target.dart';
+import 'hot_list_feed_target.dart';
 
 /// type : "hot_list_feed"
 /// style_type : "1"

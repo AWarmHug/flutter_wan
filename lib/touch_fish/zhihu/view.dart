@@ -54,7 +54,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
     return Theme(
       data: ThemeData.light().copyWith(
         appBarTheme: AppBarTheme(
-          backgroundColor: tabIndex != 1 ? AppColors.primary : Colors.black,
+          backgroundColor: tabIndex == tabController.length-1 ?Colors.black: AppColors.primary ,
         ),
       ),
       child: Scaffold(

@@ -1,5 +1,5 @@
 import 'author.dart';
-import 'play_list.dart';
+import 'relationship.dart';
 import 'video.dart';
 import 'video_item.dart';
 import 'zvideo.dart';
@@ -106,28 +106,6 @@ class Answer extends VideoItem {
     }
     map['has_column'] = hasColumn;
     map['admin_closed_comment'] = adminClosedComment;
-    return map;
-  }
-}
-
-class Relationship {
-  Relationship({
-    this.isThanked,
-    this.voting,
-  });
-
-  Relationship.fromJson(dynamic json) {
-    isThanked = json['is_thanked'];
-    voting = json['voting'];
-  }
-
-  bool? isThanked;
-  int? voting;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['is_thanked'] = isThanked;
-    map['voting'] = voting;
     return map;
   }
 }
