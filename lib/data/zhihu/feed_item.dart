@@ -124,7 +124,7 @@ class Actors {
       this.id,});
 
   Actors.fromJson(dynamic json) {
-    followInterest = json['follow_interest'] != null ? Follow_interest.fromJson(json['followInterest']) : null;
+    followInterest = json['follow_interest'] != null ? Follow_interest.fromJson(json['follow_interest']) : null;
     name = json['name'];
     url = json['url'];
     excerpt = json['excerpt'];
@@ -239,7 +239,7 @@ class Target {
     updatedTime = json['updated_time'];
     id = json['id'];
     voteupCount = json['voteup_count'];
-    canComment = json['can_comment'] != null ? Can_comment.fromJson(json['canComment']) : null;
+    canComment = json['can_comment'] != null ? Can_comment.fromJson(json['can_comment']) : null;
     author = json['author'] != null ? Author.fromJson(json['author']) : null;
     url = json['url'];
     commentPermission = json['comment_permission'];

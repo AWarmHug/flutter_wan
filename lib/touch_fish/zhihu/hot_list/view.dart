@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/zhihu/hot_list_feed.dart';
+import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
+import 'package:flutter_wan/resource/app_images.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:flutter_wan/widget/network_image.dart';
@@ -57,12 +59,30 @@ class QuestionWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: index < 3 ? Colors.red : Colors.transparent,
-              ),
               width: 24,
               height: 24,
-              child: Text("${index}"),
+              alignment: Alignment.center,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    IconFontIcons.iconHot,
+                    color: index == 0
+                        ? Colors.red
+                        : index == 1
+                            ? Colors.amber
+                            : index == 2
+                                ? Colors.amberAccent
+                                : Colors.transparent,
+                  ),
+                  Text(
+                    "${index + 1}",
+                    style: index < 3
+                        ? AppTextStyles.white_12.bold
+                        : AppTextStyles.black_12.bold.color2(Colors.black45),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               width: 8,
@@ -82,8 +102,7 @@ class QuestionWidget extends StatelessWidget {
                     hotListFeed.target!.metricsArea!.text!,
                     style: TextStyle(
                         color: Colors.black38,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600),
+                        fontSize: 12),
                   )
                 ],
               ),
@@ -106,7 +125,7 @@ class QuestionWidget extends StatelessWidget {
             child: AppNetWorkImage(
               imageUrl: hotListFeed.target!.imageArea!.url!,
               width: 92,
-              height: 68,
+              height: 64,
               fit: BoxFit.fill,
             ),
           )

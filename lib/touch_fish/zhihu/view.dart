@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
 
-import 'question/view.dart';
+import 'hot_list/view.dart';
 import 'video/view.dart';
 
 class ZhihuPage extends StatefulWidget {
@@ -34,8 +34,8 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
       labelPadding: EdgeInsets.symmetric(horizontal: 14),
       indicatorSize: TabBarIndicatorSize.label,
       tabs: [
-        Tab(text: "问"),
-        Tab(text: "答"),
+        Tab(text: "热榜"),
+        Tab(text: "问答"),
         Tab(text: "视频"),
       ],
     );
@@ -52,7 +52,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData.light().copyWith(
+      data: Theme.of(context).copyWith(
         appBarTheme: AppBarTheme(
           backgroundColor: tabIndex == tabController.length-1 ?Colors.black: AppColors.primary ,
         ),

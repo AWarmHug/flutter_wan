@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/home/view.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
+import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/tools/tools_home.dart';
 import 'package:flutter_wan/tools/tree/view.dart';
@@ -39,10 +40,10 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "主页"),
-          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "摸鱼"),
-          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "工具"),
-          BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: "我的"),
+          BottomNavigationBarItem(icon: Icon(IconFontIcons.iconHome), label: "主页"),
+          BottomNavigationBarItem(icon: Icon(IconFontIcons.iconTouchfish), label: "摸鱼"),
+          BottomNavigationBarItem(icon: Icon(IconFontIcons.iconTools), label: "工具"),
+          BottomNavigationBarItem(icon: Icon(IconFontIcons.iconMine), label: "我的"),
         ],
         onTap: (value) {
           setState(() {

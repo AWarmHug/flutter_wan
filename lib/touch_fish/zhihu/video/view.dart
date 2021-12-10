@@ -10,11 +10,12 @@ import 'package:get/get.dart';
 import 'logic.dart';
 
 class VideoPage extends StatelessWidget {
-  final logic = Get.put<VideoLogic>(VideoLogic());
-  final state = Get.find<VideoLogic>().state;
+
 
   @override
   Widget build(BuildContext context) {
+    final logic = Get.put<VideoLogic>(VideoLogic());
+    final state = Get.find<VideoLogic>().state;
     return Theme(
       data: ThemeData.dark(),
       child: Scaffold(

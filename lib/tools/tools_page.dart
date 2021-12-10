@@ -27,7 +27,7 @@ class _ToolsPageState extends State<ToolsPage> {
             child: Center(
                 child: Column(
               children: [
-                Icon(IconFontIcons.iconGongzhonghao),
+                Icon(IconFontIcons.iconProject),
                 Text("文章"),
               ],
             )),
@@ -39,7 +39,7 @@ class _ToolsPageState extends State<ToolsPage> {
             child: Center(
                 child: Column(
               children: [
-                Icon(IconFontIcons.iconGongzhonghao),
+                Icon(IconFontIcons.iconWechat),
                 Text("公众号"),
               ],
             )),
@@ -51,7 +51,7 @@ class _ToolsPageState extends State<ToolsPage> {
             child: Center(
                 child: Column(
               children: [
-                Icon(IconFontIcons.iconWangzhan),
+                Icon(IconFontIcons.iconWeb),
                 Text(
                   "导航",
                 ),
@@ -65,7 +65,7 @@ class _ToolsPageState extends State<ToolsPage> {
             child: Center(
                 child: Column(
               children: [
-                Icon(IconFontIcons.iconXiangmu),
+                Icon(IconFontIcons.iconProject),
                 Text("项目"),
               ],
             )),
@@ -77,7 +77,7 @@ class _ToolsPageState extends State<ToolsPage> {
             child: Center(
               child: Column(
                 children: [
-                  Icon(IconFontIcons.iconXiangmu),
+                  Icon(IconFontIcons.iconProject),
                   Text("自定义控件"),
                 ],
               ),
