@@ -54,7 +54,7 @@ class QuestionWidget extends StatelessWidget {
         //todo 跳转
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -96,7 +96,7 @@ class QuestionWidget extends StatelessWidget {
                     style: AppTextStyles.black_16.bold,
                   ),
                   SizedBox(
-                    width: 4,
+                    height: 6,
                   ),
                   Text(
                     hotListFeed.target!.metricsArea!.text!,

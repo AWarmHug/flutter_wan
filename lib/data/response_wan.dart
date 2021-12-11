@@ -12,6 +12,7 @@ import 'search.dart';
 import 'tree.dart';
 import 'user.dart' as WanUser;
 import 'zhihu/answer.dart';
+import 'zhihu/answer_comment.dart';
 import 'zhihu/video_item.dart';
 import 'zhihu/zvideo.dart';
 
@@ -105,6 +106,16 @@ class ResponseWan<T> {
           });
           data = d as T;
         }
+
+        if (T.toString() == "List<AnswerComment>") {
+          var d = <AnswerComment>[];
+          json["data"].forEach((v) {
+            d.add(AnswerComment.fromJson(v));
+          });
+          data = d as T;
+        }
+
+
       }
 
     }

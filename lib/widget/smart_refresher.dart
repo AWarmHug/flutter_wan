@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/error.dart';
+import 'package:flutter_wan/resource/app_colors.dart';
 
 import '../status.dart';
 
@@ -124,7 +125,7 @@ class _SmartRefresherState extends State<SmartRefresher> {
               onRefresh: () async {
                 widget.onRefresh();
               },
-              child: ListView.builder(
+              child: ListView.separated(
                 controller: _scrollController,
                 itemBuilder: (context, index) {
                   if (index < widget.itemCount) {
@@ -139,6 +140,12 @@ class _SmartRefresherState extends State<SmartRefresher> {
                   }
                 },
                 itemCount: widget.itemCount == 0 ? 0 : widget.itemCount + 1,
+                separatorBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 8,
+                    color: Colors.grey.shade200,
+                  );
+                },
               ),
             ),
           );

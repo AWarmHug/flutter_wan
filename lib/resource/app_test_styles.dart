@@ -34,7 +34,7 @@ class AppTextStyles {
       TextStyle(color: AppColors.black, fontSize: 14);
 
   static const TextStyle black_12 =
-  TextStyle(color: AppColors.black, fontSize: 12);
+      TextStyle(color: AppColors.black, fontSize: 12);
 
   static const TextStyle black_18_bold = TextStyle(
       color: AppColors.black, fontSize: 18, fontWeight: FontWeight.bold);
@@ -65,5 +65,9 @@ extension TextStyleEtx on TextStyle {
 
   TextStyle color2(Color color) {
     return copyWith(color: color);
+  }
+
+  TextStyle get black38 {
+    return color2(Colors.black38);
   }
 }

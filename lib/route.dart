@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 import 'home/view.dart';
 import 'tools/tree/view.dart';
+import 'touch_fish/zhihu/answer/answer_detail/answer_detail_view.dart';
 import 'touch_fish/zhihu/view.dart';
 
 final pages = <GetPage>[
@@ -54,6 +55,10 @@ List<GetPage> touchFishPages = [
   GetPage(
     name: "/touch_fish/zhihu/video",
     page: () => HomePage(),
+  ),
+  GetPage(
+    name: "/touch_fish/zhihu/answer_detail",
+    page: () => AnswerDetailPage(),
   ),
 ];
 

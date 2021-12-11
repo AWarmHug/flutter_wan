@@ -33,6 +33,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
       controller: tabController,
       labelPadding: EdgeInsets.symmetric(horizontal: 14),
       indicatorSize: TabBarIndicatorSize.label,
+      indicatorColor: Colors.white,
       tabs: [
         Tab(text: "热榜"),
         Tab(text: "问答"),

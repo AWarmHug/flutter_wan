@@ -50,38 +50,43 @@ class PageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint("_______${feedItem.target!.question}");
-    return Container(
-      padding: EdgeInsets.all(12),
-      child: Column(
-        children: [
-          QuestionWidget(
-            question: feedItem.target!.question!,
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          ExceptWidget(
-            feedItem: feedItem,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Text(
-                "${feedItem.target!.voteupCount!} 赞同",
-                style: AppTextStyles.black_14.size(12).color2(Colors.black54),
-              ),
-              SizedBox(
-                width: 6,
-              ),
-              Text(
-                "${feedItem.target!.commentCount!} 评论",
-                style: AppTextStyles.black_14.size(12).color2(Colors.black54),
-              ),
-            ],
-          )
-        ],
+    return InkWell(
+      onTap: () {
+        Get.toNamed("/touch_fish/zhihu/answer_detail",arguments: feedItem);
+      },
+      child: Container(
+        padding: EdgeInsets.all(12),
+        child: Column(
+          children: [
+            QuestionWidget(
+              question: feedItem.target!.question!,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            ExceptWidget(
+              feedItem: feedItem,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Text(
+                  "${feedItem.target!.voteupCount!} 赞同",
+                  style: AppTextStyles.black_14.size(12).color2(Colors.black54),
+                ),
+                SizedBox(
+                  width: 6,
+                ),
+                Text(
+                  "${feedItem.target!.commentCount!} 评论",
+                  style: AppTextStyles.black_14.size(12).color2(Colors.black54),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
