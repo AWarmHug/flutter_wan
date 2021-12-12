@@ -13,7 +13,9 @@ import 'answer_detail_logic.dart';
 
 class AnswerDetailPage extends StatelessWidget {
   final logic = Get.put(AnswerDetailLogic());
-  final state = Get.find<AnswerDetailLogic>().state;
+  final state = Get
+      .find<AnswerDetailLogic>()
+      .state;
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +24,34 @@ class AnswerDetailPage extends StatelessWidget {
         title: Text(""),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _QuestionWidget(
-              question: state.feedItem.target!.question,
-            ),
-            Container(
-              color: Colors.black12,
-              width: MediaQuery.of(context).size.width,
-              height: 0.5,
-            ),
-            _AuthorWidget(
-              author: state.feedItem.target!.author!,
-            ),
-            _ContentWidget(
-              feedItem: state.feedItem,
-            ),
-            _CommentsWidget(
-              count: state.feedItem.target!.commentCount!,
-              comments: state.comments,
-            ),
-          ],
-        ),
+        child: GetBuilder<AnswerDetailLogic>(builder: (logic) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _QuestionWidget(
+                question: state.feedItem.target!.question,
+              ),
+              Container(
+                color: Colors.black12,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                height: 0.5,
+              ),
+              _AuthorWidget(
+                author: state.feedItem.target!.author!,
+              ),
+              _ContentWidget(
+                feedItem: state.feedItem,
+              ),
+              _CommentsWidget(
+                count: state.feedItem.target!.commentCount!,
+                comments: state.comments,
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -60,21 +67,22 @@ class _QuestionWidget extends StatelessWidget {
       padding: EdgeInsets.only(left: 12, top: 16, right: 12, bottom: 12),
       child: question != null
           ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  question!.title!,
-                  style: AppTextStyles.black_18_bold,
-                ),
-                SizedBox(
-                  height: 6,
-                ),
-                Text(
-                  "知乎 · ${question!.answerCount!}个回答 · ${question!.followerCount!}个关注",
-                  style: AppTextStyles.black_12.color2(Colors.black45),
-                ),
-              ],
-            )
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            question!.title!,
+            style: AppTextStyles.black_18_bold,
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          Text(
+            "知乎 · ${question!.answerCount!}个回答 · ${question!
+                .followerCount!}个关注",
+            style: AppTextStyles.black_12.color2(Colors.black45),
+          ),
+        ],
+      )
           : Text("数据错误"),
     );
   }
@@ -155,7 +163,8 @@ class _ContentWidget extends StatelessWidget {
           ),
           Text(
             feedItem.updatedTime != feedItem.createdTime
-                ? "编辑于 ${feedItem.updatedTime!.date().format()} 创作于 ${feedItem.createdTime!.date().format()}"
+                ? "编辑于 ${feedItem.updatedTime!.date().format()} 创作于 ${feedItem
+                .createdTime!.date().format()}"
                 : "创作于 ${feedItem.createdTime!.date().format()}",
             style: AppTextStyles.black_12.black38,
           ),
@@ -184,8 +193,7 @@ class _CommentsWidget extends StatelessWidget {
           ..add(Text(
             "评论${count}",
             style: AppTextStyles.black_16.bold,
-          ))
-          ..add(SizedBox(
+          ))..add(SizedBox(
             height: 16,
           ))
           ..addAll(comments.take(3).map((e) {
