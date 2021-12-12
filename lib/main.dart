@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: '玩安卓',
       scrollBehavior: CupertinoScrollBehavior(),
       theme: ThemeData(
-          primaryColor: AppColors.primary,
+          // primaryColor: AppColors.primary,
           brightness: Brightness.light,
           fontFamily:
               kIsWeb ? null : (Platform.isAndroid ? "font_default" : null)),

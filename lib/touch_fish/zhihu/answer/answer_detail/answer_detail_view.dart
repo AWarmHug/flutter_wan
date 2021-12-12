@@ -191,7 +191,7 @@ class _CommentsWidget extends StatelessWidget {
           ..addAll(comments.take(3).map((e) {
             return _CommentItemWidget(
               comment: e,
-            );
+            ) as Widget;
           }).toList())
           ..add(
             Row(
