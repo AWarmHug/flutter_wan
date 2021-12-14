@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_wan/component/zhihu/question.dart';
 import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/author.dart';
 import 'package:flutter_wan/data/zhihu/feed_item.dart';
+import 'package:flutter_wan/data/zhihu/question.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/widget/network_image.dart';
@@ -28,7 +30,7 @@ class AnswerDetailPage extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _QuestionWidget(
+              QuestionWidget(
                 question: state.feedItem.target!.question,
               ),
               Container(
@@ -57,37 +59,6 @@ class AnswerDetailPage extends StatelessWidget {
   }
 }
 
-class _QuestionWidget extends StatelessWidget {
-  const _QuestionWidget({Key? key, this.question}) : super(key: key);
-  final Question? question;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 12, top: 16, right: 12, bottom: 12),
-      child: question != null
-          ? Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            question!.title!,
-            style: AppTextStyles.black_18_bold,
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          Text(
-            "知乎 · ${question!.answerCount!}个回答 · ${question!
-                .followerCount!}个关注",
-            style: AppTextStyles.black_12.color2(Colors.black45),
-          ),
-        ],
-      )
-          : Text("数据错误"),
-    );
-  }
-}
-
 class _AuthorWidget extends StatelessWidget {
   const _AuthorWidget({Key? key, required this.author}) : super(key: key);
   final Author author;
@@ -99,7 +70,7 @@ class _AuthorWidget extends StatelessWidget {
       child: Row(
         children: [
           ClipOval(
-            child: AppNetWorkImage(
+            child: AppNetworkImage(
               imageUrl: author.avatarUrl!,
               width: 36,
               height: 36,
@@ -229,7 +200,7 @@ class _CommentItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipOval(
-            child: AppNetWorkImage(
+            child: AppNetworkImage(
               imageUrl: comment.author!.member!.avatarUrl!,
               width: 32,
               height: 32,

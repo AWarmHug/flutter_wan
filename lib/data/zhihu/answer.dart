@@ -1,4 +1,5 @@
 import 'author.dart';
+import 'question.dart';
 import 'relationship.dart';
 import 'video.dart';
 import 'video_item.dart';
@@ -185,32 +186,3 @@ class AttachmentVideo {
   }
 }
 
-class Question {
-  Question({
-    this.id,
-    this.title,
-    this.detail,
-    this.type,
-  });
-
-  Question.fromJson(dynamic json) {
-    id = json['id'];
-    title = json['title'];
-    detail = json['detail'];
-    type = json['type'];
-  }
-
-  String? id;
-  String? title;
-  String? detail;
-  String? type;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['title'] = title;
-    map['detail'] = detail;
-    map['type'] = type;
-    return map;
-  }
-}

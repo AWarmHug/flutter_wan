@@ -7,6 +7,8 @@ extension FutureExt<T> on Future<T> {
     return catchError((error) {
       if (error is AppError) {
         onAppError(error);
+      }else{
+        onAppError(AppError(AppError.ERROR_UNKNOWN,error.toString()));
       }
     }, test: test);
   }

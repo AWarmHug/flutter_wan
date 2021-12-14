@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class AppNetWorkImage extends StatelessWidget {
-  const AppNetWorkImage({
+class AppNetworkImage extends StatelessWidget {
+  const AppNetworkImage({
     Key? key,
     required this.imageUrl,
     this.width,

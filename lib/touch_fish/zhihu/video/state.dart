@@ -1,4 +1,3 @@
-
 import 'package:flutter_wan/data/zhihu/video_item.dart';
 
 class VideoState {
@@ -6,6 +5,5 @@ class VideoState {
     ///Initialize variables
   }
 
-  List<VideoItem> videos=[];
-
+  List<VideoItem> videos = [];
 }

@@ -1,5 +1,4 @@
-import 'feed_specific.dart';
-import 'hot_list_feed_target.dart';
+import 'question.dart';
 
 /// type : "hot_list_feed"
 /// style_type : "1"
@@ -10,31 +9,32 @@ import 'hot_list_feed_target.dart';
 /// attached_info : "CjcIABADGgg3NDQ4Mjg5MiCf5MeNBjBqOLcQQAByCTUwNDkwNzY5NHgAqgEJYmlsbGJvYXJk0gEA"
 
 class HotListFeed {
-  HotListFeed({
-      this.type, 
-      this.styleType, 
-      this.id, 
-      this.cardId, 
-      this.feedSpecific, 
-      this.target, 
-      this.attachedInfo,});
 
   HotListFeed.fromJson(dynamic json) {
     type = json['type'];
     styleType = json['style_type'];
     id = json['id'];
     cardId = json['card_id'];
-    feedSpecific = json['feed_specific'] != null ? FeedSpecific.fromJson(json['feed_specific']) : null;
-    target = json['target'] != null ? Target.fromJson(json['target']) : null;
+    target = json['target'] != null ? Question.fromJson(json['target']) : null;
     attachedInfo = json['attached_info'];
+    detail_text = json['detail_text'];
+    if (json['children'] != null) {
+      children = [];
+      json['children'].forEach((v) {
+        children?.add(Children.fromJson(v));
+      });
+    }
+
   }
   String? type;
   String? styleType;
   String? id;
   String? cardId;
-  FeedSpecific? feedSpecific;
-  Target? target;
+  Question? target;
   String? attachedInfo;
+  String? detail_text;
+  List<Children>? children;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -42,13 +42,39 @@ class HotListFeed {
     map['style_type'] = styleType;
     map['id'] = id;
     map['card_id'] = cardId;
-    if (feedSpecific != null) {
-      map['feed_specific'] = feedSpecific?.toJson();
-    }
     if (target != null) {
       map['target'] = target?.toJson();
     }
     map['attached_info'] = attachedInfo;
+    map['detail_text'] = detail_text;
+    if (children != null) {
+      map['children'] = children?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+
+/// type : "answer"
+/// thumbnail : "https://pic2.zhimg.com/80/v2-061960c550f459ac1bf90908fcb7785c_1440w.png"
+
+class Children {
+  Children({
+    this.type,
+    this.thumbnail,});
+
+  Children.fromJson(dynamic json) {
+    type = json['type'];
+    thumbnail = json['thumbnail'];
+  }
+  String? type;
+  String? thumbnail;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['type'] = type;
+    map['thumbnail'] = thumbnail;
     return map;
   }
 

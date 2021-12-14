@@ -15,14 +15,44 @@ import 'data/zhihu/answer_comments.dart';
 
 //知乎视频
 //https://www.zhihu.com/api/v4/zvideo-tabs/tabs/choice/feeds/recommend?limit=12
+//视频评论
+//https://www.zhihu.com/api/v4/zvideos/1450123358607867904/root_comments?order=normal&limit=20&offset=0&status=open
 
 //知乎热门
 //https://www.zhihu.com/api/v3/feed/topstory/hot-list-web?limit=50&desktop=true
 
+//所有回答
+//https://www.zhihu.com/api/v4/questions/505809178/answers?include=data%5B*%5D.is_normal%2Cadmin_closed_comment%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cattachment%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Ccreated_time%2Cupdated_time%2Creview_info%2Crelevant_info%2Cquestion%2Cexcerpt%2Cis_labeled%2Cpaid_info%2Cpaid_info_content%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%2Cis_recognized%3Bdata%5B*%5D.mark_infos%5B*%5D.url%3Bdata%5B*%5D.author.follower_count%2Cvip_info%2Cbadge%5B*%5D.topics%3Bdata%5B*%5D.settings.table_of_content.enabled&offset=0&limit=20&sort_by=updated
+//https://www.zhihu.com/api/v4/questions/505806765/answers?include=data%5B%2A%5D.is_normal%2Cadmin_closed_comment%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cattachment%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Ccreated_time%2Cupdated_time%2Creview_info%2Crelevant_info%2Cquestion%2Cexcerpt%2Cis_labeled%2Cpaid_info%2Cpaid_info_content%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%2Cis_recognized%3Bdata%5B%2A%5D.mark_infos%5B%2A%5D.url%3Bdata%5B%2A%5D.author.follower_count%2Cvip_info%2Cbadge%5B%2A%5D.topics%3Bdata%5B%2A%5D.settings.table_of_content.enabled&limit=5&offset=5&platform=desktop&sort_by=default
+
+//问题相关的问题
+//https://www.zhihu.com/api/v4/questions/505806765/similar-questions?include=data%5B*%5D.answer_count%2Cauthor%2Cfollower_count&limit=5
+
+//根据id查找问题
+//https://api.zhihu.com/questions/505809178
+
+//获取列表
+//https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&mobile=true
+//https://www.zhihu.com/api/v3/feed/topstory/hot-lists/science?limit=50&mobile=true
+
+//根据回答问题id获取更多问题
+//https://www.zhihu.com/api/v4/hot_recommendation?show_ad=true&source=question&source_id=506002000&utm_source=
+
 const BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
 const BASE_URL_ZHIHU = "https://www.zhihu.com/api/";
 
+const BASE_URL_KAIYAN="http://baobab.kaiyanapp.com/api/";
+
+
 class Http {
+
+  static BaseOptions _optionsKaiyan = BaseOptions(
+    baseUrl: kIsWeb ? "http://localhost:4502/" : BASE_URL_KAIYAN,
+    connectTimeout: 10000,
+    receiveTimeout: 10000,
+  );
+
+
   static BaseOptions _optionsZhihu = BaseOptions(
     baseUrl: kIsWeb ? "http://localhost:4501/" : BASE_URL_ZHIHU,
     connectTimeout: 10000,

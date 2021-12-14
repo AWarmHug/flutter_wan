@@ -16,7 +16,7 @@ class BannerItemView extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Stack(alignment: Alignment.center, children: [
-        AppNetWorkImage(
+        AppNetworkImage(
           imageUrl: banner.imagePath ?? "",
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.fitWidth,

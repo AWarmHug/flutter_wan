@@ -52,6 +52,7 @@ class QuestionWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         //todo 跳转
+        Get.toNamed("/touch_fish/zhihu/answer_list", arguments: hotListFeed.target!);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -92,14 +93,14 @@ class QuestionWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    hotListFeed.target!.titleArea!.text!,
+                    hotListFeed.target!.title!,
                     style: AppTextStyles.black_16.bold,
                   ),
                   SizedBox(
                     height: 6,
                   ),
                   Text(
-                    hotListFeed.target!.metricsArea!.text!,
+                    hotListFeed.detail_text!,
                     style: TextStyle(
                         color: Colors.black38,
                         fontSize: 12),
@@ -118,12 +119,12 @@ class QuestionWidget extends StatelessWidget {
   }
 
   image() {
-    return (hotListFeed.target!.imageArea!.url != null &&
-            hotListFeed.target!.imageArea!.url!.isNotEmpty)
+    return (hotListFeed.children != null &&
+            hotListFeed.children!.isNotEmpty)
         ? ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(8)),
-            child: AppNetWorkImage(
-              imageUrl: hotListFeed.target!.imageArea!.url!,
+            child: AppNetworkImage(
+              imageUrl: hotListFeed.children![0].thumbnail!,
               width: 92,
               height: 64,
               fit: BoxFit.fill,

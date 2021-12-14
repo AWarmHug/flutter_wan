@@ -13,6 +13,7 @@ import 'tree.dart';
 import 'user.dart' as WanUser;
 import 'zhihu/answer.dart';
 import 'zhihu/answer_comment.dart';
+import 'zhihu/answer_list_item.dart';
 import 'zhihu/video_item.dart';
 import 'zhihu/zvideo.dart';
 
@@ -115,6 +116,13 @@ class ResponseWan<T> {
           data = d as T;
         }
 
+        if (T.toString() == "List<AnswerListItem>") {
+          var d = <AnswerListItem>[];
+          json["data"].forEach((v) {
+            d.add(AnswerListItem.fromJson(v));
+          });
+          data = d as T;
+        }
 
       }
 

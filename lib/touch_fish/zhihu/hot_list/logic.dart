@@ -33,7 +33,7 @@ class QuestionLogic extends GetxController {
 
   Future<void> _loadHotListWeb() async {
     var response = await Http.get<List<HotListFeed>>(
-        "v3/feed/topstory/hot-list-web?limit=50&desktop=true");
+        "v3/feed/topstory/hot-lists/total?limit=50&mobile=true");
     if (response.isSuccess) {
       if (response.data != null && response.data!.isNotEmpty) {
         state.hotListFeed = response.data!;

@@ -21,11 +21,11 @@ class Paging {
     totals = json['totals'];
   }
 
-  bool isEnd = false;
-  bool isStart = false;
+  bool? isEnd = false;
+  bool? isStart = false;
   String? next;
   String? previous;
-  int totals = 0;
+  int? totals = 0;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

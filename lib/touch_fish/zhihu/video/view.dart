@@ -1,21 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/zhihu/answer.dart';
+import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/author.dart';
 import 'package:flutter_wan/data/zhihu/zvideo.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
 
+import 'comments/comments_view.dart';
 import 'logic.dart';
 
 class VideoPage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     final logic = Get.put<VideoLogic>(VideoLogic());
-    final state = Get.find<VideoLogic>().state;
+    final state = Get
+        .find<VideoLogic>()
+        .state;
     return Theme(
       data: ThemeData.dark(),
       child: Scaffold(
@@ -43,14 +45,21 @@ class VideoPage extends StatelessWidget {
 }
 
 class ZVideoItem extends StatelessWidget {
-  const ZVideoItem(this.zvideo, {Key? key}) : super(key: key);
+  final logic = Get.put<VideoLogic>(VideoLogic());
+
+  final state = Get
+      .find<VideoLogic>()
+      .state;
+
+  ZVideoItem(this.zvideo, {Key? key}) : super(key: key);
   final ZVideo zvideo;
+
 
   TopicsWid() {
     return zvideo.topics != null
         ? TopicsWidget(
-            topics: zvideo.topics!,
-          )
+      topics: zvideo.topics!,
+    )
         : SizedBox();
   }
 
@@ -89,6 +98,9 @@ class ZVideoItem extends StatelessWidget {
                     maxLines: 2,
                     style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
+                  SizedBox(
+                    height: 8,
+                  ),
                   TopicsWid(),
                   SizedBox(
                     height: 24,
@@ -109,20 +121,31 @@ class ZVideoItem extends StatelessWidget {
                             Column(
                               children: [
                                 Icon(Icons.ac_unit),
+                                Text(zvideo.shareCount!.toString()),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Icon(Icons.ac_unit),
                                 Text(zvideo.likedCount!.toString()),
                               ],
                             ),
-                            Column(
-                              children: [
-                                Icon(Icons.ac_unit),
-                                Text(zvideo.commentCount!.toString()),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Icon(Icons.ac_unit),
-                                Text(zvideo.shareCount!.toString()),
-                              ],
+                            InkWell(
+                              onTap: () {
+                                //显示
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return CommentsPage(zvideo.id!);
+                                  },
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Icon(Icons.ac_unit),
+                                  Text(zvideo.commentCount!.toString()),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -217,7 +240,10 @@ class TopicWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(topic.name!),
+      child: Text(
+        "#${topic.name!} ",
+        style: AppTextStyles.white_14.bold,
+      ),
     );
   }
 }

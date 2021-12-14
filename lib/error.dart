@@ -4,6 +4,9 @@ class AppError implements Exception {
   static const int ERROR_NETWORK = -1;
   static const int ERROR_NO_DATA = -2;
 
+  static const int ERROR_UNKNOWN = -3;
+
+
   int? code;
   String? message;
 
