@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
 
+import 'hot_list/hot_list_page.dart';
 import 'hot_list/view.dart';
 import 'video/view.dart';
 
@@ -42,7 +43,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
     );
     body = TabBarView(
       children: [
-        QuestionPage(),
+        HotListPage(),
         AnswerPage(),
         VideoPage(),
       ],

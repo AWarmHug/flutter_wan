@@ -8,33 +8,41 @@ import 'package:flutter_wan/status.dart';
 import 'package:flutter_wan/widget/network_image.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
+import 'package:tuple/tuple.dart';
 
 import 'logic.dart';
 
 class QuestionPage extends StatelessWidget {
+  const QuestionPage({required this.type});
+
+  final Tuple2<String, String> type;
+
   @override
   Widget build(BuildContext context) {
-    final logic = Get.put(QuestionLogic());
-    final state = Get.find<QuestionLogic>().state;
+    final logic = Get.put(QuestionLogic(type), tag: type.item2);
+    final state = Get.find<QuestionLogic>(tag: type.item2).state;
 
     return Container(
-      child: GetBuilder<QuestionLogic>(builder: (logic) {
-        return SmartRefresher(
-          onRefresh: logic.refreshHotListWeb,
-          onLoad: logic.loadHotListWeb,
-          refreshController: logic.refreshController,
-          itemBuilder: (context, index) {
-            return QuestionWidget(
-              hotListFeed: state.hotListFeed[index],
-              index: index,
+      child: GetBuilder<QuestionLogic>(
+          init: logic,
+          tag: type.item2,
+          builder: (logic) {
+            return SmartRefresher(
+              onRefresh: logic.refreshHotListWeb,
+              onLoad: logic.loadHotListWeb,
+              refreshController: logic.refreshController,
+              itemBuilder: (context, index) {
+                return QuestionWidget(
+                  hotListFeed: state.hotListFeed[index],
+                  index: index,
+                );
+              },
+              itemCount: state.hotListFeed.length,
+              footer: (status) {
+                return StatusMoreWidget(status: status);
+              },
             );
-          },
-          itemCount: state.hotListFeed.length,
-          footer: (status) {
-            return StatusMoreWidget(status: status);
-          },
-        );
-      }),
+          }),
     );
   }
 }
@@ -52,7 +60,8 @@ class QuestionWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         //todo 跳转
-        Get.toNamed("/touch_fish/zhihu/answer_list", arguments: hotListFeed.target!);
+        Get.toNamed("/touch_fish/zhihu/answer_list",
+            arguments: hotListFeed.target!);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -100,10 +109,15 @@ class QuestionWidget extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
+                    hotListFeed.target!.title ?? "",
+                    style: AppTextStyles.black_12,
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Text(
                     hotListFeed.detail_text!,
-                    style: TextStyle(
-                        color: Colors.black38,
-                        fontSize: 12),
+                    style: TextStyle(color: Colors.black38, fontSize: 12),
                   )
                 ],
               ),
@@ -119,8 +133,7 @@ class QuestionWidget extends StatelessWidget {
   }
 
   image() {
-    return (hotListFeed.children != null &&
-            hotListFeed.children!.isNotEmpty)
+    return (hotListFeed.children != null && hotListFeed.children!.isNotEmpty)
         ? ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             child: AppNetworkImage(

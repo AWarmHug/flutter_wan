@@ -4,11 +4,17 @@ import 'package:flutter_wan/http.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
 import 'package:flutter_wan/extensions.dart';
+import 'package:tuple/tuple.dart';
 
 import 'state.dart';
 
 class QuestionLogic extends GetxController {
   final QuestionState state = QuestionState();
+
+  final Tuple2<String, String> type;
+
+
+  QuestionLogic(this.type);
 
   RefreshController refreshController=RefreshController();
 
@@ -33,7 +39,7 @@ class QuestionLogic extends GetxController {
 
   Future<void> _loadHotListWeb() async {
     var response = await Http.get<List<HotListFeed>>(
-        "v3/feed/topstory/hot-lists/total?limit=50&mobile=true");
+        "v3/feed/topstory/hot-lists/${type.item2}?limit=50&mobile=true");
     if (response.isSuccess) {
       if (response.data != null && response.data!.isNotEmpty) {
         state.hotListFeed = response.data!;

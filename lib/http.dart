@@ -9,6 +9,7 @@ import 'package:flutter_wan/error.dart';
 import 'package:flutter_wan/global.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tuple/tuple.dart';
 
 import 'data/response_wan.dart';
 import 'data/zhihu/answer_comments.dart';
@@ -35,8 +36,25 @@ import 'data/zhihu/answer_comments.dart';
 //https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&mobile=true
 //https://www.zhihu.com/api/v3/feed/topstory/hot-lists/science?limit=50&mobile=true
 
+const List<Tuple2<String,String>> HOT_LIST_TYPE=[
+  Tuple2("全站","total"),
+  Tuple2("科学","science"),
+  Tuple2("数码","digital"),
+  Tuple2("体育","sport"),
+  Tuple2("时尚","fashion"),
+  Tuple2("影视","film"),
+  Tuple2("校园","school"),
+  Tuple2("汽车","car"),
+  Tuple2("时事","depth"),
+  Tuple2("国际","focus"),
+
+];
+
 //根据回答问题id获取更多问题
 //https://www.zhihu.com/api/v4/hot_recommendation?show_ad=true&source=question&source_id=506002000&utm_source=
+
+
+
 
 const BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
 const BASE_URL_ZHIHU = "https://www.zhihu.com/api/";
