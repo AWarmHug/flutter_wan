@@ -17,28 +17,40 @@ class AnswerPage extends StatelessWidget {
     final logic = Get.put(AnswerLogic());
     final state = Get.find<AnswerLogic>().state;
 
-    return Container(
-      color: Colors.white,
-      child: GetBuilder<AnswerLogic>(
-        init: logic,
-        builder: (logic) {
-          return ListView.separated(
-            itemBuilder: (context, index) {
-              return Container(
-                child: PageItem(feedItem: state.feedItems[index]),
-              );
-            },
-            itemCount: state.feedItems.length,
-            scrollDirection: Axis.vertical,
-            separatorBuilder: (BuildContext context, int index) {
-              return Container(
-                color: AppColors.bg_default,
-                height: 8,
-              );
-            },
-          );
-        },
+    return NotificationListener(
+      child: Container(
+        color: Colors.white,
+        child: GetBuilder<AnswerLogic>(
+          init: logic,
+          builder: (logic) {
+            return ListView.separated(
+              physics: AlwaysScrollableScrollPhysics (),
+              itemBuilder: (context, index) {
+                return Container(
+                  child: PageItem(feedItem: state.feedItems[index]),
+                );
+              },
+              itemCount: state.feedItems.length,
+              scrollDirection: Axis.vertical,
+              separatorBuilder: (BuildContext context, int index) {
+                return Container(
+                  color: AppColors.bg_default,
+                  height: 8,
+                );
+              },
+            );
+          },
+        ),
       ),
+      onNotification: (notification) {
+        if (notification is ScrollStartNotification) {
+          print("------小部件已开始滚动 ${notification.toString()}");
+        } else if (notification is ScrollUpdateNotification) {
+          print("------小部件正在滚动 ${notification.scrollDelta}");
+        }
+
+        return true;
+      },
     );
   }
 }
@@ -65,12 +77,12 @@ class PageItem extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            AnswerWidget(target: feedItem.target!,),
+            AnswerWidget(
+              target: feedItem.target!,
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

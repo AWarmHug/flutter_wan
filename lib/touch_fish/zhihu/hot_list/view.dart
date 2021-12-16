@@ -22,27 +22,37 @@ class QuestionPage extends StatelessWidget {
     final logic = Get.put(QuestionLogic(type), tag: type.item2);
     final state = Get.find<QuestionLogic>(tag: type.item2).state;
 
-    return Container(
-      child: GetBuilder<QuestionLogic>(
-          init: logic,
-          tag: type.item2,
-          builder: (logic) {
-            return SmartRefresher(
-              onRefresh: logic.refreshHotListWeb,
-              onLoad: logic.loadHotListWeb,
-              refreshController: logic.refreshController,
-              itemBuilder: (context, index) {
-                return QuestionWidget(
-                  hotListFeed: state.hotListFeed[index],
-                  index: index,
-                );
-              },
-              itemCount: state.hotListFeed.length,
-              footer: (status) {
-                return StatusMoreWidget(status: status);
-              },
-            );
-          }),
+    return NotificationListener(
+      child: Container(
+        child: GetBuilder<QuestionLogic>(
+            init: logic,
+            tag: type.item2,
+            builder: (logic) {
+              return SmartRefresher(
+                onRefresh: logic.refreshHotListWeb,
+                onLoad: logic.loadHotListWeb,
+                refreshController: logic.refreshController,
+                itemBuilder: (context, index) {
+                  return QuestionWidget(
+                    hotListFeed: state.hotListFeed[index],
+                    index: index,
+                  );
+                },
+                itemCount: state.hotListFeed.length,
+                footer: (status) {
+                  return StatusMoreWidget(status: status);
+                },
+              );
+            }),
+      ),
+      onNotification: (notification) {
+        if (notification is ScrollStartNotification) {
+          print("小部件已开始滚动 ${notification.toString()}");
+        }else if(notification is ScrollUpdateNotification){
+          print("小部件正在滚动 ${notification.scrollDelta}");
+        }
+        return true;
+      },
     );
   }
 }
