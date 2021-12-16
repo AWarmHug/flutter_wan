@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/main.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
+import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 import 'hot_list/hot_list_page.dart';
 import 'hot_list/view.dart';
@@ -22,30 +26,33 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this)
+    tabController = TabController(initialIndex: 1, length: 3, vsync: this)
       ..addListener(() {
         setState(() {
-          tabIndex = tabController.index;
+          Get.find<AppLogic>().changeMode(tabController.index != 0);
         });
       });
 
-    title = TabBar(
-      isScrollable: true,
-      controller: tabController,
-      labelPadding: EdgeInsets.symmetric(horizontal: 14),
-      indicatorSize: TabBarIndicatorSize.label,
-      indicatorColor: Colors.white,
-      tabs: [
-        Tab(text: "热榜"),
-        Tab(text: "问答"),
-        Tab(text: "视频"),
-      ],
+    title = Center(
+      child: TabBar(
+        controller: tabController,
+        labelPadding: EdgeInsets.symmetric(horizontal: 8),
+        indicatorSize: TabBarIndicatorSize.label,
+        indicatorColor: Colors.white,
+        isScrollable: true,
+        labelStyle: AppTextStyles.white_14.bold,
+        tabs: [
+          Tab(text: "视频"),
+          Tab(text: "推荐"),
+          Tab(text: "热榜"),
+        ],
+      ),
     );
     body = TabBarView(
       children: [
-        HotListPage(),
-        AnswerPage(),
         VideoPage(),
+        AnswerPage(),
+        HotListPage(),
       ],
       controller: tabController,
     );
@@ -53,19 +60,12 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        appBarTheme: AppBarTheme(
-          backgroundColor: tabIndex == tabController.length-1 ?Colors.black: AppColors.primary ,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: title,
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          title: title,
-        ),
-        body: body,
-      ),
+      body: body,
     );
   }
 }

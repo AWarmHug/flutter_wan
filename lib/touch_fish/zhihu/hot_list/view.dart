@@ -108,9 +108,21 @@ class QuestionWidget extends StatelessWidget {
                   SizedBox(
                     height: 6,
                   ),
-                  Text(
-                    hotListFeed.target!.title ?? "",
-                    style: AppTextStyles.black_12,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          hotListFeed.target!.title ?? "",
+                          style: AppTextStyles.black_14,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      image(),
+                    ],
                   ),
                   SizedBox(
                     height: 6,
@@ -122,10 +134,6 @@ class QuestionWidget extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              width: 8,
-            ),
-            image(),
           ],
         ),
       ),
