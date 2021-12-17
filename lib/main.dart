@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         title: '玩安卓',
         scrollBehavior: CupertinoScrollBehavior(),
-        theme: logic.themeData,
+        theme: logic.lightTheme(),
         home: FutureBuilder(
           future: Global.init(),
           builder: (context, snapshot) {
@@ -42,24 +42,46 @@ class MyApp extends StatelessWidget {
 }
 
 class AppLogic extends GetxController {
-  ThemeData themeData = ThemeData(
-      // primaryColor: AppColors.primary,
+  ThemeData _themeData = ThemeData(
+    brightness: Brightness.light,
+    appBarTheme: AppBarTheme(
+      toolbarHeight: 48,
+    ),
+    primaryColor: AppColors.primary,
+    fontFamily: kIsWeb ? null : (Platform.isAndroid ? "font_default" : null),
+  );
+
+  ThemeData lightTheme() {
+    return _themeData.copyWith(
       brightness: Brightness.light,
-      fontFamily: kIsWeb ? null : (Platform.isAndroid ? "font_default" : null));
+      appBarTheme: _themeData.appBarTheme.copyWith(
+        backgroundColor: _themeData.primaryColor,
+      ),
+      bottomNavigationBarTheme: _themeData.bottomNavigationBarTheme.copyWith(
+        unselectedItemColor: Colors.black54,
+        backgroundColor: Colors.white,
+      ),
+    );
+  }
+
+  ThemeData darkTheme() {
+    return _themeData.copyWith(
+      brightness: Brightness.dark,
+      appBarTheme: _themeData.appBarTheme.copyWith(
+        backgroundColor: Colors.black,
+      ),
+      bottomNavigationBarTheme: _themeData.bottomNavigationBarTheme.copyWith(
+        unselectedItemColor: Colors.white,
+        backgroundColor: Colors.black,
+      ),
+    );
+  }
 
   bool isLight = true;
 
   void changeMode(bool light) {
     isLight = light;
-    themeData = themeData.copyWith(
-        appBarTheme: AppBarTheme(
-          backgroundColor: isLight ? themeData.primaryColor : Colors.black,
-        ),
-        bottomNavigationBarTheme: themeData.bottomNavigationBarTheme.copyWith(
-          backgroundColor: isLight ? Colors.white : Colors.black,
-        ));
-    Get.changeTheme(themeData);
-
-    // update();
+    _themeData = isLight ? lightTheme() : darkTheme();
+    Get.changeTheme(_themeData);
   }
 }

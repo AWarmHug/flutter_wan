@@ -12,7 +12,7 @@ class HotListPage extends StatefulWidget {
 }
 
 class _HotListPageState extends State<HotListPage>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin ,AutomaticKeepAliveClientMixin{
   late TabController tabController;
 
   @override
@@ -78,4 +78,7 @@ class _HotListPageState extends State<HotListPage>
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

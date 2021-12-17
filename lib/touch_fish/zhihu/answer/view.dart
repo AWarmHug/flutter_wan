@@ -11,7 +11,12 @@ import 'package:get/get.dart';
 
 import 'logic.dart';
 
-class AnswerPage extends StatelessWidget {
+class AnswerPage extends StatefulWidget {
+  @override
+  State<AnswerPage> createState() => _AnswerPageState();
+}
+
+class _AnswerPageState extends State<AnswerPage> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     final logic = Get.put(AnswerLogic());
@@ -53,6 +58,9 @@ class AnswerPage extends StatelessWidget {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class PageItem extends StatelessWidget {

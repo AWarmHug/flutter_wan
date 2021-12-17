@@ -1,26 +1,30 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/answer_comments.dart';
-import 'package:flutter_wan/data/zhihu/feed_item.dart';
 import 'package:flutter_wan/data/zhihu/paging.dart';
 import 'package:get/get.dart';
 
 import '../../../../error.dart';
 import '../../../../http.dart';
-import 'answer_detail_state.dart';
+import 'answer_comments_state.dart';
 
-class AnswerDetailLogic extends GetxController {
-  final AnswerDetailState state = AnswerDetailState();
+class AnswerCommentsLogic extends GetxController {
 
-  FeedItem feedItem = Get.arguments;
+  final AnswerCommentsState state = AnswerCommentsState();
+
   Paging? paging;
 
-  Future<void> loadAnswerComments() async {
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+
+  Future<void> loadAnswerComments(int id) async {
     String path;
 
     if (paging == null) {
       path =
-          "v4/answers/${feedItem.target!.id!}/comments?include=data%5B*%5D.author&order=normal&limit=10&offset=0&status=open";
+      "v4/answers/${id}/comments?include=data%5B*%5D.author&order=normal&limit=10&offset=0&status=open";
     } else {
       path = paging!.next!;
     }
@@ -40,9 +44,5 @@ class AnswerDetailLogic extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadAnswerComments();
-  }
+
 }

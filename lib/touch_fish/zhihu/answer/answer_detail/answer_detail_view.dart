@@ -5,8 +5,11 @@ import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/author.dart';
 import 'package:flutter_wan/data/zhihu/feed_item.dart';
 import 'package:flutter_wan/data/zhihu/question.dart';
+import 'package:flutter_wan/data/zhihu/target.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/touch_fish/zhihu/answer/answer_comments/answer_comments_view.dart';
+import 'package:flutter_wan/touch_fish/zhihu/video/comments/comments_view.dart';
 import 'package:flutter_wan/widget/network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter_wan/extensions.dart';
@@ -15,9 +18,7 @@ import 'answer_detail_logic.dart';
 
 class AnswerDetailPage extends StatelessWidget {
   final logic = Get.put(AnswerDetailLogic());
-  final state = Get
-      .find<AnswerDetailLogic>()
-      .state;
+  final state = Get.find<AnswerDetailLogic>().state;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +36,7 @@ class AnswerDetailPage extends StatelessWidget {
               ),
               Container(
                 color: Colors.black12,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 height: 0.5,
               ),
               _AuthorWidget(
@@ -47,9 +45,12 @@ class AnswerDetailPage extends StatelessWidget {
               _ContentWidget(
                 feedItem: state.feedItem,
               ),
-              _CommentsWidget(
-                count: state.feedItem.target!.commentCount!,
-                comments: state.comments,
+              Padding(
+                padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
+                child: _CommentsWidget(
+                  target: state.feedItem.target!,
+                  comments: state.comments,
+                ),
               ),
             ],
           );
@@ -134,8 +135,7 @@ class _ContentWidget extends StatelessWidget {
           ),
           Text(
             feedItem.updatedTime != feedItem.createdTime
-                ? "编辑于 ${feedItem.updatedTime!.date().format()} 创作于 ${feedItem
-                .createdTime!.date().format()}"
+                ? "编辑于 ${feedItem.updatedTime!.date().format()} 创作于 ${feedItem.createdTime!.date().format()}"
                 : "创作于 ${feedItem.createdTime!.date().format()}",
             style: AppTextStyles.black_12.black38,
           ),
@@ -149,42 +149,69 @@ class _ContentWidget extends StatelessWidget {
 }
 
 class _CommentsWidget extends StatelessWidget {
-  const _CommentsWidget({Key? key, required this.count, required this.comments})
+  const _CommentsWidget(
+      {Key? key, required this.target, required this.comments})
       : super(key: key);
-  final int count;
+  final Target target;
   final List<AnswerComment> comments;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[]
-          ..add(Text(
-            "评论${count}",
-            style: AppTextStyles.black_16.bold,
-          ))..add(SizedBox(
-            height: 16,
-          ))
-          ..addAll(comments.take(3).map((e) {
-            return _CommentItemWidget(
-              comment: e,
-            ) as Widget;
-          }).toList())
-          ..add(
-            Row(
-              children: [
-                Text(
-                  "查看全部评论",
-                  style: AppTextStyles.black_12.black38,
+    return comments.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[]
+              ..add(Text(
+                "评论 ${target.commentCount}",
+                style: AppTextStyles.black_16.bold,
+              ))
+              ..add(SizedBox(
+                height: 16,
+              ))
+              ..addAll(comments.take(3).map((e) {
+                return _CommentItemWidget(
+                  comment: e,
+                ) as Widget;
+              }).toList())
+              ..add(
+                InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "查看全部评论",
+                        style: AppTextStyles.black_12.black38,
+                      ),
+                      Icon(
+                        Icons.arrow_right,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      shape:RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(12))) ,
+                      builder: (context) {
+                        return Container(
+                          height:MediaQuery.of(context).size.height * 12.0 / 16.0 ,
+                          padding: EdgeInsets.only(
+                              left: 12, top: 16, right: 12, bottom: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(12)),
+                          ),
+                          child: AnswerCommentsPage(target.id!),
+                        );
+                      },
+                    );
+                  },
                 ),
-                Icon(Icons.ten_k),
-              ],
-            ),
-          ),
-      ),
-    );
+              ),
+          )
+        : LinearProgressIndicator();
   }
 }
 
@@ -227,14 +254,9 @@ class _CommentItemWidget extends StatelessWidget {
                 SizedBox(
                   height: 6,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      comment.createdTime!.date().format(),
-                      style: AppTextStyles.black_12.black38,
-                    ),
-                    Icon(Icons.ten_k),
-                  ],
+                Text(
+                  comment.createdTime!.date().format(),
+                  style: AppTextStyles.black_12.black38,
                 ),
               ],
             ),

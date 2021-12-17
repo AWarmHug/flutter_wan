@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wan/home/view.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/IconFontIcons.dart';
-import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/tools/tools_home.dart';
-import 'package:flutter_wan/tools/tree/view.dart';
-import 'package:flutter_wan/touch_fish/view.dart';
 import 'package:flutter_wan/touch_fish/zhihu/view.dart';
 import 'package:get/get.dart';
 
@@ -60,8 +57,6 @@ class _MainPageState extends State<MainPage> {
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         elevation: 4.0,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: Colors.grey.shade700,
       ),
     );
   }

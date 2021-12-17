@@ -11,7 +11,12 @@ import 'package:get/get.dart';
 import 'comments/comments_view.dart';
 import 'logic.dart';
 
-class VideoPage extends StatelessWidget {
+class VideoPage extends StatefulWidget {
+  @override
+  State<VideoPage> createState() => _VideoPageState();
+}
+
+class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     final logic = Get.put<VideoLogic>(VideoLogic());
@@ -42,6 +47,9 @@ class VideoPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class ZVideoItem extends StatelessWidget {
