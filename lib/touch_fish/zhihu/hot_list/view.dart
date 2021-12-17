@@ -12,21 +12,26 @@ import 'package:tuple/tuple.dart';
 
 import 'logic.dart';
 
-class QuestionPage extends StatelessWidget {
+class QuestionPage extends StatefulWidget {
   const QuestionPage({required this.type});
 
   final Tuple2<String, String> type;
 
   @override
+  State<QuestionPage> createState() => _QuestionPageState();
+}
+
+class _QuestionPageState extends State<QuestionPage> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
-    final logic = Get.put(QuestionLogic(type), tag: type.item2);
-    final state = Get.find<QuestionLogic>(tag: type.item2).state;
+    final logic = Get.put(QuestionLogic(widget.type), tag: widget.type.item2);
+    final state = Get.find<QuestionLogic>(tag: widget.type.item2).state;
 
     return NotificationListener(
       child: Container(
         child: GetBuilder<QuestionLogic>(
             init: logic,
-            tag: type.item2,
+            tag: widget.type.item2,
             builder: (logic) {
               return SmartRefresher(
                 onRefresh: logic.refreshHotListWeb,
@@ -55,6 +60,9 @@ class QuestionPage extends StatelessWidget {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class QuestionWidget extends StatelessWidget {
