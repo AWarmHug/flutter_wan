@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class WebHome extends StatelessWidget {
   const WebHome({Key? key}) : super(key: key);
@@ -29,8 +29,8 @@ class WebHome extends StatelessWidget {
         ],
       ),
       body: Container(
-        child: InAppWebView(
-          initialUrlRequest: URLRequest(url: Uri.parse(article.link!)),
+        child: WebView(
+          initialUrl: article.link!,
         ),
       ),
     );
