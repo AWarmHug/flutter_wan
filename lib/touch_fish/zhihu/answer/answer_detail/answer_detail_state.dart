@@ -11,6 +11,8 @@ class AnswerDetailState {
 
   List<AnswerComment> comments=[];
 
+  String? title;
+
 
 
 }

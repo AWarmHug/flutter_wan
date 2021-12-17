@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/answer_comments.dart';
 import 'package:flutter_wan/data/zhihu/feed_item.dart';
@@ -14,6 +15,28 @@ class AnswerDetailLogic extends GetxController {
 
   Target target = Get.arguments;
   Paging? paging;
+  late  ScrollController scrollController;
+  @override
+  void onInit() {
+    super.onInit();
+    scrollController=ScrollController()..addListener(() {
+      if(scrollController.position.pixels>200){
+        if(state.title==null) {
+          state.title = target.question!.title;
+          update(["title"]);
+        }
+      }else{
+        if(state.title!=null) {
+          state.title =null;
+          update(["title"]);
+        }
+      }
+    });
+
+
+
+    loadAnswerComments();
+  }
 
   Future<void> loadAnswerComments() async {
     String path;
@@ -40,9 +63,4 @@ class AnswerDetailLogic extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadAnswerComments();
-  }
 }

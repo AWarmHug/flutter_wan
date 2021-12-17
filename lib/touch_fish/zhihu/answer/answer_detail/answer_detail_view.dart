@@ -18,17 +18,51 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'answer_detail_logic.dart';
 
-class AnswerDetailPage extends StatelessWidget {
+class AnswerDetailPage extends StatefulWidget {
+  @override
+  State<AnswerDetailPage> createState() => _AnswerDetailPageState();
+}
+
+class _AnswerDetailPageState extends State<AnswerDetailPage>
+    with SingleTickerProviderStateMixin {
   final logic = Get.put(AnswerDetailLogic());
+
   final state = Get.find<AnswerDetailLogic>().state;
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: GetBuilder<AnswerDetailLogic>(
+          id: "title",
+          builder: (logic) {
+            if (state.title != null) {
+              controller.reset();
+              controller.forward();
+            }else{
+              controller.reverse();
+            }
+            return FadeTransition(
+              opacity: controller,
+              child: Container(
+                child: Text(state.target.question!.title!),
+              ),
+            );
+          },
+        ),
       ),
       body: SingleChildScrollView(
+        controller: logic.scrollController,
         child: GetBuilder<AnswerDetailLogic>(builder: (logic) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,6 +93,12 @@ class AnswerDetailPage extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
 
@@ -117,16 +157,6 @@ class _ContentWidget extends StatefulWidget {
 }
 
 class _ContentWidgetState extends State<_ContentWidget> {
-  Future<void> _onNavigationDelegateExample(
-      WebViewController controller, BuildContext context) async {
-    final String contentBase64 =
-    base64Encode(const Utf8Encoder().convert(widget.target.content!));
-    await controller.loadUrl('data:text/html;base64,$contentBase64');
-  }
-
-  final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
-
   @override
   void initState() {
     super.initState();
@@ -137,7 +167,6 @@ class _ContentWidgetState extends State<_ContentWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       child: Column(
@@ -218,10 +247,13 @@ class _CommentsWidget extends StatelessWidget {
                     showModalBottomSheet(
                       isScrollControlled: true,
                       context: context,
-                      shape:RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(12))) ,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(12))),
                       builder: (context) {
                         return Container(
-                          height:MediaQuery.of(context).size.height * 12.0 / 16.0 ,
+                          height:
+                              MediaQuery.of(context).size.height * 12.0 / 16.0,
                           padding: EdgeInsets.only(
                               left: 12, top: 16, right: 12, bottom: 12),
                           decoration: BoxDecoration(
