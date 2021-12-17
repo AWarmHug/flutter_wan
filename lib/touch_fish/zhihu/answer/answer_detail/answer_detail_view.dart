@@ -1,18 +1,20 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_wan/component/zhihu/question.dart';
 import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/author.dart';
 import 'package:flutter_wan/data/zhihu/feed_item.dart';
-import 'package:flutter_wan/data/zhihu/question.dart';
 import 'package:flutter_wan/data/zhihu/target.dart';
-import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/answer_comments/answer_comments_view.dart';
-import 'package:flutter_wan/touch_fish/zhihu/video/comments/comments_view.dart';
 import 'package:flutter_wan/widget/network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter_wan/extensions.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'answer_detail_logic.dart';
 
@@ -32,7 +34,7 @@ class AnswerDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               QuestionWidget(
-                question: state.feedItem.target!.question,
+                question: state.target.question,
               ),
               Container(
                 color: Colors.black12,
@@ -40,15 +42,15 @@ class AnswerDetailPage extends StatelessWidget {
                 height: 0.5,
               ),
               _AuthorWidget(
-                author: state.feedItem.target!.author!,
+                author: state.target.author!,
               ),
               _ContentWidget(
-                feedItem: state.feedItem,
+                target: state.target,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
                 child: _CommentsWidget(
-                  target: state.feedItem.target!,
+                  target: state.target,
                   comments: state.comments,
                 ),
               ),
@@ -106,19 +108,43 @@ class _AuthorWidget extends StatelessWidget {
   }
 }
 
-class _ContentWidget extends StatelessWidget {
-  const _ContentWidget({Key? key, required this.feedItem}) : super(key: key);
-  final FeedItem feedItem;
+class _ContentWidget extends StatefulWidget {
+  const _ContentWidget({Key? key, required this.target}) : super(key: key);
+  final Target target;
+
+  @override
+  State<_ContentWidget> createState() => _ContentWidgetState();
+}
+
+class _ContentWidgetState extends State<_ContentWidget> {
+  Future<void> _onNavigationDelegateExample(
+      WebViewController controller, BuildContext context) async {
+    final String contentBase64 =
+    base64Encode(const Utf8Encoder().convert(widget.target.content!));
+    await controller.loadUrl('data:text/html;base64,$contentBase64');
+  }
+
+  final Completer<WebViewController> _controller =
+  Completer<WebViewController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Html(
-            data: "<body>${feedItem.target!.content}</body>",
+            data: "<body>${widget.target.content}</body>",
             style: {
               "body": Style(
                 padding: EdgeInsets.all(0),
@@ -134,9 +160,9 @@ class _ContentWidget extends StatelessWidget {
             height: 8,
           ),
           Text(
-            feedItem.updatedTime != feedItem.createdTime
-                ? "编辑于 ${feedItem.updatedTime!.date().format()} 创作于 ${feedItem.createdTime!.date().format()}"
-                : "创作于 ${feedItem.createdTime!.date().format()}",
+            widget.target.updatedTime != widget.target.createdTime
+                ? "编辑于 ${widget.target.updatedTime!.date().format()} 创作于 ${widget.target.createdTime!.date().format()}"
+                : "创作于 ${widget.target.createdTime!.date().format()}",
             style: AppTextStyles.black_12.black38,
           ),
           SizedBox(

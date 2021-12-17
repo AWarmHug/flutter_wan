@@ -49,8 +49,4 @@ class AnswerLogic extends GetxController {
       return Future.error(response.error!);
     }
   }
-
-  Future<void> clickItem(FeedItem feedItem) async {
-    Get.to("/touch_fish/zhihu/answer_detail",arguments: feedItem);
-  }
 }

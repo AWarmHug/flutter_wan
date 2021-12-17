@@ -73,7 +73,7 @@ class PageItem extends StatelessWidget {
     debugPrint("_______${feedItem.target!.question}");
     return InkWell(
       onTap: () {
-        Get.toNamed("/touch_fish/zhihu/answer_detail", arguments: feedItem);
+        Get.toNamed("/touch_fish/zhihu/answer_detail", arguments: feedItem.target);
       },
       child: Container(
         padding: EdgeInsets.all(12),

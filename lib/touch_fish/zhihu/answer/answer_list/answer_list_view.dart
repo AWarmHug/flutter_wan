@@ -21,9 +21,16 @@ class AnswerListPage extends StatelessWidget {
                   question: state.question,
                 );
               } else {
-                return Container(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                  child: AnswerWidget(target: state.answers[index - 1]),
+                return InkWell(
+                  onTap: () {
+                    state.answers[index - 1].question=state.question!;
+                    Get.toNamed("/touch_fish/zhihu/answer_detail",
+                        arguments: state.answers[index - 1]);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                    child: AnswerWidget(target: state.answers[index - 1]),
+                  ),
                 );
               }
             },
