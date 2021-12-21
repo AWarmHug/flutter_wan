@@ -29,7 +29,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
     tabController = TabController(initialIndex: 1, length: 3, vsync: this)
       ..addListener(() {
         setState(() {
-          Get.find<AppLogic>().changeMode(tabController.index != 0);
+          Get.find<AppLogic>().changeTheme(tabController.index != 0);
         });
       });
 
@@ -67,5 +67,18 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
       ),
       body: body,
     );
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    debugPrint("-----deactivate");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    debugPrint("-----ispose");
+
   }
 }

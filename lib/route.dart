@@ -7,7 +7,6 @@ import 'package:flutter_wan/tools/nav/navigation_page.dart';
 import 'package:flutter_wan/tools/project/view.dart';
 import 'package:flutter_wan/tools/wx_article/detail/view.dart';
 import 'package:flutter_wan/tools/wx_article/wx_article_page.dart';
-import 'package:flutter_wan/touch_fish/view.dart';
 import 'package:flutter_wan/web/home.dart';
 import 'package:get/get.dart';
 
@@ -18,10 +17,6 @@ import 'touch_fish/zhihu/answer/answer_list/answer_list_view.dart';
 import 'touch_fish/zhihu/view.dart';
 
 final pages = <GetPage>[
-  GetPage(
-    name: "/douyin",
-    page: () => TouchFishPage(),
-  ),
   GetPage(
     name: "/search",
     page: () => SearchHome(),

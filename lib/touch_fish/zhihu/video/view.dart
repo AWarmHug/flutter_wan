@@ -8,6 +8,7 @@ import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
 
+import '../../../main.dart';
 import 'comments/comments_view.dart';
 import 'logic.dart';
 
@@ -23,33 +24,35 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
     final state = Get
         .find<VideoLogic>()
         .state;
-    return Theme(
-      data: ThemeData.dark(),
-      child: Scaffold(
-        body: Container(
-          color: Colors.black,
-          child: GetBuilder<VideoLogic>(builder: (logic) {
-            return PageView.builder(
-              itemBuilder: (context, index) {
-                if (state.videos[index] is Answer) {
-                  return AnswerItem(state.videos[index] as Answer);
-                } else if (state.videos[index] is ZVideo) {
-                  return ZVideoItem(state.videos[index] as ZVideo);
-                } else {
-                  return Text(state.videos[index].type!);
-                }
-              },
-              itemCount: state.videos.length,
-              scrollDirection: Axis.vertical,
-            );
-          }),
-        ),
+    return Scaffold(
+      body: Container(
+        color: Colors.black,
+        child: GetBuilder<VideoLogic>(builder: (logic) {
+          return PageView.builder(
+            itemBuilder: (context, index) {
+              if (state.videos[index] is Answer) {
+                return AnswerItem(state.videos[index] as Answer);
+              } else if (state.videos[index] is ZVideo) {
+                return ZVideoItem(state.videos[index] as ZVideo);
+              } else {
+                return Text(state.videos[index].type!);
+              }
+            },
+            itemCount: state.videos.length,
+            scrollDirection: Axis.vertical,
+          );
+        }),
       ),
     );
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }
 
 class ZVideoItem extends StatelessWidget {
