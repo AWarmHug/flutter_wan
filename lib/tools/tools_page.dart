@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/tools/animation/animation_page.dart';
+import 'package:flutter_wan/tools/animation/tween_page.dart';
 import 'package:flutter_wan/tools/custom/custom_page.dart';
 import 'package:get/get.dart';
 
