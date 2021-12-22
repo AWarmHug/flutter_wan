@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/tools/animation/tween_page.dart';
 
+import 'animated_decorated_box_page.dart';
+import 'animated_switcher_page.dart';
 import 'hero_animation_page.dart';
 import 'route_animation_page.dart';
 import 'stagger_animation_page.dart';
@@ -61,6 +63,28 @@ class AnimationPage extends StatelessWidget {
               );
             },
             child: Text("StaggerAnimationPage"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => AnimatedSwitcherPage(),
+                ),
+              );
+            },
+            child: Text("AnimatedSwitcherPage"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => AnimatedDecoratedBoxPage(),
+                ),
+              );
+            },
+            child: Text("AnimatedDecoratedBoxPage"),
           ),
         ],
       ),
