@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/tools/animation/tween_page.dart';
 
+import 'hero_animation_page.dart';
 import 'route_animation_page.dart';
+import 'stagger_animation_page.dart';
 
 class AnimationPage extends StatelessWidget {
   const AnimationPage({Key? key}) : super(key: key);
@@ -37,6 +39,28 @@ class AnimationPage extends StatelessWidget {
               );
             },
             child: Text("RouteAnimation"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => HeroPage(),
+                ),
+              );
+            },
+            child: Text("Hero"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => StaggerAnimationPage(),
+                ),
+              );
+            },
+            child: Text("StaggerAnimationPage"),
           ),
         ],
       ),
