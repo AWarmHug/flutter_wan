@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/zhihu/play_list.dart';
+import 'package:flutter_wan/eventbus.dart';
 import 'package:video_player/video_player.dart';
 
 class AppVideoPlayer extends StatefulWidget {
@@ -27,6 +28,14 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
       }).catchError((error){
         debugPrint("发生错误：${error.toString()}");
       });
+    bus.on("video", (arg) {
+      if(arg){
+        _controller.play();
+      }else{
+        _controller.pause();
+      }
+
+    });
     super.initState();
   }
 

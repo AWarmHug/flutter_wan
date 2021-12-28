@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/eventbus.dart';
 import 'package:flutter_wan/home/view.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/IconFontIcons.dart';
@@ -52,9 +53,8 @@ class _MainPageState extends State<MainPage> {
           setState(() {
             _selectedIndex = value;
             if(value==0) {
-              AppVideoPlayer.of(context)?.pause();
+              bus.emit("video",false);
             }
-
           });
         },
         currentIndex: _selectedIndex,
