@@ -19,6 +19,8 @@ class AnswerPage extends StatefulWidget {
 class _AnswerPageState extends State<AnswerPage> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final logic = Get.put(AnswerLogic());
     final state = Get.find<AnswerLogic>().state;
 

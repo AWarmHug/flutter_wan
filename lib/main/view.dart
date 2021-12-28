@@ -4,6 +4,7 @@ import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/tools/tools_home.dart';
 import 'package:flutter_wan/touch_fish/zhihu/view.dart';
+import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';
@@ -50,6 +51,10 @@ class _MainPageState extends State<MainPage> {
         onTap: (value) {
           setState(() {
             _selectedIndex = value;
+            if(value==0) {
+              AppVideoPlayer.of(context)?.pause();
+            }
+
           });
         },
         currentIndex: _selectedIndex,

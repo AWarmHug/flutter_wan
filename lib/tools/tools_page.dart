@@ -3,6 +3,8 @@ import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/tools/animation/animation_page.dart';
 import 'package:flutter_wan/tools/animation/tween_page.dart';
 import 'package:flutter_wan/tools/custom/custom_page.dart';
+import 'package:flutter_wan/tools/key/key_page.dart';
+import 'package:flutter_wan/tools/key/simple_demo_page.dart';
 import 'package:get/get.dart';
 
 class ToolsPage extends StatefulWidget {
@@ -99,6 +101,19 @@ class _ToolsPageState extends State<ToolsPage> {
             ),
             onTap: () {
               Get.to(AnimationPage());
+            },
+          ),
+          InkWell(
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconProject),
+                  Text("Key"),
+                ],
+              ),
+            ),
+            onTap: () {
+              Get.to(KeyPage());
             },
           ),
         ],

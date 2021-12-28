@@ -24,6 +24,8 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final logic = Get.put(QuestionLogic(widget.type), tag: widget.type.item2);
     final state = Get.find<QuestionLogic>(tag: widget.type.item2).state;
 

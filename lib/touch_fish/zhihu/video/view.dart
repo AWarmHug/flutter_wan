@@ -8,7 +8,6 @@ import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
 
-import '../../../main.dart';
 import 'comments/comments_view.dart';
 import 'logic.dart';
 
@@ -17,9 +16,10 @@ class VideoPage extends StatefulWidget {
   State<VideoPage> createState() => _VideoPageState();
 }
 
-class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin {
+class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin<VideoPage> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final logic = Get.put<VideoLogic>(VideoLogic());
     final state = Get
         .find<VideoLogic>()
@@ -48,6 +48,12 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    debugPrint("------deactivate");
+  }
 
   @override
   void dispose() {

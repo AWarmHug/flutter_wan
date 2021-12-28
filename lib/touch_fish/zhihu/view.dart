@@ -3,6 +3,7 @@ import 'package:flutter_wan/main.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
+import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 
@@ -26,6 +27,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
     tabController = TabController(initialIndex: 1, length: 3, vsync: this)
       ..addListener(() {
         setState(() {
@@ -68,6 +70,11 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
       body: body,
     );
   }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+  }
 
   @override
   void deactivate() {
@@ -79,6 +86,5 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
   void dispose() {
     super.dispose();
     debugPrint("-----ispose");
-
   }
 }
