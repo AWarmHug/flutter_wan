@@ -8,6 +8,7 @@ import 'package:flutter_wan/touch_fish/zhihu/view.dart';
 import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get.dart';
 
+import '../main.dart';
 import 'logic.dart';
 import 'state.dart';
 
@@ -52,7 +53,8 @@ class _MainPageState extends State<MainPage> {
         onTap: (value) {
           setState(() {
             _selectedIndex = value;
-            if(value==0) {
+            if(value!=1) {
+              Get.find<AppLogic>().changeTheme(true);
               bus.emit("video",false);
             }
           });

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/zhihu/answer.dart';
-import 'package:flutter_wan/data/zhihu/answer_comment.dart';
 import 'package:flutter_wan/data/zhihu/author.dart';
 import 'package:flutter_wan/data/zhihu/zvideo.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
@@ -16,14 +15,13 @@ class VideoPage extends StatefulWidget {
   State<VideoPage> createState() => _VideoPageState();
 }
 
-class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin<VideoPage> {
+class _VideoPageState extends State<VideoPage>
+    with AutomaticKeepAliveClientMixin<VideoPage> {
   @override
   Widget build(BuildContext context) {
     super.build(context);
     final logic = Get.put<VideoLogic>(VideoLogic());
-    final state = Get
-        .find<VideoLogic>()
-        .state;
+    final state = Get.find<VideoLogic>().state;
     return Scaffold(
       body: Container(
         color: Colors.black,
@@ -64,19 +62,16 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
 class ZVideoItem extends StatelessWidget {
   final logic = Get.put<VideoLogic>(VideoLogic());
 
-  final state = Get
-      .find<VideoLogic>()
-      .state;
+  final state = Get.find<VideoLogic>().state;
 
   ZVideoItem(this.zvideo, {Key? key}) : super(key: key);
   final ZVideo zvideo;
 
-
   TopicsWid() {
     return zvideo.topics != null
         ? TopicsWidget(
-      topics: zvideo.topics!,
-    )
+            topics: zvideo.topics!,
+          )
         : SizedBox();
   }
 

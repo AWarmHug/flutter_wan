@@ -80,8 +80,10 @@ class AppLogic extends GetxController {
   bool isLight = true;
 
   void changeTheme(bool light) {
-    isLight = light;
-    _themeData = isLight ? lightTheme() : darkTheme();
-    Get.changeTheme(_themeData);
+    if (isLight != light) {
+      isLight = light;
+      _themeData = isLight ? lightTheme() : darkTheme();
+      Get.changeTheme(_themeData);
+    }
   }
 }

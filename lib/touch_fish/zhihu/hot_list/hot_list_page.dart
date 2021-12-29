@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/http.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/widget/page_view_scroll_utils.dart';
 
 import 'view.dart';
 
@@ -12,18 +13,20 @@ class HotListPage extends StatefulWidget {
 }
 
 class _HotListPageState extends State<HotListPage>
-    with TickerProviderStateMixin ,AutomaticKeepAliveClientMixin{
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: HOT_LIST_TYPE.length, vsync: this)
-      ..addListener(() {});
+    tabController = TabController(length: HOT_LIST_TYPE.length, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       children: [
         TabBar(
@@ -46,33 +49,12 @@ class _HotListPageState extends State<HotListPage>
                   ))
               .toList(),
         ),
-        Expanded(
-          child: NotificationListener(
-            child: TabBarView(
-              children:
-                  HOT_LIST_TYPE.map((e) => QuestionPage(type: e)).toList(),
-              controller: tabController,
-            ),
-            onNotification: (notification) {
-              debugPrint("-------notification = ${notification}");
-              if (notification is ScrollUpdateNotification) {
-                debugPrint(
-                    "-------notification-ScrollUpdateNotification = ${notification.scrollDelta}");
-              } else if (notification is ScrollMetricsNotification) {
-                var metrics = notification.metrics;
-                if (metrics is PageMetrics) {
-                  debugPrint(
-                      "-------notification-ScrollMetricsNotification = 滚动位置 ${metrics.extentBefore}");
-                  debugPrint(
-                      "-------notification-ScrollMetricsNotification = 页面宽度 ${metrics.extentInside}");
-                  debugPrint(
-                      "-------notification-ScrollMetricsNotification = 剩余 ${metrics.extentAfter}");
-                  debugPrint(
-                      "-------notification-ScrollMetricsNotification = pixels ${metrics.pixels}");
-                }
-              }
-              return true;
-            },
+        Container(
+          height: screenHeight * 0.70,
+          child: TabBarView(
+            children: HOT_LIST_TYPE.map((e) => QuestionPage(type: e)).toList(),
+            controller: tabController,
+            // physics:ClampingScrollPhysics() ,
           ),
         ),
       ],

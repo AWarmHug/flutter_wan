@@ -7,6 +7,8 @@ import 'package:flutter_wan/tools/key/key_page.dart';
 import 'package:flutter_wan/tools/key/simple_demo_page.dart';
 import 'package:get/get.dart';
 
+import 'widget/demo_page.dart';
+
 class ToolsPage extends StatefulWidget {
   const ToolsPage({Key? key}) : super(key: key);
 
@@ -75,6 +77,19 @@ class _ToolsPageState extends State<ToolsPage> {
             )),
             onTap: () {
               Get.toNamed("/tools/project_page");
+            },
+          ),
+          InkWell(
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconProject),
+                  Text("Widget"),
+                ],
+              ),
+            ),
+            onTap: () {
+              Get.to(WidgetPage());
             },
           ),
           InkWell(
