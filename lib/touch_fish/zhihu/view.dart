@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_view_nested_utils/page_view_nested_utils.dart';
+import 'package:flutter_page_view_nested_utils/tabbar_view.dart';
 import 'package:flutter_wan/main.dart';
-import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
-import 'package:flutter_wan/widget/page_view_scroll_utils.dart';
-import 'package:flutter_wan/widget/player.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 
 import '../../eventbus.dart';
 import 'hot_list/hot_list_page.dart';
-import 'hot_list/view.dart';
 import 'video/view.dart';
 
 class ZhihuPage extends StatefulWidget {
@@ -23,7 +21,6 @@ class ZhihuPage extends StatefulWidget {
 class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
   int tabIndex = 0;
   late TabController tabController;
-  late PageController _pageController;
 
   late Widget title;
   late Widget body;
@@ -46,9 +43,6 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
       ..addListener(() {
         changePage();
       });
-    _pageController = PageController(initialPage: 1);
-    PageViewScrollUtils _pageViewScrollUtils =
-        PageViewScrollUtils(_pageController);
     title = Center(
       child: TabBar(
         controller: tabController,
@@ -57,10 +51,6 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
         indicatorColor: Colors.white,
         isScrollable: true,
         labelStyle: AppTextStyles.white_14.bold,
-        onTap: (value) {
-          _pageController.animateToPage(value,
-              duration: Duration(milliseconds: 300), curve: Curves.ease);
-        },
         tabs: [
           Tab(text: "视频"),
           Tab(text: "推荐"),
@@ -68,7 +58,7 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
         ],
       ),
     );
-    body = TabBarView(
+    body = NestedTabBarView(
       children: [
         VideoPage(),
         AnswerPage(),

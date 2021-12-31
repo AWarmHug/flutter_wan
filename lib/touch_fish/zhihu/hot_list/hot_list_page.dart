@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/http.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
-import 'package:flutter_wan/widget/page_view_scroll_utils.dart';
 
 import 'view.dart';
 
@@ -25,7 +24,6 @@ class _HotListPageState extends State<HotListPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
       children: [
@@ -49,8 +47,7 @@ class _HotListPageState extends State<HotListPage>
                   ))
               .toList(),
         ),
-        Container(
-          height: screenHeight * 0.70,
+        Expanded(
           child: TabBarView(
             children: HOT_LIST_TYPE.map((e) => QuestionPage(type: e)).toList(),
             controller: tabController,
