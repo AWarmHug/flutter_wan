@@ -12,14 +12,15 @@ import 'package:get/get.dart';
 import 'logic.dart';
 
 class AnswerPage extends StatefulWidget {
+  const AnswerPage({Key? key}) : super(key: key);
+
   @override
   State<AnswerPage> createState() => _AnswerPageState();
 }
 
-class _AnswerPageState extends State<AnswerPage> with AutomaticKeepAliveClientMixin{
+class _AnswerPageState extends State<AnswerPage>{
   @override
   Widget build(BuildContext context) {
-    super.build(context);
 
     final logic = Get.put(AnswerLogic());
     final state = Get.find<AnswerLogic>().state;
@@ -60,9 +61,6 @@ class _AnswerPageState extends State<AnswerPage> with AutomaticKeepAliveClientMi
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class PageItem extends StatelessWidget {

@@ -21,11 +21,9 @@ class QuestionPage extends StatefulWidget {
   State<QuestionPage> createState() => _QuestionPageState();
 }
 
-class _QuestionPageState extends State<QuestionPage> with AutomaticKeepAliveClientMixin {
+class _QuestionPageState extends State<QuestionPage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     final logic = Get.put(QuestionLogic(widget.type), tag: widget.type.item2);
     final state = Get.find<QuestionLogic>(tag: widget.type.item2).state;
 
@@ -62,9 +60,6 @@ class _QuestionPageState extends State<QuestionPage> with AutomaticKeepAliveClie
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class QuestionWidget extends StatelessWidget {

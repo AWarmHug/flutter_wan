@@ -11,15 +11,15 @@ import 'comments/comments_view.dart';
 import 'logic.dart';
 
 class VideoPage extends StatefulWidget {
+  VideoPage({Key? key}) : super(key: key);
+
   @override
   State<VideoPage> createState() => _VideoPageState();
 }
 
-class _VideoPageState extends State<VideoPage>
-    with AutomaticKeepAliveClientMixin<VideoPage> {
+class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final logic = Get.put<VideoLogic>(VideoLogic());
     final state = Get.find<VideoLogic>().state;
     return Scaffold(
@@ -44,13 +44,10 @@ class _VideoPageState extends State<VideoPage>
     );
   }
 
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void deactivate() {
     super.deactivate();
-    debugPrint("------deactivate");
   }
 
   @override

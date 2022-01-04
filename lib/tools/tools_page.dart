@@ -7,6 +7,7 @@ import 'package:flutter_wan/tools/key/key_page.dart';
 import 'package:flutter_wan/tools/key/simple_demo_page.dart';
 import 'package:get/get.dart';
 
+import 'error/error_page.dart';
 import 'widget/demo_page.dart';
 
 class ToolsPage extends StatefulWidget {
@@ -129,6 +130,19 @@ class _ToolsPageState extends State<ToolsPage> {
             ),
             onTap: () {
               Get.to(KeyPage());
+            },
+          ),
+          InkWell(
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconProject),
+                  Text("拦截Error信息"),
+                ],
+              ),
+            ),
+            onTap: () {
+              Get.to(ErrorPage());
             },
           ),
         ],

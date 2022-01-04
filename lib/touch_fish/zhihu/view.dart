@@ -60,9 +60,9 @@ class _ZhihuPageState extends State<ZhihuPage> with TickerProviderStateMixin {
     );
     body = NestedTabBarView(
       children: [
-        VideoPage(),
-        AnswerPage(),
-        HotListPage(),
+        VideoPage(key: PageStorageKey("视频"),),
+        AnswerPage(key: PageStorageKey("推荐"),),
+        HotListPage(key: PageStorageKey("热榜"),),
       ],
       controller: tabController,
     );

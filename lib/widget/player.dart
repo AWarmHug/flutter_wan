@@ -28,14 +28,13 @@ class _AppVideoPlayerState extends State<AppVideoPlayer> {
       }).catchError((error){
         debugPrint("发生错误：${error.toString()}");
       });
-    bus.on("video", (arg) {
-      if(arg){
-        _controller.play();
-      }else{
-        _controller.pause();
-      }
-
-    });
+    // bus.on("video", (arg) {
+    //   if(arg){
+    //     _controller.play();
+    //   }else{
+    //     _controller.pause();
+    //   }
+    // });
     super.initState();
   }
 
