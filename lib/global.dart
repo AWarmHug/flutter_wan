@@ -10,6 +10,7 @@ import 'http.dart';
 
 class Global {
   static late SharedPreferences prefs;
+  //path_provider相关内容 https://zhuanlan.zhihu.com/p/90071559
   static late Directory directory;
 
   static Future<void> init() async {

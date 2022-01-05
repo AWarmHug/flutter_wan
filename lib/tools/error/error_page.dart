@@ -5,15 +5,7 @@ import 'package:flutter/material.dart';
 class ErrorPage extends StatelessWidget {
   const ErrorPage({Key? key}) : super(key: key);
 
-  void collectLog(String line) {
-    debugPrint("-----collectLog----$line");
-  }
-
-  void reportErrorAndLog(FlutterErrorDetails details) {
-    debugPrint("-----reportErrorAndLog----$details");
-  }
-
- final String? a=null;
+  final String? a = null;
 
   void throwError() {
     // int.parse("source");
@@ -30,35 +22,19 @@ class ErrorPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Text(""),
               MaterialButton(
                 onPressed: () {
-                  var onError = FlutterError.onError; //先将 onerror 保存起来
-                  FlutterError.onError = (FlutterErrorDetails details) {
-                    onError?.call(details);
-                    reportErrorAndLog(details);
-                  };
-
-                  runZoned(
-                    () {
-                      // throwError();
-                      Future.delayed(Duration(seconds: 1)).then((e) => throwError());
-
-                    },
-                    zoneSpecification: ZoneSpecification(
-                      print: (self, parent, zone, line) {
-                        collectLog(line);
-                        parent.print(zone, "Interceptor: $line");
-                      },
-                      handleUncaughtError:
-                          (self, parent, zone, error, stackTrace) {
-                        // reportErrorAndLog(details);
-                        parent.print(zone, '${error.toString()} $stackTrace');
-                      },
-                    ),
-                  );
+                  throwError();
                 },
-                child: Text("点我报错"),
+                child: Text("同步错误"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  // throwError();
+                  Future.delayed(Duration(seconds: 1))
+                      .then((e) => throwError());
+                },
+                child: Text("异步错误"),
               ),
             ],
           ),

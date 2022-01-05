@@ -1,17 +1,57 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:date_format/date_format.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'global.dart';
 import 'main/view.dart';
 import 'route.dart';
 
+void collectLog(String line) {
+  debugPrint("-----collectLog----$line");
+}
+
+void reportErrorAndLog(Object error, StackTrace? stack) async {
+  debugPrint("-----reportErrorAndLog----error=$error,stack=$stack");
+  Directory directory = await getDirectory();
+  DateTime now = DateTime.now();
+  String txtName = formatDate(now, [yyyy, "-", mm, '-', dd]);
+  File file = File("${directory.path}${Platform.pathSeparator}${txtName}.txt");
+  debugPrint("-----reportErrorAndLog----file=$file");
+  IOSink ioSink = file.openWrite(mode: FileMode.append);
+  ioSink.writeln(now);
+  ioSink.writeln(error);
+  ioSink.writeln(stack);
+  await ioSink.flush();
+  await ioSink.close();
+}
+
+Future<Directory> getDirectory() async {
+  Directory directory = await getApplicationDocumentsDirectory();
+  return directory;
+}
+
 void main() {
-  runApp(MyApp());
+  var onError = FlutterError.onError; //先将 onerror 保存起来
+  FlutterError.onError = (FlutterErrorDetails details) {
+    onError?.call(details);
+    reportErrorAndLog(details.exception, details.stack);
+  };
+
+  runZonedGuarded(
+    () {
+      runApp(MyApp());
+    },
+    (Object error, StackTrace stack) {
+      reportErrorAndLog(error, stack);
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
