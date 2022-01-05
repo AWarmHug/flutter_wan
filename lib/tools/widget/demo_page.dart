@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'inherited_widget/inherited_widget_page.dart';
 import 'page_view/page_view_page.dart';
+import 'provider/provider_page.dart';
 import 'scrollable/scrollable_page.dart';
 
 class WidgetPage extends StatefulWidget {
@@ -31,6 +32,17 @@ class _WidgetPageState extends State<WidgetPage> {
               );
             },
             child: Text("InheritedWidgetPage"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => ProviderPage(),
+                ),
+              );
+            },
+            child: Text("ProviderPage"),
           ),
           TextButton(
             onPressed: () {
