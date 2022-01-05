@@ -31,7 +31,9 @@ class HomePageController extends GetxController {
   }
 
   void loadArticleListNext() {
-    _loadArticleList(_pageNum).then((value) {});
+    _loadArticleList(_pageNum).then((value) {}).catchError((error){
+      changeStatus(Status.ERROR);
+    });
   }
 
   Future<void> _loadArticleList(int pageNum) async {

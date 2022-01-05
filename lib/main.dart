@@ -17,13 +17,13 @@ void collectLog(String line) {
   debugPrint("-----collectLog----$line");
 }
 
-void reportErrorAndLog(Object error, StackTrace? stack) async {
-  debugPrint("-----reportErrorAndLog----error=$error,stack=$stack");
+void reportErrorAndLog(bool isSync, Object error, StackTrace? stack) async {
+  debugPrint(
+      "-----reportErrorAndLog-----isSync=$isSync----error=$error,stack=$stack");
   Directory directory = await getDirectory();
   DateTime now = DateTime.now();
   String txtName = formatDate(now, [yyyy, "-", mm, '-', dd]);
   File file = File("${directory.path}${Platform.pathSeparator}${txtName}.txt");
-  debugPrint("-----reportErrorAndLog----file=$file");
   IOSink ioSink = file.openWrite(mode: FileMode.append);
 
   ioSink.writeln(
@@ -44,7 +44,7 @@ void main() {
   var onError = FlutterError.onError; //先将 onerror 保存起来
   FlutterError.onError = (FlutterErrorDetails details) {
     onError?.call(details);
-    reportErrorAndLog(details.exception, details.stack);
+    reportErrorAndLog(true, details.exception, details.stack);
   };
 
   runZonedGuarded(
@@ -52,8 +52,9 @@ void main() {
       runApp(MyApp());
     },
     (Object error, StackTrace stack) {
-      reportErrorAndLog(error, stack);
+      reportErrorAndLog(false, error, stack);
     },
+    zoneSpecification: ZoneSpecification()
   );
 }
 

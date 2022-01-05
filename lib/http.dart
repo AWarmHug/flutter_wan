@@ -36,40 +36,33 @@ import 'data/zhihu/answer_comments.dart';
 //https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&mobile=true
 //https://www.zhihu.com/api/v3/feed/topstory/hot-lists/science?limit=50&mobile=true
 
-const List<Tuple2<String,String>> HOT_LIST_TYPE=[
-  Tuple2("全站","total"),
-  Tuple2("科学","science"),
-  Tuple2("数码","digital"),
-  Tuple2("体育","sport"),
-  Tuple2("时尚","fashion"),
-  Tuple2("影视","film"),
-  Tuple2("校园","school"),
-  Tuple2("汽车","car"),
-  Tuple2("时事","depth"),
-  Tuple2("国际","focus"),
-
+const List<Tuple2<String, String>> HOT_LIST_TYPE = [
+  Tuple2("全站", "total"),
+  Tuple2("科学", "science"),
+  Tuple2("数码", "digital"),
+  Tuple2("体育", "sport"),
+  Tuple2("时尚", "fashion"),
+  Tuple2("影视", "film"),
+  Tuple2("校园", "school"),
+  Tuple2("汽车", "car"),
+  Tuple2("时事", "depth"),
+  Tuple2("国际", "focus"),
 ];
 
 //根据回答问题id获取更多问题
 //https://www.zhihu.com/api/v4/hot_recommendation?show_ad=true&source=question&source_id=506002000&utm_source=
 
-
-
-
 const BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
 const BASE_URL_ZHIHU = "https://www.zhihu.com/api/";
 
-const BASE_URL_KAIYAN="http://baobab.kaiyanapp.com/api/";
-
+const BASE_URL_KAIYAN = "http://baobab.kaiyanapp.com/api/";
 
 class Http {
-
   static BaseOptions _optionsKaiyan = BaseOptions(
     baseUrl: kIsWeb ? "http://localhost:4502/" : BASE_URL_KAIYAN,
     connectTimeout: 10000,
     receiveTimeout: 10000,
   );
-
 
   static BaseOptions _optionsZhihu = BaseOptions(
     baseUrl: kIsWeb ? "http://localhost:4501/" : BASE_URL_ZHIHU,
@@ -100,12 +93,12 @@ class Http {
   }
 
   static Future<Map<String, dynamic>> _get(
-      String path, {
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onReceiveProgress,
-      }) async {
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     if (path.startsWith("v3") || path.startsWith("v4")) {
       dio.options = _optionsZhihu;
       // dio.options.headers.addAll({
@@ -129,30 +122,29 @@ class Http {
             AppError(response.statusCode, response.statusMessage));
       }
     } on DioError catch (dioError) {
-      return Future.error(AppError(AppError.ERROR_NETWORK, "网络请求失败，请稍后重试"));
+      return Future.error(
+          AppError(AppError.ERROR_NETWORK, "网络请求失败，请稍后重试"), StackTrace.current);
     }
   }
 
+  static Future<R> get2<R extends ResponseWan, T>(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    var json = await _get(path,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress);
 
-  static Future<R> get2<R extends ResponseWan,T>(
-      String path, {
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onReceiveProgress,
-      }) async {
-
-     var json= await _get(path,
-         queryParameters: queryParameters,
-         options: options,
-         cancelToken: cancelToken,
-         onReceiveProgress: onReceiveProgress);
-
-     if(R.toString().contains("AnswerComments")){
-       return AnswerComments.fromJson(json) as R;
-     }else {
-       return ResponseWan<T>.fromJson(json) as R;
-     }
+    if (R.toString().contains("AnswerComments")) {
+      return AnswerComments.fromJson(json) as R;
+    } else {
+      return ResponseWan<T>.fromJson(json) as R;
+    }
   }
 
   static Future<ResponseWan<R>> get<R>(
@@ -162,13 +154,11 @@ class Http {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-
-    return get2<ResponseWan<R>,R>(path,
+    return get2<ResponseWan<R>, R>(path,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress);
-
   }
 
   static Future<ResponseWan<R>> post<R>(
