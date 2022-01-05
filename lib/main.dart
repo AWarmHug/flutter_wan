@@ -25,6 +25,9 @@ void reportErrorAndLog(Object error, StackTrace? stack) async {
   File file = File("${directory.path}${Platform.pathSeparator}${txtName}.txt");
   debugPrint("-----reportErrorAndLog----file=$file");
   IOSink ioSink = file.openWrite(mode: FileMode.append);
+
+  ioSink.writeln(
+      "════════════════════════════════════════════════════════════════════════════════════════════════════");
   ioSink.writeln(now);
   ioSink.writeln(error);
   ioSink.writeln(stack);
