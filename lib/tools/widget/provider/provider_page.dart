@@ -15,23 +15,21 @@ class _ProviderPageState extends State<ProviderPage> {
       body: Container(
         child: ChangeNotifierProvider<CartModel>(
           data: CartModel(),
-          child: Builder(
-            builder: (context) {
+          child: Consumer<CartModel>(
+            builder: (context, value) {
               return Column(
                 children: [
                   Builder(
                     builder: (context) {
-                      CartModel model = ChangeNotifierProvider.of(context);
-                      return Text("总价 = ${model.total}");
+                      return Text("总价 = ${value!.total}");
                     },
                   ),
-                  Builder(
-                    builder: (context) {
+                  Consumer<CartModel>(
+                    builder: (context, value) {
                       print("ElevatedButton build");
                       return ElevatedButton(
                         onPressed: () {
-                          ChangeNotifierProvider.of<CartModel>(context)
-                              .add(Item("乒乓球拍", 20.0, 1));
+                          value!.add(Item("乒乓球拍", 20.0, 1));
                         },
                         child: Text("添加商品"),
                       );
@@ -56,7 +54,6 @@ class InheritedProvider<T> extends InheritedWidget {
 
   final T data;
 
-
   @override
   bool updateShouldNotify(InheritedProvider<T> old) {
     return true;
@@ -71,9 +68,12 @@ class ChangeNotifierProvider<T extends ChangeNotifier> extends StatefulWidget {
   final T data;
   final Widget child;
 
-  static T of<T>(BuildContext context) {
-    InheritedProvider<T>? provider =
-        context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>>();
+  static T of<T>(BuildContext context, {bool listen = true}) {
+    InheritedProvider<T>? provider = listen
+        ? context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>>()
+        : context
+            .getElementForInheritedWidgetOfExactType<InheritedProvider<T>>()
+            ?.widget as InheritedProvider<T>;
     assert(provider != null, "provider == null");
     return provider!.data;
   }
@@ -114,6 +114,20 @@ class _ChangeNotifierProviderState<T extends ChangeNotifier>
   void dispose() {
     widget.data.removeListener(update);
     super.dispose();
+  }
+}
+
+class Consumer<T> extends StatelessWidget {
+  const Consumer({Key? key, required this.builder}) : super(key: key);
+
+  final Function(BuildContext context, T? value) builder;
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(
+      context,
+      ChangeNotifierProvider.of<T>(context),
+    );
   }
 }
 
