@@ -7,6 +7,7 @@ import 'page_view/page_view_page.dart';
 import 'provider/provider_page.dart';
 import 'provider/shopping/login.dart';
 import 'scrollable/scrollable_page.dart';
+import 'sliver/custom_scroll_view_page.dart';
 
 class WidgetPage extends StatefulWidget {
   const WidgetPage({Key? key}) : super(key: key);
@@ -78,6 +79,17 @@ class _WidgetPageState extends State<WidgetPage> {
               );
             },
             child: Text("ScrollablePage"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => CustomScrollViewPage(),
+                ),
+              );
+            },
+            child: Text("CustomScrollViewPage"),
           ),
         ],
       ),

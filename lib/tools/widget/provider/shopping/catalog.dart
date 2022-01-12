@@ -45,12 +45,13 @@ class _ListItem extends StatelessWidget {
 
   final int index;
 
+
   @override
   Widget build(BuildContext context) {
-
     // bool isInCart = context.select<CartModel,bool>((value) {
     //   return value.items.contains(item);
     // });
+    
 
     return Selector<CatalogModel, ShopItem>(
       selector: (context, catalog) {
@@ -84,12 +85,12 @@ class _ListItem extends StatelessWidget {
                   return cart.items.contains(item);
                 },
                 builder: (context, isInCart, child) {
-                  return  IconButton(
+                  return IconButton(
                     onPressed: !isInCart
                         ? () {
-                      CartModel cart = context.read();
-                      cart.add(item);
-                    }
+                            CartModel cart = context.read();
+                            cart.add(item);
+                          }
                         : null,
                     icon: Builder(builder: (context) {
                       debugPrint("----------3");
@@ -98,6 +99,25 @@ class _ListItem extends StatelessWidget {
                   );
                 },
               ),
+              Builder(
+                builder: (context) {
+                  bool isInCart = context.select<CartModel, bool>(
+                      (value) => value.items.contains(item));
+
+                  return IconButton(
+                    onPressed: !isInCart
+                        ? () {
+                            CartModel cart = context.read();
+                            cart.add(item);
+                          }
+                        : null,
+                    icon: Builder(builder: (context) {
+                      debugPrint("----------3");
+                      return Icon(!isInCart ? Icons.add : Icons.done);
+                    }),
+                  );
+                },
+              )
             ],
           ),
         );
