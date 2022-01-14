@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.pushNamed(context, "/catalog");
                 },
                 child: Text("登录"),
-              )
+              ),
             ],
           ),
         ),

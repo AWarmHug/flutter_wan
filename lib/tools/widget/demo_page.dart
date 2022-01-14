@@ -6,6 +6,7 @@ import 'inherited_widget/inherited_widget_page.dart';
 import 'page_view/page_view_page.dart';
 import 'provider/provider_page.dart';
 import 'provider/shopping/login.dart';
+import 'provider/switch.dart';
 import 'scrollable/scrollable_page.dart';
 import 'sliver/custom_scroll_view_page.dart';
 
@@ -46,6 +47,17 @@ class _WidgetPageState extends State<WidgetPage> {
               );
             },
             child: Text("ProviderPage"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => SwitchPage(),
+                ),
+              );
+            },
+            child: Text("SwitchPage"),
           ),
           TextButton(
             onPressed: () {

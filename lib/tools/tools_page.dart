@@ -3,8 +3,10 @@ import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/tools/animation/animation_page.dart';
 import 'package:flutter_wan/tools/animation/tween_page.dart';
 import 'package:flutter_wan/tools/custom/custom_page.dart';
+import 'package:flutter_wan/tools/future/future_page.dart';
 import 'package:flutter_wan/tools/key/key_page.dart';
 import 'package:flutter_wan/tools/key/simple_demo_page.dart';
+import 'package:flutter_wan/tools/stream/stream_page.dart';
 import 'package:get/get.dart';
 
 import 'error/error_page.dart';
@@ -143,6 +145,32 @@ class _ToolsPageState extends State<ToolsPage> {
             ),
             onTap: () {
               Get.to(ErrorPage());
+            },
+          ),
+          InkWell(
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconProject),
+                  Text("Future"),
+                ],
+              ),
+            ),
+            onTap: () {
+              Get.to(FuturePage());
+            },
+          ),
+          InkWell(
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconProject),
+                  Text("Stream"),
+                ],
+              ),
+            ),
+            onTap: () {
+              Get.to(StreamPage());
             },
           ),
         ],
