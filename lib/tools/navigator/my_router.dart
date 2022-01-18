@@ -45,10 +45,10 @@ class MyRouteInformationParser extends RouteInformationParser<String> {
 
 class MyRouterDelegate extends RouterDelegate<String>
     with PopNavigatorRouterDelegateMixin, ChangeNotifier {
-  TStack<String> _stack = TStack();
+  List<Page> pages=[];
 
   void push(String route) {
-    _stack.push(route);
+    pages.add(parseRoute(route));
     notifyListeners();
   }
 
@@ -56,7 +56,7 @@ class MyRouterDelegate extends RouterDelegate<String>
     final uri = Uri.parse(name);
     // Handle '/'
     if (uri.pathSegments.length == 0) {
-      return MaterialPage(child: MainScreen());
+      return MaterialPage(key: ValueKey(name),child: MainScreen());
     } else {
       switch (uri.pathSegments[0]) {
         case "home":
@@ -68,16 +68,10 @@ class MyRouterDelegate extends RouterDelegate<String>
     return UnKnownPage();
   }
 
-  List<Page> get pages {
-    return _stack.obj.map((name) {
-      return parseRoute(name);
-    }).toList();
-  }
-
   bool _onPopPage(Route<dynamic> route, dynamic result) {
-    if (_stack.isNotEmpty) {
-      if (_stack.last == route.settings.name) {
-        _stack.pop(route.settings.name);
+    if (pages.isNotEmpty) {
+      if (pages.last.name == route.settings.name) {
+        pages.remove(route.settings);
         notifyListeners();
       }
     }
@@ -88,7 +82,7 @@ class MyRouterDelegate extends RouterDelegate<String>
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
-      pages: pages,
+      pages: List.unmodifiable(pages),
       onPopPage: _onPopPage,
     );
   }
@@ -99,14 +93,14 @@ class MyRouterDelegate extends RouterDelegate<String>
 
   @override
   String? get currentConfiguration {
-    return _stack.last;
+    return pages.last.name;
   }
 
   @override
   Future<void> setNewRoutePath(String configuration) {
-    _stack
-      ..clear()
-      ..push(configuration);
+    pages
+      ..clear()..add(parseRoute(configuration));
+
     return SynchronousFuture<void>(null);
   }
 }
