@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AlertDialogScreen extends StatelessWidget {
   const AlertDialogScreen({Key? key}) : super(key: key);

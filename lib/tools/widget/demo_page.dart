@@ -101,7 +101,7 @@ class _WidgetPageState extends State<WidgetPage> {
                 ),
               );
             },
-            child: Text("CustomScrollViewPage"),
+            child: Text("Sliver"),
           ),
           TextButton(
             child: Center(
