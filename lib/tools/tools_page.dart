@@ -9,6 +9,7 @@ import 'package:flutter_wan/tools/key/simple_demo_page.dart';
 import 'package:flutter_wan/tools/stream/stream_page.dart';
 import 'package:get/get.dart';
 
+import 'dialog/alertdialog.dart';
 import 'error/error_page.dart';
 import 'widget/demo_page.dart';
 
@@ -171,6 +172,19 @@ class _ToolsPageState extends State<ToolsPage> {
             ),
             onTap: () {
               Get.to(StreamPage());
+            },
+          ),
+          InkWell(
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(IconFontIcons.iconProject),
+                  Text("AlertDialog"),
+                ],
+              ),
+            ),
+            onTap: () {
+              Get.to(AlertDialogScreen());
             },
           ),
         ],

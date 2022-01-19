@@ -103,6 +103,48 @@ class _WidgetPageState extends State<WidgetPage> {
             },
             child: Text("CustomScrollViewPage"),
           ),
+          TextButton(
+            child: Center(
+              child: Column(
+                children: [
+                  Text("SnackBar"),
+                ],
+              ),
+            ),
+            onPressed: () {
+              SnackBar snackBar = SnackBar(content: Text("content"));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+          ),
+          TextButton(
+            child: Center(
+              child: Column(
+                children: [
+                  Text("MaterialBanner"),
+                ],
+              ),
+            ),
+            onPressed: () {
+              MaterialBanner banner = MaterialBanner(
+                content: Text("这是标题"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context)
+                            .removeCurrentMaterialBanner();
+                      },
+                      child: Text("确定")),
+                  TextButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context)
+                            .removeCurrentMaterialBanner();
+                      },
+                      child: Text("关闭")),
+                ],
+              );
+              ScaffoldMessenger.of(context).showMaterialBanner(banner);
+            },
+          ),
         ],
       ),
     );
