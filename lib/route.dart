@@ -19,7 +19,7 @@ import 'touch_fish/zhihu/view.dart';
 final pages = <GetPage>[
   GetPage(
     name: "/search",
-    page: () => SearchHome(),
+    page: () => SearchScreen(),
   ),
   GetPage(
     name: "/search/content",

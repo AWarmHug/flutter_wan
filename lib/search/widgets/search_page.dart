@@ -128,11 +128,16 @@ class _SearchPageState extends State<SearchPage> {
                       height: 8,
                     ),
                     Expanded(
-                      child: GridView.count(
-                        crossAxisCount: 3,
-                        children: hotKeys.map((e) {
-                          return SearchItem(e);
-                        }).toList(),
+                      child: LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          return GridView.count(
+                            crossAxisCount: constraints.maxWidth < 600 ? 3 : 5,
+                            children: hotKeys.map((e) {
+                              return SearchItem(e);
+                            }).toList(),
+                          );
+                        },
                       ),
                     ),
                   ],

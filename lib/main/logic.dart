@@ -6,6 +6,13 @@ class MainLogic extends GetxController {
   final state = MainState();
 
 
+  void setSelectedIndex(int selectIndex){
+    state.selectedIndex=selectIndex;
+    update();
+  }
+
+
+
   @override
   void onInit() {
     // TODO: implement onInit

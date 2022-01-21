@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'global.dart';
-import 'main/view.dart';
+import 'main/screen.dart';
 import 'route.dart';
 
 void collectLog(String line) {
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
           future: Global.init(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return MainPage();
+              return MainScreen();
             } else {
               return CircularProgressIndicator();
             }
