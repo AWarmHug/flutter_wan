@@ -5,6 +5,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -58,8 +59,42 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final controller = Get.put(AppLogic());
+
+  var _methodChannel = MethodChannel('com.chebada/method_channel');
+
+  var initRoute = "";
+
+
+  @override
+  void initState() {
+    _methodChannel.setMethodCallHandler((call) async {
+      switch (call.method) {
+        case "setInitRoute":
+          Global.init().then((value) {
+            _handleInitRoute(call);
+          });
+          break;
+      }
+    });
+
+    super.initState();
+  }
+
+  void _handleInitRoute(MethodCall call) {
+    // setState(() {
+      initRoute = call.arguments as String;
+      Get.to(initRoute);
+
+    // });
+  }
+
 
   // This widget is the root of your application.
   @override
