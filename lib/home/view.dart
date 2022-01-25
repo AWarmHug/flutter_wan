@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/home/widgets/home_item_view.dart';
+import 'package:flutter_wan/method_channels.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:get/get.dart';
@@ -49,9 +50,14 @@ class _HomePageState extends State<HomePage>
               child: SearchView(),
             ),
             SizedBox(width: 16),
-            Text(
-              'TODO',
-              style: AppTextStyles.white_16_bold,
+            TextButton(
+              onPressed: () {
+                MethodChannels.routeNative("/second/home");
+              },
+              child: Text(
+                'TODO',
+                style: AppTextStyles.white_16_bold,
+              ),
             ),
           ],
         ),

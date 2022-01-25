@@ -22,6 +22,9 @@ class Global {
     }
   }
 
+  static bool get isRelease => bool.fromEnvironment("dart.vm.product");
+
+
   static Rx<bool> isLogin = Rx(false);
 
   static Future<bool> isLogin2() async {

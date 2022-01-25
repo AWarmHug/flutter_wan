@@ -77,9 +77,7 @@ class _MyAppState extends State<MyApp> {
     _methodChannel.setMethodCallHandler((call) async {
       switch (call.method) {
         case "setInitRoute":
-          Global.init().then((value) {
-            _handleInitRoute(call);
-          });
+          _handleInitRoute(call);
           break;
       }
     });
@@ -90,7 +88,7 @@ class _MyAppState extends State<MyApp> {
   void _handleInitRoute(MethodCall call) {
     // setState(() {
       initRoute = call.arguments as String;
-      Get.to(initRoute);
+      Get.toNamed(initRoute);
 
     // });
   }
@@ -115,6 +113,7 @@ class _MyAppState extends State<MyApp> {
           },
         ),
         getPages: pages,
+        // initialRoute: initRoute,
       );
     });
   }
