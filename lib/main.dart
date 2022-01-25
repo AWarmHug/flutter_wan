@@ -67,7 +67,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final controller = Get.put(AppLogic());
 
-  var _methodChannel = MethodChannel('com.chebada/method_channel');
+  var _methodChannel = MethodChannel('com.bingo/method_channel');
 
   var initRoute = "";
 
@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
     // setState(() {
       initRoute = call.arguments as String;
       Get.toNamed(initRoute);
+      debugPrint("TAG----${initRoute}");
 
     // });
   }
