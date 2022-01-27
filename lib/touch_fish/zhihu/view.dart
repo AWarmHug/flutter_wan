@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_page_view_nested_utils/page_view_nested_utils.dart';
 import 'package:flutter_page_view_nested_utils/tabbar_view.dart';
-import 'package:flutter_wan/main.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/touch_fish/zhihu/answer/view.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 
 import '../../eventbus.dart';
+import '../../myapp.dart';
 import 'hot_list/hot_list_page.dart';
 import 'video/view.dart';
 

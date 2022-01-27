@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      home: Page1(),
+      routes: {
+        "/": (context) {
+          return Page1();
+        },
+        "/page2": (context) {
+          return Page2();
+        },
+        "/page3": (context) {
+          return Page3();
+        }
+      },
     );
   }
 }
@@ -27,14 +38,15 @@ class Page1 extends StatelessWidget {
         child: TextButton(
           child: Text("data"),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return Page2();
-                },
-              ),
-            );
+            Fluttertoast.showToast(msg: "msg");
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) {
+            //       return Page2();
+            //     },
+            //   ),
+            // );
           },
         ),
       ),
@@ -48,7 +60,22 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Page2"),
+      ),
+    );
+  }
+}
+
+class Page3 extends StatelessWidget {
+  const Page3({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Page3"),
+      ),
     );
   }
 }

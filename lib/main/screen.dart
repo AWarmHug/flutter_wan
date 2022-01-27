@@ -8,7 +8,7 @@ import 'package:flutter_wan/tools/tools_page.dart';
 import 'package:flutter_wan/touch_fish/zhihu/view.dart';
 import 'package:get/get.dart';
 
-import '../main.dart';
+import '../myapp.dart';
 import 'logic.dart';
 import 'state.dart';
 

@@ -20,9 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   HomePageController _controller = Get.put(HomePageController());
-  final state = Get
-      .find<HomePageController>()
-      .state;
+  final state = Get.find<HomePageController>().state;
 
   ScrollController _scrollController = ScrollController();
 
@@ -35,7 +33,6 @@ class _HomePageState extends State<HomePage>
         //已经滑到底了
         _controller.loadArticleListNext();
       }
-
     });
   }
 
@@ -52,7 +49,7 @@ class _HomePageState extends State<HomePage>
             SizedBox(width: 16),
             TextButton(
               onPressed: () {
-                MethodChannels.routeNative("/second/home");
+                MethodChannels.routeNative("/second");
               },
               child: Text(
                 'TODO',
@@ -81,14 +78,13 @@ class _HomePageState extends State<HomePage>
                           height: 180,
                           child: PageView.builder(
                             itemBuilder: (context, index) {
-                              return BannerItemView(
-                                  state.banners.data![index]);
+                              return BannerItemView(state.banners.data![index]);
                             },
                             itemCount: state.banners.data!.length,
                           ),
                         ),
                       );
-                    } else if (index > 0 && index < state.articles.length+1) {
+                    } else if (index > 0 && index < state.articles.length + 1) {
                       return ItemView(state.articles[(index) - 1]);
                     } else {
                       return StatusMoreWidget(

@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'my_router.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
@@ -19,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
         theme: ThemeData.light(),
         routeInformationParser: MyRouteInformationParser(),
-        routerDelegate: delegate);
+        routerDelegate: delegate
+    );
   }
 }
 

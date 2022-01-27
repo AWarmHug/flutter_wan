@@ -45,7 +45,7 @@ class MyRouteInformationParser extends RouteInformationParser<String> {
 
 class MyRouterDelegate extends RouterDelegate<String>
     with PopNavigatorRouterDelegateMixin, ChangeNotifier {
-  List<Page> pages=[];
+  List<Page> pages = [];
 
   void push(String route) {
     pages.add(parseRoute(route));
@@ -56,7 +56,7 @@ class MyRouterDelegate extends RouterDelegate<String>
     final uri = Uri.parse(name);
     // Handle '/'
     if (uri.pathSegments.length == 0) {
-      return MaterialPage(key: ValueKey(name),child: MainScreen());
+      return MaterialPage(key: ValueKey(name), child: MainScreen());
     } else {
       switch (uri.pathSegments[0]) {
         case "home":
@@ -98,8 +98,10 @@ class MyRouterDelegate extends RouterDelegate<String>
 
   @override
   Future<void> setNewRoutePath(String configuration) {
+    debugPrint("configuration===${configuration}");
     pages
-      ..clear()..add(parseRoute(configuration));
+      ..clear()
+      ..add(parseRoute(configuration));
 
     return SynchronousFuture<void>(null);
   }
