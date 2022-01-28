@@ -53,20 +53,7 @@ class _MyAppState extends State<MyApp> {
         title: '玩安卓',
         scrollBehavior: CupertinoScrollBehavior(),
         theme: logic.lightTheme(),
-        home: FutureBuilder(
-          future: Global.init(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return MainScreen();
-            } else {
-              return Scaffold(
-                  backgroundColor: AppColors.EDF0F5,
-                  body: Center(
-                    child: Text("加载中..."),
-                  ));
-            }
-          },
-        ),
+        home: MainScreen(),
         getPages: pages,
         // initialRoute: initRoute,
       );

@@ -9,28 +9,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'http.dart';
 
 class Global {
-  static late SharedPreferences prefs;
-  //path_provider相关内容 https://zhuanlan.zhihu.com/p/90071559
-  static late Directory directory;
-
-  static Future<void> init() async {
-    prefs = await SharedPreferences.getInstance();
-    if(kIsWeb){
-      directory =Directory("");
-    }else {
+  static Future<Directory> getDirectory() async {
+    //path_provider相关内容 https://zhuanlan.zhihu.com/p/90071559
+    ///data/user/0/com.bingo.android_wan/app_flutter
+   //{"/":{"JSESSIONID":"JSESSIONID=E5D66E76EC4647D936A0F532A61F1EC4; Path=/; Secure; HttpOnly;_crt=1643350839"}}
+    Directory directory;
+    if (kIsWeb) {
+      directory = Directory("");
+    } else {
       directory = await getApplicationDocumentsDirectory();
     }
+    return directory;
   }
 
   static bool get isRelease => bool.fromEnvironment("dart.vm.product");
 
-
   static Rx<bool> isLogin = Rx(false);
 
   static Future<bool> isLogin2() async {
-    var cookie =
-        await PersistCookieJar(storage: FileStorage(Global.directory.path))
-            .loadForRequest(Uri.parse(BASE_URL_WAN_ANDROID));
+    Directory directory = await getDirectory();
+
+    var cookie = await PersistCookieJar(storage: FileStorage(directory.path))
+        .loadForRequest(Uri.parse(BASE_URL_WAN_ANDROID));
     Cookie? cookieToken;
     cookie.forEach((element) {
       if (element.name == "token_pass") {

@@ -76,19 +76,22 @@ class Http {
     receiveTimeout: 10000,
   );
 
-  static Dio dio = kIsWeb ? dio4web() : dio2();
+  static Future<Dio> dioFuture = kIsWeb ? dio4web() : dio2();
 
-  static Dio dio4web() {
-    return Dio(_optionsWan)
+  static Future<Dio> dio4web() {
+    return SynchronousFuture(Dio(_optionsWan)
       // ..interceptors.add(CookieManager(
       //     PersistCookieJar(storage: FileStorage(Global.directory.path))))
-      ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+      ..interceptors
+          .add(LogInterceptor(requestBody: true, responseBody: true)));
   }
 
-  static Dio dio2() {
+  static Future<Dio> dio2() async {
+    Directory directory = await Global.getDirectory();
+
     return Dio(_optionsWan)
-      ..interceptors.add(CookieManager(
-          PersistCookieJar(storage: FileStorage(Global.directory.path))))
+      ..interceptors.add(
+          CookieManager(PersistCookieJar(storage: FileStorage(directory.path))))
       ..interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
@@ -99,6 +102,8 @@ class Http {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
+    Dio dio = await dioFuture;
+
     if (path.startsWith("v3") || path.startsWith("v4")) {
       dio.options = _optionsZhihu;
       // dio.options.headers.addAll({
@@ -164,6 +169,8 @@ class Http {
   static Future<ResponseWan<R>> post<R>(
       String path, Map<String, dynamic>? queryParameters) async {
     try {
+      Dio dio = await dioFuture;
+
       if (R.toString().contains("ResponseWan")) {
         dio.options = _optionsWan;
       } else if (R.toString().contains("ResponseZhihu")) {

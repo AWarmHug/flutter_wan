@@ -16,4 +16,12 @@ class MethodChannels {
     return value;
   }
 
+  static Future<T> setLoginStatus<T>(bool isLogin) async{
+    Map<String, dynamic> map = {
+      "isLogin": isLogin,
+    };
+    T value = await _methodChannel.invokeMethod("SetLoginStatusChannel", map);
+    return value;
+  }
+
 }

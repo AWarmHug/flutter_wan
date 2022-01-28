@@ -4,11 +4,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_wan/data/user.dart';
 import 'package:flutter_wan/global.dart';
 import 'package:flutter_wan/resource/app_images.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../common_state.dart';
+import '../method_channels.dart';
 import '../status.dart';
 import 'login_bloc.dart';
+import 'package:flutter_wan/route.dart';
+
+class LoginApp extends StatelessWidget {
+  LoginApp({Key? key}) : super(key: key);
+
+  final MyRouterDelegate _routerDelegate = MyRouterDelegate();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+        theme: ThemeData.light(),
+        routeInformationParser: MyRouteInformationParser(),
+        routerDelegate: _routerDelegate);
+  }
+}
 
 class LoginHome extends StatefulWidget {
   const LoginHome({Key? key}) : super(key: key);
@@ -31,8 +48,12 @@ class _LoginHomeState extends State<LoginHome> {
             if (state.result is UserInfo) {
               UserInfo userInfo = state.result;
               if (state.status == Status.SUCCESS) {
-                Get.back();
-              } else {}
+                //登录成功
+                MethodChannels.setLoginStatus(true);
+                MyRouter.back(context);
+              } else {
+                  Fluttertoast.showToast(msg: "登录失败！");
+              }
             }
           }
         },
@@ -42,7 +63,7 @@ class _LoginHomeState extends State<LoginHome> {
             actions: [
               InkWell(
                 onTap: () {
-                  Get.toNamed("login/reg");
+                  MyRouter.toNamed(context, "/login/reg");
                 },
                 child: Container(
                   padding: EdgeInsets.only(left: 16, right: 16),
