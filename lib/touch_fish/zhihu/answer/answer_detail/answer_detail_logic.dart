@@ -11,31 +11,40 @@ import '../../../../http.dart';
 import 'answer_detail_state.dart';
 
 class AnswerDetailLogic extends GetxController {
+  AnswerDetailLogic();
+
   final AnswerDetailState state = AnswerDetailState();
 
-  Target target = Get.arguments;
+  late Target _target;
+
+  set target(Target value) {
+    _target = value;
+    paging = null;
+    state.comments.clear();
+  }
+
   Paging? paging;
-  late  ScrollController scrollController;
+
+  late ScrollController scrollController;
+
   @override
   void onInit() {
     super.onInit();
-    scrollController=ScrollController()..addListener(() {
-      if(scrollController.position.pixels>200){
-        if(state.title==null) {
-          state.title = target.question!.title;
-          update(["title"]);
+    debugPrint("---------onInit");
+    scrollController = ScrollController()
+      ..addListener(() {
+        if (scrollController.position.pixels > 200) {
+          if (state.title == null) {
+            state.title = _target.question!.title;
+            update(["title"]);
+          }
+        } else {
+          if (state.title != null) {
+            state.title = null;
+            update(["title"]);
+          }
         }
-      }else{
-        if(state.title!=null) {
-          state.title =null;
-          update(["title"]);
-        }
-      }
-    });
-
-
-
-    loadAnswerComments();
+      });
   }
 
   Future<void> loadAnswerComments() async {
@@ -43,7 +52,7 @@ class AnswerDetailLogic extends GetxController {
 
     if (paging == null) {
       path =
-          "v4/answers/${target.id!}/comments?include=data%5B*%5D.author&order=normal&limit=10&offset=0&status=open";
+          "v4/answers/${_target.id!}/comments?include=data%5B*%5D.author&order=normal&limit=10&offset=0&status=open";
     } else {
       path = paging!.next!;
     }
@@ -62,5 +71,4 @@ class AnswerDetailLogic extends GetxController {
       return Future.error(response.error!);
     }
   }
-
 }

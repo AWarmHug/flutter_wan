@@ -3,11 +3,12 @@ import 'package:flutter_wan/data/zhihu/question.dart';
 import 'package:get/get.dart';
 
 class AnswerListState {
+
   AnswerListState() {
     ///Initialize variables
   }
 
-  Question? question = Get.arguments;
+  Question? question;
 
   List<AnswerListItem> answers = [];
 }

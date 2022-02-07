@@ -6,6 +6,7 @@ import 'package:flutter_wan/data/zhihu/feed_item.dart';
 import 'package:flutter_wan/data/zhihu/question.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/route.dart';
 import 'package:flutter_wan/widget/network_image.dart';
 import 'package:get/get.dart';
 
@@ -18,10 +19,9 @@ class AnswerPage extends StatefulWidget {
   State<AnswerPage> createState() => _AnswerPageState();
 }
 
-class _AnswerPageState extends State<AnswerPage>{
+class _AnswerPageState extends State<AnswerPage> {
   @override
   Widget build(BuildContext context) {
-
     final logic = Get.put(AnswerLogic());
     final state = Get.find<AnswerLogic>().state;
 
@@ -32,10 +32,10 @@ class _AnswerPageState extends State<AnswerPage>{
           init: logic,
           builder: (logic) {
             return ListView.separated(
-              physics: AlwaysScrollableScrollPhysics (),
+              physics: AlwaysScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
-                  child: PageItem(feedItem: state.feedItems[index]),
+                  child: _ListItem(feedItem: state.feedItems[index]),
                 );
               },
               itemCount: state.feedItems.length,
@@ -63,8 +63,8 @@ class _AnswerPageState extends State<AnswerPage>{
   }
 }
 
-class PageItem extends StatelessWidget {
-  const PageItem({Key? key, required this.feedItem}) : super(key: key);
+class _ListItem extends StatelessWidget {
+  const _ListItem({Key? key, required this.feedItem}) : super(key: key);
 
   final FeedItem feedItem;
 
@@ -73,11 +73,13 @@ class PageItem extends StatelessWidget {
     debugPrint("_______${feedItem.target!.question}");
     return InkWell(
       onTap: () {
-        Get.toNamed("/touch_fish/zhihu/answer_detail", arguments: feedItem.target);
+        MyRouter.toNamed(context, "/touch_fish/zhihu/answer_detail",
+            arguments: feedItem.target);
       },
       child: Container(
         padding: EdgeInsets.all(12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             QuestionTitleWidget(
               question: feedItem.target!.question!,

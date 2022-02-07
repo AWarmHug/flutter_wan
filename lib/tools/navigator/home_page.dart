@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wan/tools/navigator/main.dart';
 import 'package:flutter_wan/tools/navigator/unknown_page.dart';
 
 import 'my_router.dart';

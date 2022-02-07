@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/component/zhihu/answer.dart';
 import 'package:flutter_wan/component/zhihu/question.dart';
+import 'package:flutter_wan/data/zhihu/question.dart';
+import 'package:flutter_wan/route.dart';
 import 'package:get/get.dart';
 
 import 'answer_list_logic.dart';
@@ -8,6 +10,12 @@ import 'answer_list_logic.dart';
 class AnswerListPage extends StatelessWidget {
   final logic = Get.put(AnswerListLogic());
   final state = Get.find<AnswerListLogic>().state;
+
+  AnswerListPage(this.question) {
+    state.question = question;
+  }
+
+  final Question? question;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +26,13 @@ class AnswerListPage extends StatelessWidget {
             itemBuilder: (context, index) {
               if (index == 0) {
                 return QuestionWidget(
-                  question: state.question,
+                  question: question,
                 );
               } else {
                 return InkWell(
                   onTap: () {
-                    state.answers[index - 1].question=state.question!;
-                    Get.toNamed("/touch_fish/zhihu/answer_detail",
+                    state.answers[index - 1].question = question!;
+                    MyRouter.toNamed(context,"/touch_fish/zhihu/answer_detail",
                         arguments: state.answers[index - 1]);
                   },
                   child: Container(

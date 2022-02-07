@@ -4,6 +4,7 @@ import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_images.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/route.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:flutter_wan/widget/network_image.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
@@ -75,7 +76,7 @@ class QuestionWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         //todo 跳转
-        Get.toNamed("/touch_fish/zhihu/answer_list",
+        MyRouter.toNamed(context,"/touch_fish/zhihu/answer_list",
             arguments: hotListFeed.target!);
       },
       child: Container(

@@ -45,16 +45,18 @@ class _MyAppState extends State<MyApp> {
     // });
   }
 
+  final MyRouterDelegate _routerDelegate = MyRouterDelegate();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AppLogic>(builder: (logic) {
-      return GetMaterialApp(
+      return MaterialApp.router(
         title: '玩安卓',
         scrollBehavior: CupertinoScrollBehavior(),
         theme: logic.lightTheme(),
-        home: MainScreen(),
-        getPages: pages,
+        routerDelegate: _routerDelegate,
+        routeInformationParser: MyRouteInformationParser(),
         // initialRoute: initRoute,
       );
     });

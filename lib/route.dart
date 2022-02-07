@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_wan/data/zhihu/question.dart';
 import 'package:flutter_wan/login/login_home.dart';
 import 'package:flutter_wan/login/reg_home.dart';
 import 'package:flutter_wan/mine/collect/collect_page.dart';
@@ -14,9 +15,11 @@ import 'package:flutter_wan/tools/wx_article/wx_article_page.dart';
 import 'package:flutter_wan/web/home.dart';
 import 'package:get/get.dart';
 
+import 'data/article.dart';
 import 'home/view.dart';
 import 'main/screen.dart';
 import 'tools/tree/view.dart';
+import 'touch_fish/page.dart';
 import 'touch_fish/zhihu/answer/answer_detail/answer_detail_view.dart';
 import 'touch_fish/zhihu/answer/answer_list/answer_list_view.dart';
 import 'touch_fish/zhihu/view.dart';
@@ -42,33 +45,13 @@ final pages = <GetPage>[
     name: "/login/login",
     page: () => LoginHome(),
   ),
-  GetPage(
-    name: "/web",
-    page: () => WebHome(),
-  ),
+  // GetPage(
+  //   name: "/web",
+  //   page: () => WebHome(),
+  // ),
 ]
-  ..addAll(touchFishPages)
   ..addAll(toolsPages)
   ..addAll(minePages);
-
-List<GetPage> touchFishPages = [
-  GetPage(
-    name: "/touch_fish/zhihu",
-    page: () => ZhihuPage(),
-  ),
-  GetPage(
-    name: "/touch_fish/zhihu/video",
-    page: () => HomePage(),
-  ),
-  GetPage(
-    name: "/touch_fish/zhihu/answer_detail",
-    page: () => AnswerDetailPage(),
-  ),
-  GetPage(
-    name: "/touch_fish/zhihu/answer_list",
-    page: () => AnswerListPage(),
-  ),
-];
 
 List<GetPage> toolsPages = [
   GetPage(
@@ -111,12 +94,12 @@ class _MyRouter {
 final MyRouter = _MyRouter();
 
 extension RouteExt on _MyRouter {
-  void toNamed<T>(BuildContext context, String name) {
+  void toNamed<T>(BuildContext context, String name, {dynamic arguments}) {
     RouterDelegate routerDelegate = Router.of(context).routerDelegate;
     if (routerDelegate is MyRouterDelegate) {
-      _MyRouter.of(context).push(name);
+      _MyRouter.of(context).push(name, arguments: arguments);
     } else {
-      Get.toNamed(name);
+      Get.toNamed(name, arguments: arguments);
     }
   }
 
@@ -146,21 +129,41 @@ class MyRouterDelegate extends RouterDelegate<String>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<String> {
   List<Page> routePages = [];
 
-  void push(String route) {
-    routePages.add(parseRoute(route));
+  void push(String route, {dynamic arguments}) {
+    routePages.add(parseRoute(route, arguments: arguments));
     notifyListeners();
   }
 
-  Page parseRoute(String name) {
-    var pageBuilder = pages.firstWhereOrNull((element) => element.name == name);
+  Page parseRoute(String name, {dynamic arguments}) {
+    final uri = Uri.parse(name);
+    String path = uri.path;
+    String pathSegment1 =
+        (uri.pathSegments.isNotEmpty) ? uri.pathSegments[0] : "/";
 
-    Widget widget;
-    if (pageBuilder != null) {
-      widget = pageBuilder.page();
-    } else {
-      widget = UnknownScreen();
+    switch (pathSegment1) {
+      case "touch_fish":
+        return TouchFishPage(name: name, arguments: arguments);
+      default:
+        var pageBuilder =
+            pages.firstWhereOrNull((element) => element.name == name);
+
+        Widget widget;
+        if (pageBuilder != null) {
+          widget = pageBuilder.page();
+        } else {
+          if (name == "/web") {
+            debugPrint("name = ${name} ,  arguments = ${arguments}");
+            widget = WebHome(
+              article: arguments as Article,
+            );
+          } else {
+            widget = UnknownScreen();
+          }
+        }
+
+        return MaterialPage(
+            key: ValueKey(name), arguments: arguments, child: widget);
     }
-    return MaterialPage(key: ValueKey(name), child: widget);
   }
 
   bool _onPopPage(Route<dynamic> route, dynamic result) {
@@ -201,8 +204,8 @@ class MyRouterDelegate extends RouterDelegate<String>
     return Future.value(true);
   }
 
-  bool canPop(){
-    return routePages.length>1;
+  bool canPop() {
+    return routePages.length > 1;
   }
 
   @override

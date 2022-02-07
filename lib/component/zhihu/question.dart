@@ -9,6 +9,7 @@ class QuestionTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
+
       question.title!,
       style: AppTextStyles.black_16.bold,
     );

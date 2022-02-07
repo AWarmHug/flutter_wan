@@ -7,7 +7,6 @@ class AnswerDetailState {
   AnswerDetailState() {
     ///Initialize variables
   }
-  Target target = Get.arguments;
 
   List<AnswerComment> comments=[];
 

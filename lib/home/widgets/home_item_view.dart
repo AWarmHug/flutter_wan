@@ -5,6 +5,7 @@ import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/route.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,7 +31,7 @@ class ItemView extends StatelessWidget {
         if(kIsWeb){
           _launchURL(_article.link!);
         }else {
-          Get.toNamed("/web", arguments: _article);
+          MyRouter.toNamed(context,"/web", arguments: _article);
         }
       },
       child: Container(

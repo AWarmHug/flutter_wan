@@ -18,12 +18,16 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'answer_detail_logic.dart';
 
-class AnswerDetailPage extends StatefulWidget {
+class AnswerDetailScreen extends StatefulWidget {
+  AnswerDetailScreen(this.target);
+
+  final Target target;
+
   @override
-  State<AnswerDetailPage> createState() => _AnswerDetailPageState();
+  State<AnswerDetailScreen> createState() => _AnswerDetailScreenState();
 }
 
-class _AnswerDetailPageState extends State<AnswerDetailPage>
+class _AnswerDetailScreenState extends State<AnswerDetailScreen>
     with SingleTickerProviderStateMixin {
   final logic = Get.put(AnswerDetailLogic());
 
@@ -33,10 +37,13 @@ class _AnswerDetailPageState extends State<AnswerDetailPage>
 
   @override
   void initState() {
-    super.initState();
-    controller =
-        AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
+    debugPrint("---------initState");
 
+    logic.target = widget.target;
+    logic.loadAnswerComments();
+    super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
   }
 
   @override
@@ -49,13 +56,13 @@ class _AnswerDetailPageState extends State<AnswerDetailPage>
             if (state.title != null) {
               controller.reset();
               controller.forward();
-            }else{
+            } else {
               controller.reverse();
             }
             return FadeTransition(
               opacity: controller,
               child: Container(
-                child: Text(state.target.question!.title!),
+                child: Text(widget.target.question!.title!),
               ),
             );
           },
@@ -68,7 +75,7 @@ class _AnswerDetailPageState extends State<AnswerDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               QuestionWidget(
-                question: state.target.question,
+                question: widget.target.question,
               ),
               Container(
                 color: Colors.black12,
@@ -76,15 +83,15 @@ class _AnswerDetailPageState extends State<AnswerDetailPage>
                 height: 0.5,
               ),
               _AuthorWidget(
-                author: state.target.author!,
+                author: widget.target.author!,
               ),
               _ContentWidget(
-                target: state.target,
+                target: widget.target,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
                 child: _CommentsWidget(
-                  target: state.target,
+                  target: widget.target,
                   comments: state.comments,
                 ),
               ),
