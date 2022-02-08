@@ -69,7 +69,7 @@ class AppLogic extends GetxController {
     appBarTheme: AppBarTheme(
       toolbarHeight: 48,
     ),
-    primaryColor: AppColors.primary,
+    primaryColor: Colors.blue,
     fontFamily: kIsWeb ? null : (Platform.isAndroid ? "font_default" : null),
   );
 

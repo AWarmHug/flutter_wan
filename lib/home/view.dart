@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage>
             SizedBox(width: 16),
             TextButton(
               onPressed: () {
-                MethodChannels.routeNative("/second");
+                MethodChannels.routeNative("/todo/main");
               },
               child: Text(
                 'TODO',
