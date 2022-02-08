@@ -7,6 +7,7 @@ import 'package:flutter_wan/login/reg_home.dart';
 import 'package:flutter_wan/mine/collect/collect_page.dart';
 import 'package:flutter_wan/search/content/search_content_home.dart';
 import 'package:flutter_wan/search/search_home.dart';
+import 'package:flutter_wan/todo/page.dart';
 import 'package:flutter_wan/tools/nav/navigation_page.dart';
 import 'package:flutter_wan/tools/navigator/unknown_page.dart';
 import 'package:flutter_wan/tools/project/view.dart';
@@ -143,6 +144,8 @@ class MyRouterDelegate extends RouterDelegate<String>
     switch (pathSegment1) {
       case "touch_fish":
         return TouchFishPage(name: name, arguments: arguments);
+      case "todo":
+        return TodoPage(name: name, arguments: arguments);
       default:
         var pageBuilder =
             pages.firstWhereOrNull((element) => element.name == name);
