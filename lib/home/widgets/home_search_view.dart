@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/route.dart';
 import 'package:get/get.dart';
 
 class SearchView extends StatefulWidget {
@@ -14,7 +15,7 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed("/search");
+        MyRouter.toNamed(context,"/search");
       },
       child: Container(
         alignment: Alignment.centerLeft,

@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   void _handleInitRoute(MethodCall call) {
     // setState(() {
     initRoute = call.arguments as String;
-    Get.toNamed(initRoute);
+    MyRouter.toNamed(context,initRoute);
     debugPrint("TAG----${initRoute}");
 
     // });

@@ -6,6 +6,7 @@ import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:get/get.dart';
 
+import '../route.dart';
 import 'mine_controller.dart';
 
 class MineHome extends StatelessWidget {
@@ -32,7 +33,7 @@ class MineHome extends StatelessWidget {
                     child: InkWell(
                       onTap: !Global.isLogin.value
                           ? () {
-                              Get.toNamed("login/login");
+                              MyRouter.toNamed(context,"login/login");
                             }
                           : null,
                       child: Column(
@@ -77,7 +78,7 @@ class MineHome extends StatelessWidget {
                   [
                     InkWell(
                       onTap: () {
-                        Get.toNamed("/mine/collect");
+                        MyRouter.toNamed(context,"/mine/collect");
                       },
                       child: Container(
                         child: Text(

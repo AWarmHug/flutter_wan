@@ -7,6 +7,7 @@ import 'package:flutter_wan/tools/key/key_page.dart';
 import 'package:flutter_wan/tools/stream/stream_page.dart';
 import 'package:get/get.dart';
 
+import '../route.dart';
 import 'dialog/alertdialog.dart';
 import 'error/error_page.dart';
 import 'widget/demo_page.dart';
@@ -42,7 +43,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ],
                 )),
                 onPressed: () {
-                  Get.toNamed("/tools/tree_page");
+                  MyRouter.toNamed(context, "/tools/tree_page");
                 },
               ),
               TextButton(
@@ -54,7 +55,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ],
                 )),
                 onPressed: () {
-                  Get.toNamed("/tools/wx_article_page");
+                  MyRouter.toNamed(context, "/tools/wx_article_page");
                 },
               ),
               TextButton(
@@ -68,7 +69,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ],
                 )),
                 onPressed: () {
-                  Get.toNamed("/tools/navigation_page");
+                  MyRouter.toNamed(context, "/tools/navigation_page");
                 },
               ),
               TextButton(
@@ -80,7 +81,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ],
                 )),
                 onPressed: () {
-                  Get.toNamed("/tools/project_page");
+                  MyRouter.toNamed(context, "/tools/project_page");
                 },
               ),
               TextButton(
@@ -145,7 +146,11 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(ErrorPage());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ErrorPage(),
+                      ));
                 },
               ),
               TextButton(

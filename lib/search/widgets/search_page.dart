@@ -6,6 +6,7 @@ import 'package:flutter_wan/search/search_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../route.dart';
 import '../../status.dart';
 import 'search_item.dart';
 
@@ -77,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   onEditingComplete: () {
-                    Get.toNamed("/search/content",
+                    MyRouter.toNamed(context,"/search/content",
                         arguments: {"name": _controller.text});
                   },
                 ),
