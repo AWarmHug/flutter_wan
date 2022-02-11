@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/route.dart';
 
 import 'global_key_page.dart';
 import 'simple_demo_page.dart';
@@ -27,22 +28,18 @@ class _KeyPageState extends State<KeyPage> {
         children: [
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => SimpleDemoPage(),
-                ),
+                SimpleDemoPage(),
               );
             },
             child: Text("SimpleDemoPage"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => GlobalKeyPage(),
-                ),
+                GlobalKeyPage(),
               );
             },
             child: Text("GlobalKeyPage"),

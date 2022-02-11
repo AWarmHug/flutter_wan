@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wan/route.dart';
 import 'package:flutter_wan/tools/animation/tween_page.dart';
 
 import 'animated_decorated_box_page.dart';
@@ -22,66 +23,54 @@ class AnimationPage extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => TweenPage(),
-                ),
+                TweenPage(),
               );
             },
             child: Text("Tween"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => RouteAnimationPage(),
-                ),
+                RouteAnimationPage(),
               );
             },
             child: Text("RouteAnimation"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => HeroPage(),
-                ),
+                HeroPage(),
               );
             },
             child: Text("Hero"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => StaggerAnimationPage(),
-                ),
+                StaggerAnimationPage(),
               );
             },
             child: Text("StaggerAnimationPage"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => AnimatedSwitcherPage(),
-                ),
+                AnimatedSwitcherPage(),
               );
             },
             child: Text("AnimatedSwitcherPage"),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(
+              MyRouter.to(
                 context,
-                CupertinoPageRoute(
-                  builder: (context) => AnimatedDecoratedBoxPage(),
-                ),
+                AnimatedDecoratedBoxPage(),
               );
             },
             child: Text("AnimatedDecoratedBoxPage"),

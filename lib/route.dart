@@ -95,6 +95,11 @@ class _MyRouter {
 final MyRouter = _MyRouter();
 
 extension RouteExt on _MyRouter {
+
+  void to<T>(BuildContext context, Widget child) {
+    _MyRouter.of(context).pushWidget(child);
+  }
+
   void toNamed<T>(BuildContext context, String name, {dynamic arguments}) {
     RouterDelegate routerDelegate = Router.of(context).routerDelegate;
     if (routerDelegate is MyRouterDelegate) {
@@ -132,6 +137,12 @@ class MyRouterDelegate extends RouterDelegate<String>
 
   void push(String route, {dynamic arguments}) {
     routePages.add(parseRoute(route, arguments: arguments));
+    notifyListeners();
+  }
+
+  void pushWidget(Widget widget) {
+    Page page = MaterialPage(child: widget);
+    routePages.add(page);
     notifyListeners();
   }
 

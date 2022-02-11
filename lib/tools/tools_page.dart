@@ -5,7 +5,6 @@ import 'package:flutter_wan/tools/custom/custom_page.dart';
 import 'package:flutter_wan/tools/future/future_page.dart';
 import 'package:flutter_wan/tools/key/key_page.dart';
 import 'package:flutter_wan/tools/stream/stream_page.dart';
-import 'package:get/get.dart';
 
 import '../route.dart';
 import 'dialog/alertdialog.dart';
@@ -94,7 +93,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(WidgetPage());
+                  MyRouter.to(context, WidgetPage());
                 },
               ),
               TextButton(
@@ -107,7 +106,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(CustomPage());
+                  MyRouter.to(context, CustomPage());
                 },
               ),
               TextButton(
@@ -120,7 +119,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(AnimationPage());
+                  MyRouter.to(context, AnimationPage());
                 },
               ),
               TextButton(
@@ -133,7 +132,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(KeyPage());
+                  MyRouter.to(context, KeyPage());
                 },
               ),
               TextButton(
@@ -146,11 +145,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ErrorPage(),
-                      ));
+                  MyRouter.to(context, ErrorPage());
                 },
               ),
               TextButton(
@@ -163,7 +158,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(FuturePage());
+                  MyRouter.to(context, FuturePage());
                 },
               ),
               TextButton(
@@ -176,7 +171,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(StreamPage());
+                  MyRouter.to(context, StreamPage());
                 },
               ),
               TextButton(
@@ -189,7 +184,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Get.to(AlertDialogScreen());
+                  MyRouter.to(context, AlertDialogScreen());
                 },
               ),
             ],
