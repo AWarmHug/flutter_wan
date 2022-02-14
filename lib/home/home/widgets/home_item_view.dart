@@ -7,10 +7,10 @@ import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/route.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../http.dart';
+import '../../../http.dart';
+
 
 class ItemView extends StatelessWidget {
   final Article _article;

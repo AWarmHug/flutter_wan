@@ -1,29 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_wan/data/zhihu/question.dart';
 import 'package:flutter_wan/login/login_home.dart';
 import 'package:flutter_wan/login/reg_home.dart';
 import 'package:flutter_wan/mine/collect/collect_page.dart';
 import 'package:flutter_wan/search/content/search_content_home.dart';
 import 'package:flutter_wan/search/search_home.dart';
 import 'package:flutter_wan/todo/page.dart';
-import 'package:flutter_wan/tools/nav/navigation_page.dart';
 import 'package:flutter_wan/tools/navigator/unknown_page.dart';
-import 'package:flutter_wan/tools/project/view.dart';
-import 'package:flutter_wan/tools/wx_article/detail/view.dart';
-import 'package:flutter_wan/tools/wx_article/wx_article_page.dart';
 import 'package:flutter_wan/web/home.dart';
 import 'package:get/get.dart';
 
 import 'data/article.dart';
-import 'home/view.dart';
+import 'home/nav/navigation_page.dart';
+import 'home/project/view.dart';
+import 'home/tree/view.dart';
+import 'home/wx_article/detail/view.dart';
+import 'home/wx_article/wx_article_page.dart';
 import 'main/screen.dart';
-import 'tools/tree/view.dart';
 import 'touch_fish/page.dart';
-import 'touch_fish/zhihu/answer/answer_detail/answer_detail_view.dart';
-import 'touch_fish/zhihu/answer/answer_list/answer_list_view.dart';
-import 'touch_fish/zhihu/view.dart';
 
 final pages = <GetPage>[
   GetPage(
@@ -95,7 +90,6 @@ class _MyRouter {
 final MyRouter = _MyRouter();
 
 extension RouteExt on _MyRouter {
-
   void to<T>(BuildContext context, Widget child) {
     _MyRouter.of(context).pushWidget(child);
   }

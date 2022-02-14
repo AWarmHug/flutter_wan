@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wan/data/article.dart';
-import 'package:flutter_wan/data/data_list.dart';
-import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/data/tree.dart';
-import 'package:flutter_wan/home/widgets/home_item_view.dart';
+import 'package:flutter_wan/home/home/widgets/home_item_view.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
 
-import '../controller.dart';
 import 'controller.dart';
 
 class PageItem extends StatelessWidget {

@@ -3,11 +3,12 @@ import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/data/banner.dart';
 import 'package:flutter_wan/data/data_list.dart';
 import 'package:flutter_wan/data/response_wan.dart';
-import 'package:flutter_wan/home/state.dart';
+import 'package:flutter_wan/home/home/state.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:get/get.dart';
 
 import 'repository.dart';
+
 
 class HomePageController extends GetxController {
   HomePageState state = HomePageState();

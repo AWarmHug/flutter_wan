@@ -2,7 +2,7 @@ import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/data/banner.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import '../status.dart';
+import '../../status.dart';
 
 class HomePageState {
 

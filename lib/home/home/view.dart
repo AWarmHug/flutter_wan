@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wan/home/widgets/home_item_view.dart';
 import 'package:flutter_wan/method_channels.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:get/get.dart';
 
-import '../status.dart';
+import '../../status.dart';
 import 'controller.dart';
 import 'widgets/home_item_banner_view.dart';
+import 'widgets/home_item_view.dart';
 import 'widgets/home_search_view.dart';
 
 class HomePage extends StatefulWidget {

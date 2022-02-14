@@ -1,7 +1,8 @@
 import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/data/tree.dart';
-import 'package:flutter_wan/tools/wx_article/wx_article_repository.dart';
 import 'package:get/get.dart';
+
+import 'wx_article_repository.dart';
 
 class WxArticleController extends GetxController {
   WXArticleRepository _repository = WXArticleRepository();

@@ -3,7 +3,8 @@ import 'package:flutter_wan/data/banner.dart';
 import 'package:flutter_wan/data/data_list.dart';
 import 'package:flutter_wan/data/response_wan.dart';
 
-import '../http.dart';
+import '../../http.dart';
+
 
 class HomePageRepository {
 

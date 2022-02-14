@@ -1,13 +1,11 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/data/data_list.dart';
 import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/data/tree.dart';
-import 'package:flutter_wan/status.dart';
-import 'package:flutter_wan/tools/wx_article/wx_article_repository.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
 
+import '../wx_article_repository.dart';
 import 'state.dart';
 
 class WxArticleDetailPageController extends GetxController {

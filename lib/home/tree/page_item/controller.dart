@@ -1,17 +1,13 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/data/data_list.dart';
 import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/data/tree.dart';
 import 'package:flutter_wan/error.dart';
-import 'package:flutter_wan/status.dart';
-import 'package:flutter_wan/tools/tree/page_item/state.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
 
 import '../repository.dart';
+import 'state.dart';
 
 class PageItemController extends GetxController {
   final state = PageItemState();
