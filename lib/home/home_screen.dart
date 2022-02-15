@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_page_view_nested_utils/tabbar_view.dart';
 
 import 'nav/navigation_page.dart';
 import 'project/project_page.dart';
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           unselectedLabelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
         ),
       ),
-      body: TabBarView(
+      body: NestedTabBarView(
         children: titles.values.map((e) => e).toList(),
         controller: _tabController,
       ),
