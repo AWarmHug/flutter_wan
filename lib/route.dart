@@ -8,12 +8,12 @@ import 'package:flutter_wan/search/content/search_content_home.dart';
 import 'package:flutter_wan/search/search_home.dart';
 import 'package:flutter_wan/todo/page.dart';
 import 'package:flutter_wan/tools/navigator/unknown_page.dart';
-import 'package:flutter_wan/web/home.dart';
+import 'package:flutter_wan/web/web_srceen.dart';
 import 'package:get/get.dart';
 
-import 'data/article.dart';
+import 'data/tree.dart';
 import 'home/nav/navigation_page.dart';
-import 'home/project/view.dart';
+import 'home/project/project_page.dart';
 import 'home/tree/view.dart';
 import 'home/wx_article/detail/view.dart';
 import 'home/wx_article/wx_article_page.dart';
@@ -53,10 +53,6 @@ List<GetPage> toolsPages = [
   GetPage(
     name: "/tools/wx_article_page",
     page: () => WXArticlePage(),
-  ),
-  GetPage(
-    name: "/tools/wx_article_detail_page",
-    page: () => WxArticleDetailPage(),
   ),
   GetPage(
     name: "/tools/navigation_page",
@@ -161,9 +157,11 @@ class MyRouterDelegate extends RouterDelegate<String>
         } else {
           if (name == "/web") {
             debugPrint("name = ${name} ,  arguments = ${arguments}");
-            widget = WebHome(
-              article: arguments as Article,
+            widget = WebScreen(
+              webInfo: arguments as WebInfo,
             );
+          } else if (name == "/tools/wx_article_detail_page") {
+            widget = WxArticleDetailScreen(tree: arguments as Tree);
           } else {
             widget = UnknownScreen();
           }

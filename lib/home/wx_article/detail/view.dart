@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_wan/data/tree.dart';
-import 'package:flutter_wan/home/home/widgets/home_item_view.dart';
+import 'package:flutter_wan/home/recommend/widgets/home_item_view.dart';
 import 'package:flutter_wan/status.dart';
 import 'package:flutter_wan/widget/smart_refresher.dart';
 import 'package:get/get.dart';
@@ -9,26 +9,32 @@ import 'package:get/get.dart';
 import 'controller.dart';
 import 'state.dart';
 
-class WxArticleDetailPage extends StatefulWidget {
-  const WxArticleDetailPage({Key? key}) : super(key: key);
+class WxArticleDetailScreen extends StatefulWidget {
+  const WxArticleDetailScreen({Key? key, required this.tree}) : super(key: key);
+
+  final Tree tree;
 
   @override
-  _WxArticleDetailPageState createState() {
-    return _WxArticleDetailPageState();
+  _WxArticleDetailScreenState createState() {
+    return _WxArticleDetailScreenState();
   }
 }
 
-class _WxArticleDetailPageState extends State<WxArticleDetailPage> {
-  WxArticleDetailPageController _controller =
-      Get.put(WxArticleDetailPageController());
-  WxArticleDetailPageState state =
-      Get.find<WxArticleDetailPageController>().state;
+class _WxArticleDetailScreenState extends State<WxArticleDetailScreen> {
+  late WxArticleDetailPageController _controller;
+  late WxArticleDetailPageState state;
 
-  Tree tree = Get.arguments;
 
   @override
   void initState() {
     super.initState();
+    _controller = WxArticleDetailPageController(widget.tree);
+    state = _controller.state;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
@@ -73,7 +79,7 @@ class _WxArticleDetailPageState extends State<WxArticleDetailPage> {
         children: [
           Expanded(
             flex: 1,
-            child: Text(tree.name!),
+            child: Text(widget.tree.name!),
           ),
           TextButton(
             onPressed: () {

@@ -35,56 +35,6 @@ class _ToolsScreenState extends State<ToolsScreen> {
             children: [
               TextButton(
                 child: Center(
-                    child: Column(
-                  children: [
-                    Icon(IconFontIcons.iconProject),
-                    Text("文章"),
-                  ],
-                )),
-                onPressed: () {
-                  MyRouter.toNamed(context, "/tools/tree_page");
-                },
-              ),
-              TextButton(
-                child: Center(
-                    child: Column(
-                  children: [
-                    Icon(IconFontIcons.iconWechat),
-                    Text("公众号"),
-                  ],
-                )),
-                onPressed: () {
-                  MyRouter.toNamed(context, "/tools/wx_article_page");
-                },
-              ),
-              TextButton(
-                child: Center(
-                    child: Column(
-                  children: [
-                    Icon(IconFontIcons.iconWeb),
-                    Text(
-                      "导航",
-                    ),
-                  ],
-                )),
-                onPressed: () {
-                  MyRouter.toNamed(context, "/tools/navigation_page");
-                },
-              ),
-              TextButton(
-                child: Center(
-                    child: Column(
-                  children: [
-                    Icon(IconFontIcons.iconProject),
-                    Text("项目"),
-                  ],
-                )),
-                onPressed: () {
-                  MyRouter.toNamed(context, "/tools/project_page");
-                },
-              ),
-              TextButton(
-                child: Center(
                   child: Column(
                     children: [
                       Icon(IconFontIcons.iconProject),

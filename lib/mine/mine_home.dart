@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/global.dart';
+import 'package:flutter_wan/method_channels.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/status.dart';
@@ -87,6 +88,15 @@ class MineHome extends StatelessWidget {
                         ),
                         padding: EdgeInsets.only(
                             left: 16, top: 12, right: 16, bottom: 12),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        MethodChannels.routeNative("/todo/main");
+                      },
+                      child: Text(
+                        'TODO',
+                        style: AppTextStyles.white_16_bold,
                       ),
                     ),
                     Visibility(

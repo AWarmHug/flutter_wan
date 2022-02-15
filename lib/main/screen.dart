@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/eventbus.dart';
-import 'package:flutter_wan/home/home/view.dart';
+import 'package:flutter_wan/home/home_screen.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
@@ -18,7 +18,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final pages = [HomePage(), ZhihuPage(), ToolsScreen(), MineHome()];
+  final pages = [HomeScreen(), ZhihuPage(), ToolsScreen(), MineHome()];
 
   @override
   void initState() {

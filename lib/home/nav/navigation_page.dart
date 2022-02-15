@@ -2,6 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_wan/data/navigation.dart';
+import 'package:flutter_wan/resource/app_test_styles.dart';
+import 'package:flutter_wan/route.dart';
+import 'package:flutter_wan/web/web_srceen.dart';
 import 'package:get/get.dart';
 
 import '../../status.dart';
@@ -17,51 +21,65 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("导航"),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: GetX<NavigationController>(
-            builder: (controller) {
-              switch (controller.navigations.value.status) {
-                case Status.LOADING:
-                  return Center(child: CircularProgressIndicator());
-                case Status.ERROR:
-                  return Center(child: Text("发生错误"));
-                default:
-                  return ExpansionPanelList(
-                    dividerColor: Colors.red,
-                    animationDuration: Duration(seconds: 1),
-                    expansionCallback: (panelIndex, isExpanded) {},
-                    children: controller.navigations.value.data!.map((e) {
-                      return ExpansionPanel(
-                        canTapOnHeader: true,
-                        isExpanded: true,
-                        headerBuilder: (BuildContext context, bool isExpanded) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Text(e.name!),
-                          );
+    return Container(
+      child: GetX<NavigationController>(
+        builder: (controller) {
+          switch (controller.navigations.value.status) {
+            case Status.LOADING:
+              return Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              return Center(child: Text("发生错误"));
+            default:
+              return ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  Navigation navigation =
+                      controller.navigations.value.data![index];
+                  return ExpansionTile(
+                    key: PageStorageKey<Navigation>(navigation),
+                    tilePadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                    childrenPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                    title: Text(
+                      navigation.name!,
+                      style: AppTextStyles.black54_16,
+                    ),
+                    children: navigation.articles!.map((e) {
+                      return InkWell(
+                        onTap: () {
+                          MyRouter.toNamed(context, "/web",arguments: WebInfo(e.title, e.link!));
                         },
-                        body: Container(
-                            child: GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              crossAxisCount: 4,
-                              children: e.articles!.map((e) {
-                                return Center(child: Text(e.title!));
-                              }).toList(),
+                        child: Container(
+                            width: double.infinity,
+                            padding:
+                                EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                            margin: EdgeInsets.symmetric(vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Theme.of(context).primaryColor),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  e.title!,
+                                  style: AppTextStyles.white_16_bold,
+                                ),
+                                Text(
+                                  e.link!,
+                                  style: AppTextStyles.white_14,
+                                ),
+                              ],
                             )),
                       );
                     }).toList(),
                   );
-              }
-            },
-            init: NavigationController(),
-          ),
-        ),
+                },
+                itemCount: controller.navigations.value.data!.length,
+              );
+          }
+        },
+        init: NavigationController(),
       ),
     );
   }

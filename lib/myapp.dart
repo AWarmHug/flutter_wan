@@ -4,11 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:get/get.dart';
 
-import 'global.dart';
-import 'main/screen.dart';
 import 'route.dart';
 
 class MyApp extends StatefulWidget {

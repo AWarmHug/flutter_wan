@@ -4,20 +4,21 @@ import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:get/get.dart';
 
+import '../../route.dart';
 import '../../status.dart';
 import 'controller.dart';
 import 'widgets/home_item_banner_view.dart';
 import 'widgets/home_item_view.dart';
 import 'widgets/home_search_view.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class RecommendPage extends StatefulWidget {
+  const RecommendPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _RecommendPageState createState() => _RecommendPageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _RecommendPageState extends State<RecommendPage>
     with AutomaticKeepAliveClientMixin {
   HomePageController _controller = Get.put(HomePageController());
   final state = Get.find<HomePageController>().state;
@@ -39,26 +40,6 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: SearchView(),
-            ),
-            SizedBox(width: 16),
-            TextButton(
-              onPressed: () {
-                MethodChannels.routeNative("/todo/main");
-              },
-              child: Text(
-                'TODO',
-                style: AppTextStyles.white_16_bold,
-              ),
-            ),
-          ],
-        ),
-      ),
       body: Container(
         child: RefreshIndicator(
           displacement: 60,
@@ -98,6 +79,12 @@ class _HomePageState extends State<HomePage>
             },
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          MyRouter.toNamed(context, "/search");
+        },
+        child: Icon(Icons.search),
       ),
     );
   }

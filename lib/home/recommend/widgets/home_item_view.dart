@@ -6,11 +6,11 @@ import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:flutter_wan/route.dart';
+import 'package:flutter_wan/web/web_srceen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../http.dart';
-
 
 class ItemView extends StatelessWidget {
   final Article _article;
@@ -28,10 +28,11 @@ class ItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if(kIsWeb){
+        if (kIsWeb) {
           _launchURL(_article.link!);
-        }else {
-          MyRouter.toNamed(context,"/web", arguments: _article);
+        } else {
+          MyRouter.toNamed(context, "/web",
+              arguments: WebInfo(_article.title, _article.link!));
         }
       },
       child: Container(
@@ -60,32 +61,33 @@ class ItemView extends StatelessWidget {
                   height: 24,
                   width: 48,
                   child: StatefulBuilder(
-                    builder: (BuildContext context, void Function(void Function()) setState) {
-                      return  IconButton(
+                    builder: (BuildContext context,
+                        void Function(void Function()) setState) {
+                      return IconButton(
                           onPressed: () {
-                            if(!_article.collect) {
+                            if (!_article.collect) {
                               Http.post<ResponseWan>(
-                                  "/lg/collect/${_article.id}/json", {})
+                                      "/lg/collect/${_article.id}/json", {})
                                   .then((value) {
-                                    if(value.isSuccess){
-                                      setState((){
-                                        _article.collect=!_article.collect;
-                                      });
-                                      Fluttertoast.showToast(msg: "收藏成功");
-                                    }else{
-                                      Fluttertoast.showToast(msg: "收藏失败");
-                                    }
+                                if (value.isSuccess) {
+                                  setState(() {
+                                    _article.collect = !_article.collect;
+                                  });
+                                  Fluttertoast.showToast(msg: "收藏成功");
+                                } else {
+                                  Fluttertoast.showToast(msg: "收藏失败");
+                                }
                               });
-                            }else{
+                            } else {
                               Http.post<ResponseWan>(
-                                  "/lg/uncollect_originId/${_article.id}/json", {})
-                                  .then((value) {
-                                if(value.isSuccess){
-                                  setState((){
-                                    _article.collect=!_article.collect;
+                                  "/lg/uncollect_originId/${_article.id}/json",
+                                  {}).then((value) {
+                                if (value.isSuccess) {
+                                  setState(() {
+                                    _article.collect = !_article.collect;
                                   });
                                   Fluttertoast.showToast(msg: "取消收藏");
-                                }else{
+                                } else {
                                   Fluttertoast.showToast(msg: "取消收藏失败");
                                 }
                               });

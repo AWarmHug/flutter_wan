@@ -158,7 +158,7 @@ class MainRoute {
   const MainRoute(
       { this.name, required this.uri, this.data, this.state});
 
-  factory MainRoute.home() => MainRoute(name: 'home', uri: Uri.parse('/'));
+  factory MainRoute.home() => MainRoute(name: 'recommend', uri: Uri.parse('/'));
 
   factory MainRoute.unknown() =>
       MainRoute(name: 'unknown', uri: Uri.parse('/unknown'));
@@ -195,9 +195,9 @@ class MainPageBuilder {
 
   dynamic get page {
     switch (homeRoutePath.name) {
-      case 'home':
+      case 'recommend':
         return MaterialPage(
-          key: ValueKey('home'),
+          key: ValueKey('recommend'),
           name: homeRoutePath.name,
           child: HomePage(),
         );

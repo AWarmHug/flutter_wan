@@ -9,6 +9,10 @@ import '../wx_article_repository.dart';
 import 'state.dart';
 
 class WxArticleDetailPageController extends GetxController {
+
+  WxArticleDetailPageController(this.tree);
+
+
   WXArticleRepository _repository = WXArticleRepository();
   RefreshController refreshController = RefreshController();
 
@@ -16,7 +20,7 @@ class WxArticleDetailPageController extends GetxController {
 
   Rx<bool> showSearchView = Rx(false);
 
-  Tree tree = Get.arguments;
+  Tree tree;
 
   String? _keyword;
 
@@ -65,4 +69,5 @@ class WxArticleDetailPageController extends GetxController {
   }
 
   static WxArticleDetailPageController get to => Get.find();
+
 }

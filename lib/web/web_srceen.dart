@@ -3,17 +3,17 @@ import 'package:flutter_wan/data/article.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebHome extends StatelessWidget {
-  const WebHome({Key? key, required this.article}) : super(key: key);
+class WebScreen extends StatelessWidget {
+  const WebScreen({Key? key, required this.webInfo}) : super(key: key);
 
-  final Article article;
+  final WebInfo webInfo;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          article.title!,
+          webInfo.title??"",
           style: AppTextStyles.white_14.bold,
           maxLines: 2,
         ),
@@ -29,9 +29,16 @@ class WebHome extends StatelessWidget {
       ),
       body: Container(
         child: WebView(
-          initialUrl: article.link!,
+          initialUrl:webInfo.link,
         ),
       ),
     );
   }
+}
+
+class WebInfo{
+  final String? title;
+  final String link;
+
+  WebInfo(this.title, this.link);
 }

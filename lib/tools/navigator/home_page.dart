@@ -14,13 +14,13 @@ class HomePage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (context) {
-        final uri = Uri.parse(name ?? "/home");
+        final uri = Uri.parse(name ?? "/recommend");
         String path = uri.path;
         String? arg = null;
         if (uri.pathSegments.length == 1) {
           path = uri.path;
         } else if (uri.pathSegments.length == 3) {
-          if (uri.pathSegments[0] == "home" &&
+          if (uri.pathSegments[0] == "recommend" &&
               uri.pathSegments[1] == "detail") {
             path = "/${uri.pathSegments[0]}/${uri.pathSegments[1]}";
             arg = uri.pathSegments[2];
@@ -30,11 +30,11 @@ class HomePage extends Page {
         }
         print("-------${path}");
         switch (path) {
-          case "/home":
+          case "/recommend":
             return HomeScreen(
               title: '${name}',
             );
-          case "/home/detail":
+          case "/recommend/detail":
             return HomeDetailScreen(
               id: arg,
             );
@@ -55,15 +55,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("home"),
+        title: Text("recommend"),
       ),
       body: Center(
         child: TextButton(
             onPressed: () {
               MyRouter.of(context)
-                  .push("/home/detail/${Random().nextInt(100)}");
+                  .push("/recommend/detail/${Random().nextInt(100)}");
             },
-            child: Text("TO /home/detail")),
+            child: Text("TO /recommend/detail")),
       ),
     );
   }

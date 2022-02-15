@@ -5,8 +5,8 @@ import 'package:flutter_wan/data/response_wan.dart';
 import 'package:flutter_wan/data/tree.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
-import 'package:flutter_wan/status.dart';
-import 'package:flutter_wan/widget/smart_refresher.dart';
+import 'package:flutter_wan/route.dart';
+import 'package:flutter_wan/web/web_srceen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -58,7 +58,7 @@ class _ProjectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed("/web", arguments: _article);
+        MyRouter.toNamed(context,"/web", arguments: WebInfo(_article.title, _article.link!));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),

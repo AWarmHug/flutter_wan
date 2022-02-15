@@ -41,9 +41,9 @@ class MainScreen extends StatelessWidget {
                 child: Text("TO Main")),
             TextButton(
                 onPressed: () {
-                  MyRouter.of(context).push("/home");
+                  MyRouter.of(context).push("/recommend");
                 },
-                child: Text("TO /home")),
+                child: Text("TO /recommend")),
           ],
         ),
       ),
