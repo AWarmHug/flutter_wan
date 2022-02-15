@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           labelPadding: EdgeInsets.all(0),
           controller: _tabController,
           labelStyle: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-          unselectedLabelStyle: TextStyle(fontSize: 16,fontWeight: FontWeight.normal),
+          unselectedLabelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
         ),
       ),
       body: TabBarView(
