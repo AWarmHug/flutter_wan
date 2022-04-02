@@ -65,7 +65,7 @@ class MainSmallPage extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: Icon(IconFontIcons.iconHome), label: "主页"),
             BottomNavigationBarItem(
-                icon: Icon(IconFontIcons.iconTouchfish), label: "资讯"),
+                icon: Icon(IconFontIcons.iconProject), label: "资讯"),
             // BottomNavigationBarItem(
             //     icon: Icon(IconFontIcons.iconTools), label: "实例"),
             BottomNavigationBarItem(
