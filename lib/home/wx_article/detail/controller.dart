@@ -9,16 +9,12 @@ import '../wx_article_repository.dart';
 import 'state.dart';
 
 class WxArticleDetailPageController extends GetxController {
-
   WxArticleDetailPageController(this.tree);
-
 
   WXArticleRepository _repository = WXArticleRepository();
   RefreshController refreshController = RefreshController();
 
   WxArticleDetailPageState state = WxArticleDetailPageState();
-
-  Rx<bool> showSearchView = Rx(false);
 
   Tree tree;
 
@@ -30,6 +26,10 @@ class WxArticleDetailPageController extends GetxController {
   void onInit() {
     super.onInit();
     refreshList();
+  }
+
+  void setShowSearchView(bool showSearchView) {
+    state.showSearchView = showSearchView;
   }
 
   void refreshList() {
@@ -69,5 +69,4 @@ class WxArticleDetailPageController extends GetxController {
   }
 
   static WxArticleDetailPageController get to => Get.find();
-
 }

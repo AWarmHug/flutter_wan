@@ -24,7 +24,6 @@ class _WxArticleDetailScreenState extends State<WxArticleDetailScreen> {
   late WxArticleDetailPageController _controller;
   late WxArticleDetailPageState state;
 
-
   @override
   void initState() {
     super.initState();
@@ -67,7 +66,7 @@ class _WxArticleDetailScreenState extends State<WxArticleDetailScreen> {
   }
 
   Widget _showSearchView(WxArticleDetailPageController controller) {
-    if (controller.showSearchView.value) {
+    if (state.showSearchView) {
       return _SearchView(
         valueChanged: (value) {
           controller.setSearchKeyword(value);
@@ -83,7 +82,7 @@ class _WxArticleDetailScreenState extends State<WxArticleDetailScreen> {
           ),
           TextButton(
             onPressed: () {
-              controller.showSearchView.value = true;
+              controller.setShowSearchView(true);
             },
             child: Icon(
               Icons.search,

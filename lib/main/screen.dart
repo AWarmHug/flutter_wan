@@ -18,7 +18,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final pages = [HomeScreen(), ZhihuPage(), ToolsScreen(), MineHome()];
+  final pages = [HomeScreen(), ZhihuPage(), /*ToolsScreen(),*/ MineHome()];
 
   @override
   void initState() {
@@ -66,8 +66,8 @@ class MainSmallPage extends StatelessWidget {
                 icon: Icon(IconFontIcons.iconHome), label: "主页"),
             BottomNavigationBarItem(
                 icon: Icon(IconFontIcons.iconTouchfish), label: "资讯"),
-            BottomNavigationBarItem(
-                icon: Icon(IconFontIcons.iconTools), label: "实例"),
+            // BottomNavigationBarItem(
+            //     icon: Icon(IconFontIcons.iconTools), label: "实例"),
             BottomNavigationBarItem(
                 icon: Icon(IconFontIcons.iconMine), label: "我的"),
           ],
