@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
   void _handleInitRoute(MethodCall call) {
     // setState(() {
     initRoute = call.arguments as String;
-    MyRouter.toNamed(context,initRoute);
+    MyRouter.toNamed(context, initRoute);
     debugPrint("TAG----${initRoute}");
 
     // });
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
       return MaterialApp.router(
         title: '玩安卓',
         scrollBehavior: CupertinoScrollBehavior(),
-        theme: logic.lightTheme(),
+        theme: logic._themeData,
         routerDelegate: _routerDelegate,
         routeInformationParser: MyRouteInformationParser(),
         // initialRoute: initRoute,
@@ -102,7 +102,7 @@ class AppLogic extends GetxController {
     if (isLight != light) {
       isLight = light;
       _themeData = isLight ? lightTheme() : darkTheme();
-      Get.changeTheme(_themeData);
+      update();
     }
   }
 }

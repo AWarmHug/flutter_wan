@@ -4,7 +4,6 @@ import 'package:flutter_wan/home/home_screen.dart';
 import 'package:flutter_wan/mine/mine_home.dart';
 import 'package:flutter_wan/resource/IconFontIcons.dart';
 import 'package:flutter_wan/resource/app_colors.dart';
-import 'package:flutter_wan/tools/tools_page.dart';
 import 'package:flutter_wan/touch_fish/zhihu/view.dart';
 import 'package:get/get.dart';
 
