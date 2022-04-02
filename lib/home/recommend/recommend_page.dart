@@ -82,7 +82,7 @@ class _RecommendPageState extends State<RecommendPage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          MyRouter.toNamed(context, "/search");
+          MyRouter.toNamed(context, "/search/home");
         },
         child: Icon(Icons.search),
       ),

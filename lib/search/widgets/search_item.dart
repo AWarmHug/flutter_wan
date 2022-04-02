@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_wan/data/search.dart';
 import 'package:flutter_wan/resource/app_test_styles.dart';
-import 'package:get/get.dart';
+
+import '../../route.dart';
 
 class SearchItem extends StatelessWidget {
   final HotKey hotKey;
@@ -14,7 +15,7 @@ class SearchItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed("/search/content", arguments: {"name": hotKey.name});
+        MyRouter.toNamed(context, "/search/content", arguments: hotKey.name);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -29,7 +30,10 @@ class SearchItem extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.all(4),
         margin: EdgeInsets.all(4),
-        child: Text(hotKey.name!,style: AppTextStyles.black_14.bold,),
+        child: Text(
+          hotKey.name!,
+          style: AppTextStyles.black_14.bold,
+        ),
       ),
     );
   }

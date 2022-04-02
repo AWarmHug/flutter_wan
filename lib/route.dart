@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_wan/login/login_home.dart';
 import 'package:flutter_wan/login/reg_home.dart';
 import 'package:flutter_wan/mine/collect/collect_page.dart';
-import 'package:flutter_wan/search/content/search_content_home.dart';
-import 'package:flutter_wan/search/search_home.dart';
+import 'package:flutter_wan/search/page.dart';
 import 'package:flutter_wan/todo/page.dart';
 import 'package:flutter_wan/tools/navigator/unknown_page.dart';
 import 'package:flutter_wan/web/web_srceen.dart';
@@ -24,14 +23,6 @@ final pages = <GetPage>[
   GetPage(
     name: "/",
     page: () => MainScreen(),
-  ),
-  GetPage(
-    name: "/search",
-    page: () => SearchScreen(),
-  ),
-  GetPage(
-    name: "/search/content",
-    page: () => SearchContentHome(),
   ),
   GetPage(
     name: "/login/reg",
@@ -147,6 +138,9 @@ class MyRouterDelegate extends RouterDelegate<String>
         return TouchFishPage(name: name, arguments: arguments);
       case "todo":
         return TodoPage(name: name, arguments: arguments);
+      case "search":
+        return SearchPage(name: name, arguments: arguments);
+
       default:
         var pageBuilder =
             pages.firstWhereOrNull((element) => element.name == name);

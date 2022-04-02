@@ -6,18 +6,30 @@ import 'package:flutter_wan/search/search_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '../../route.dart';
-import '../../status.dart';
-import 'search_item.dart';
+import '../route.dart';
+import '../status.dart';
+import 'widgets/search_item.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => SearchBloc(),
+      child: SearchPage1(),
+    );
+  }
 }
 
-class _SearchPageState extends State<SearchPage> {
+class SearchPage1 extends StatefulWidget {
+  const SearchPage1({Key? key}) : super(key: key);
+
+  @override
+  _SearchPage1State createState() => _SearchPage1State();
+}
+
+class _SearchPage1State extends State<SearchPage1> {
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -78,8 +90,8 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   onEditingComplete: () {
-                    MyRouter.toNamed(context,"/search/content",
-                        arguments: {"name": _controller.text});
+                    MyRouter.toNamed(context, "/search/content",
+                        arguments: _controller.text);
                   },
                 ),
               ),

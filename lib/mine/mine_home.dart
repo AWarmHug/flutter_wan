@@ -34,7 +34,7 @@ class MineHome extends StatelessWidget {
                     child: InkWell(
                       onTap: !Global.isLogin.value
                           ? () {
-                              MyRouter.toNamed(context,"login/login");
+                              MyRouter.toNamed(context,"/login/login");
                             }
                           : null,
                       child: Column(

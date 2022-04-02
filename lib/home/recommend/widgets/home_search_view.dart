@@ -15,7 +15,7 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        MyRouter.toNamed(context,"/search");
+        MyRouter.toNamed(context,"/search/home");
       },
       child: Container(
         alignment: Alignment.centerLeft,

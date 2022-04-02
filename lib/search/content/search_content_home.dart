@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 import '../search_bloc.dart';
 
 class SearchContentHome extends StatelessWidget {
-  const SearchContentHome({Key? key}) : super(key: key);
+  const SearchContentHome(this.name) : super();
 
+  final String name;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SearchBloc(),
-      child: SearchContentPage(Get.arguments["name"]),
+      child: SearchContentPage(name),
     );
   }
 }
